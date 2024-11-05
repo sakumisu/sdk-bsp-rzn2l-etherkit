@@ -1,10 +1,10 @@
-# 瑞萨 RSK-RZT2M 开发板 BSP 说明
+# RZ EtherKit 开发板 BSP 说明
 
 **中文** | [**English**](./README.md)
 
 ## 简介
 
-本文档为瑞萨 RSK-RZT2M 开发板提供的 BSP (板级支持包) 说明。通过阅读快速上手章节开发者可以快速地上手该 BSP，将 RT-Thread 运行在开发板上。
+本文档为 RT-Thread EtherKit 开发板提供的 BSP (板级支持包) 说明。通过阅读快速上手章节开发者可以快速地上手该 BSP，将 RT-Thread 运行在开发板上。
 
 主要内容如下：
 
@@ -13,17 +13,17 @@
 
 ## 开发板介绍
 
-基于瑞萨 RZ/T2M 开发的 RSK-RZT2M MCU 评估板，通过灵活配置软件包和 IDE，对嵌入系统应用程序进行开发。
+基于瑞萨 RZ/N2L 开发的 EtherKit 开发板，通过灵活配置软件包和 IDE，对嵌入系统应用程序进行开发。
 
 开发板正面外观如下图：
 
-![image-20240314165241884](C:\Users\RTT\RASmartConfigurator\rzt2m_ram_e2s\figures\image-20240314165241884.png)
+![image-20240314165241884](..\..\docs\figures\big.jpg)
 
 该开发板常用 **板载资源** 如下：
 
-- MPU：R9A07G084M04GBG，最大工作频率 800MHz，双Arm Cortex®-R52 内核，紧密耦合内存 576KB（带 ECC），内部 RAM 2 MB（带 ECC）
+- MPU：R9A07G084M04GBG，最大工作频率 400MHz，Arm Cortex®-R52 内核，紧密耦合内存 128KB（带 ECC），内部 RAM 1.5 MB（带 ECC）
 - 调试接口：板载 J-Link 接口
-- 扩展接口：两个 PMOD 连接器
+- 扩展接口：一个 PMOD 连接器
 
 **更多详细资料及工具**
 
@@ -33,20 +33,20 @@
 
 | **片上外设** | **支持情况** | **备注** |
 | :----------------- | :----------------- | :------------- |
-| UART               | 支持               | UART1 为默认日志输出端口 |
+| UART               | 支持               | UART0 为默认日志输出端口 |
 | GPIO               | 支持               |                |
 | HWIMER                | 支持           |            |
-| IIC                | 不支持           |            |
-| WDT                | 不支持              |                |
-| RTC                | 不支持              |                |
-| ADC                | 不支持              |                |
-| DAC                | 不支持              |                |
-| SPI                | 不支持              |                |
-| FLASH              | 不支持              |                |
-| PWM                | 不支持              |                |
-| CAN                | 不支持              |                |
-| ETH             | 不支持              |                |
-| 持续更新中...      |                    |                |
+| IIC                | 支持           |            |
+| WDT                | 支持              |                |
+| RTC                | 支持              |                |
+| ADC                | 支持              |                |
+| DAC                | 支持              |                |
+| SPI                | 支持              |                |
+| FLASH              | 支持              |                |
+| PWM                | 支持              |                |
+| CAN                | 支持              |                |
+| ETH                | 支持              |                |
+| 持续更新中...       |                  |                |
 
 
 ## 使用说明
@@ -62,7 +62,7 @@
 
 ### 快速上手
 
-本 BSP 目前仅提供 IAR 工程。下面以 [IAR Embedded Workbench for Arm](https://www.iar.com/products/architectures/arm/iar-embedded-workbench-for-arm/) 开发环境为例，介绍如何将系统运行起来。
+本 BSP 目前提供 GCC/IAR 工程。下面以 [IAR Embedded Workbench for Arm](https://www.iar.com/products/architectures/arm/iar-embedded-workbench-for-arm/) 开发环境为例，介绍如何将系统运行起来。
 
 **硬件连接**
 
@@ -132,26 +132,26 @@ void hal_entry(void)
 
 **资料及文档**
 
-- [开发板官网主页](https://www.renesas.cn/cn/zh/products/microcontrollers-microprocessors/rz-mpus/rzt2m-high-performance-multi-function-mpu-realizing-high-speed-processing-and-high-precision-control#overview)
-- [开发板数据手册](https://www.renesas.cn/cn/zh/document/dst/rzt2m-group-datasheet?r=1574901)
-- [开发板硬件手册](https://www.renesas.cn/cn/zh/document/mah/rzt2m-group-users-manual-hardware?r=1574901)
-- [RZ/T2M MCU 快速入门指南](https://www.renesas.cn/cn/zh/document/qsg/rzt2rzn2-getting-started-flexible-software-package?r=1574901)
-- [RZ/T2M Easy Download Guide](https://www.renesas.cn/cn/zh/document/gde/rzt2m-easy-download-guide?r=1574901)
-- [Renesas RZ/T2M Group](https://www.renesas.cn/cn/zh/document/fly/renesas-rzt2m-group?r=1574901)
+- [开发板官网主页](https://www.renesas.cn/zh/products/microcontrollers-microprocessors/rz-mpus/rzn2l-integrated-tsn-compliant-3-port-gigabit-ethernet-switch-enables-various-industrial-applications)
+- [开发板数据手册](https://www.renesas.cn/zh/document/dst/rzn2l-group-datasheet?r=1622651)
+- [开发板硬件手册](https://www.renesas.cn/zh/document/mah/rzn2l-group-users-manual-hardware?r=1622651)
+- [RZ/N2L MCU 快速入门指南](https://www.renesas.cn/zh/document/apn/rzt2-rzn2-device-setup-guide-flash-boot-application-note?r=1622651)
+- [RZ/N2L Easy Download Guide](https://www.renesas.cn/zh/document/gde/rzn2l-easy-download-guide?r=1622651)
+- [Renesas RZ/N2L Group](https://www.renesas.cn/zh/document/fly/renesas-rzn2l-group?r=1622651)
 
 **FSP 配置**
 
 需要修改瑞萨的 BSP 外设配置或添加新的外设端口，需要用到瑞萨的 [FSP](https://www2.renesas.cn/jp/zh/software-tool/flexible-software-package-fsp#document) 配置工具。请务必按照如下步骤完成配置。配置中有任何问题可到[RT-Thread 社区论坛](https://club.rt-thread.org/)中提问。
 
-1. [下载灵活配置软件包 (FSP) | Renesas](https://github.com/renesas/rzn-fsp/releases/download/v1.3.0/setup_rznfsp_v1_3_0_rzsc_v2023-07.exe)，请使用 FSP 1.3.0 版本
-2. 如何将 **”RSK-RZT2M板级支持包“**添加到 FSP 中，请参考文档[如何导入板级支持包](https://www2.renesas.cn/document/ppt/1527171?language=zh&r=1527191)
+1. [下载灵活配置软件包 (FSP) | Renesas](https://github.com/renesas/rzn-fsp/releases/download/v2.0.0/setup_rznfsp_v2_0_0_rzsc_v2024-01.1.exe)，请使用 FSP 2.0.0 版本
+2. 如何将 **”EtherKit板级支持包“**添加到 FSP 中，请参考文档[如何导入板级支持包](https://www2.renesas.cn/document/ppt/1527171?language=zh&r=1527191)
 3. 请参考文档：[RA系列使用FSP配置外设驱动](https://www.rt-thread.org/document/site/#/rt-thread-version/rt-thread-standard/tutorial/make-bsp/renesas-ra/RA系列使用FSP配置外设驱动?id=ra系列使用-fsp-配置外设驱动)。
 
 **ENV 配置**
 
 - 如何使用 ENV 工具：[RT-Thread env 工具用户手册](https://www.rt-thread.org/document/site/#/development-tools/env/env)
 
-此 BSP 默认只开启了 UART1 的功能，如果需使用更多高级功能例如组件、软件包等，需要利用 ENV 工具进行配置。
+此 BSP 默认只开启了 UART0 的功能，如果需使用更多高级功能例如组件、软件包等，需要利用 ENV 工具进行配置。
 
 步骤如下：
 1. 在 bsp 下打开 env 工具。
@@ -165,4 +165,4 @@ void hal_entry(void)
 
 ## 贡献代码
 
-如果您对 RSK-RZT2M 感兴趣，并且有一些好玩的项目愿意与大家分享的话欢迎给我们贡献代码，您可以参考 [如何向 RT-Thread 代码贡献](https://www.rt-thread.org/document/site/#/rt-thread-version/rt-thread-standard/development-guide/github/github)。
+如果您对 EtherKit 感兴趣，并且有一些好玩的项目愿意与大家分享的话欢迎给我们贡献代码，您可以参考 [如何向 RT-Thread 代码贡献](https://www.rt-thread.org/document/site/#/rt-thread-version/rt-thread-standard/development-guide/github/github)。

@@ -4,10 +4,8 @@
 **__pycache__
 **/packages.dbsqlite
 **/build
-**/rt-thread
 **/packages
 **/.config.old
-/**/libraries
 /libraries/*.o
 rtthread.hex
 rtthread.elf
