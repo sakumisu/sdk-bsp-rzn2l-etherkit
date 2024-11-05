@@ -1,0 +1,110 @@
+board:
+  buy_url_cn: N/A
+  buy_url_global: N/A
+  debug_interface: SWD
+  debugger: Jlink
+  description_en: The EtherKit Development Board is RT-Thread's R9A07G084 chip based on Renesas Cortex-R52 architecture, providing engineers with a flexible and comprehensive development platform to help developers gain a deeper experience in EtherCAT industrial Ethernet.
+  description_zh: EtherKit 开发板是 RT-Thread 推出基于瑞萨 Cortex-R52 架构 R9A07G084 芯片，为工程师们提供了一个灵活、全面的开发平台，助力开发者在EtherCAT工业以太网领域获得更深层次的体验。
+  emulator_machine: ''
+  large_image: docs/figures/big.jpg
+  name: EtherKit
+  price_cn: N/A CNY
+  price_global: N/A USD
+  sale_contact_cn: https://www.rt-thread.org/
+  sale_contact_global: https://www.rt-thread.org/
+  small_image: docs/figures/small.jpg
+  vendor: Renesas
+  version: 1.0.0
+chip:
+  chip_name: R9A07G084
+  clock_source: HSE
+  device_vendor: RENESAS
+  family_name: RZ
+  rx_name: P16_6
+  series_name: R9A07G0
+  source_freq: '25000'
+  sub_series_name: rzn2l
+  target_freq: '400000000'
+  tx_name: P16_5
+  uart_name: UART0
+docs:
+- category: manual
+  file: documents/User’s Manual Hardware.pdf
+  title: User’s Manual Hardware
+- category: sheet
+  file: documents/rzn2l-group-datasheet.pdf
+  title: rzn2l-group-datasheet
+- category: other
+  file: documents/EtherKit_Board_Schematic.pdf
+  title: EtherKit_Board_Schematic
+features:
+- Arm® Cortex®-R52, maximum operating frequency 400MHz
+- Tightly coupled memory 256KB (with ECC)
+- Internal RAM 1.5MB (with ECC)
+- 3 external ports with Gigabit support
+- TSN support (IEEE 802.1AS-2020, IEEE 802.1Qbv/802.3br, IEEE 802.1Qbu, etc.)
+- Network redundancy support (DLR, PRP)
+- EtherCAT slave controller
+- Host I/F (parallel/serial/Dual/Quad/Octa)
+- Memory I/F (Octa-/Quad SPI/HyperRAM/HyperFLASH/SRAM/SDRAM)
+- PWM timer: up to 60ch (3-phase complementary output supported)
+- ADC: 12-bit x 2 units
+- ΔΣ I/F: 6ch
+- UART: 6ch
+- CAN: 2ch
+- I2C: 3ch
+- Package: 225-pin FBGA, 121-pin FBGA
+- Voltage: Core 1.1V, I/O 3.3V, 1.8V
+features_zh:
+- Arm® Cortex®-R52，最大工作频率 400MHz
+- 紧耦合内存 256KB（带 ECC）
+- 内部 RAM 1.5MB（带 ECC）
+- 3 个支持千兆的外部端口
+- 支持 TSN（IEEE 802.1AS-2020、IEEE 802.1Qbv/802.3br、IEEE 802.1Qbu 等）
+- 支持网络冗余（DLR, PRP）
+- EtherCAT 从站控制器
+- 主机接口（并行/串行/双/四/八通道）
+- 内存接口（八通道/四通道 SPI/HyperRAM/HyperFLASH/SRAM/SDRAM）
+- PWM 定时器：最多 60 通道（支持三相互补输出）
+- ADC：12位 x 2 单元
+- ΔΣ 接口：6 通道
+- UART：6 通道
+- CAN：2 通道
+- I2C：3 通道
+- 封装：225 引脚 FBGA，121 引脚 FBGA
+- 电压：核心 1.1V，I/O 3.3V，1.8V
+pkg_type: Board_Support_Packages
+pkg_vendor: RealThread
+pkg_version: 1.0.0
+example_projects:
+  []
+template_projects:
+- project_name: etherkit-blink-led
+  project_description: 实现 LED 闪烁功能,可作为二次开发的基础工程
+  project_type: rt-thread|@full|@5.1.0
+  builtin_files:
+  - source_path_offset: projects/etherkit_blink_led
+    target_path_offset: ''
+    files_and_folders:
+    - "*"
+  - source_path_offset: ''
+    target_path_offset: ''
+    files_and_folders:
+    - libraries
+    - rt-thread
+  external_files:
+  - package_name: GNU_Tools_for_ARM_Embedded_Processors
+    package_type: ToolChain_Support_Packages
+    package_vendor: 'ARM'
+    package_version: 10.2.1
+    source_path_offset: '.'
+    target_path_offset: '.'
+    files_and_folders: []
+  - package_name: PyOCD
+    package_type: Debugger_Support_Packages
+    package_vendor: 'RealThread'
+    package_version: 0.2.3
+    source_path_offset: ''
+    target_path_offset: ''
+    files_and_folders: []
+yaml_version: 3
