@@ -130,7 +130,7 @@ static int phy_rtl8211f_led_fixup(ether_phy_instance_ctrl_t *phydev)
 void ether_phy_targets_initialize_rtl8211_rgmii(ether_phy_instance_ctrl_t *p_instance_ctrl)
 {
     rt_thread_mdelay(100);
-    phy_rtl8211f_led_fixup(p_instance_ctrl);
+//    phy_rtl8211f_led_fixup(p_instance_ctrl);
 }
 
 extern void phy_reset(void);
