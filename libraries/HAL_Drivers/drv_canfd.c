@@ -52,6 +52,24 @@ const canfd_afl_entry_t p_canfd0_afl[CANFD_CFG_AFL_CH0_RULE_NUM] =
     },
 };
 
+const canfd_afl_entry_t p_canfd1_afl[CANFD_CFG_AFL_CH1_RULE_NUM] =
+{
+    {
+        .id =
+        {
+            .id         = 0x01,
+            .frame_type = CAN_FRAME_TYPE_DATA,
+            .id_mode    = CAN_ID_MODE_STANDARD
+        },
+        .destination =
+        {
+            .minimum_dlc       = CANFD_MINIMUM_DLC_1,
+            .rx_buffer         = CANFD_RX_MB_NONE,
+            .fifo_select_flags = CANFD_RX_FIFO_1
+        }
+    },
+};
+
 static const struct ra_baud_rate_tab can_baud_rate_tab[] =
 {
     {CAN1MBaud, 3, 6, 3, 1 + 4},
@@ -281,7 +299,7 @@ void canfd0_callback(can_callback_args_t *p_args)
 #endif
 
 #ifdef BSP_USING_CANFD1
-void can1_callback(can_callback_args_t *p_args)
+void canfd1_callback(can_callback_args_t *p_args)
 {
     rt_interrupt_enter();
     switch (p_args->event)
