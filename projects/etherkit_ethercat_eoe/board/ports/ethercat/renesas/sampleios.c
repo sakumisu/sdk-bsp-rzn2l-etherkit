@@ -67,10 +67,6 @@ static const uint16_t g_sample_prv_leds[] =
 /** Array of DIP SW IOPORT pins. */
 static const uint16_t g_sample_prv_dip_sws[] =
 {
-	(uint16_t) BSP_IO_PORT_14_PIN_2, // SW3-1
-	(uint16_t) BSP_IO_PORT_16_PIN_3, // SW3-2
-	// (uint16_t) BSP_IO_PORT_14_PIN_0, // SW3-3
-	// (uint16_t) BSP_IO_PORT_14_PIN_1, // SW3-4
 };
 /** Array of LED IOPORT pins. */
 static const uint16_t g_sample_prv_leds[] =
@@ -85,7 +81,6 @@ static const uint16_t g_sample_prv_leds[] =
 /** Array of DIP SW IOPORT pins. */
 static const uint16_t g_sample_prv_dip_sws[] =
 {
-//	(uint16_t) BSP_IO_PORT_02_PIN_1, // SW3-1
 	(uint16_t) BSP_IO_PORT_01_PIN_6, // SW3-1
 	(uint16_t) BSP_IO_PORT_04_PIN_1, // SW3-2
 	(uint16_t) BSP_IO_PORT_14_PIN_1, // SW3-3

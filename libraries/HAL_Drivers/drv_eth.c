@@ -114,7 +114,7 @@ static int phy_rtl8211f_led_fixup(ether_phy_instance_ctrl_t *phydev)
     val1 |= (1 << 10);
     val1 |= (1 << 11);
     R_ETHER_PHY_Write(phydev, RTL_8211F_LCR_ADDR, val1);
-    rt_kprintf("phy led state:%#x\n\n", val1);
+    // rt_kprintf("phy led state:%#x\n\n", val1);
 
     /* set led1(green) EEE LED function disabled so it can keep on when linked */
     R_ETHER_PHY_Read(phydev, RTL_8211F_EEELCR_ADDR, &val2);
@@ -129,8 +129,8 @@ static int phy_rtl8211f_led_fixup(ether_phy_instance_ctrl_t *phydev)
 
 void ether_phy_targets_initialize_rtl8211_rgmii(ether_phy_instance_ctrl_t *p_instance_ctrl)
 {
-    rt_thread_mdelay(100);
-//    phy_rtl8211f_led_fixup(p_instance_ctrl);
+   rt_thread_mdelay(100);
+    phy_rtl8211f_led_fixup(p_instance_ctrl);
 }
 
 extern void phy_reset(void);

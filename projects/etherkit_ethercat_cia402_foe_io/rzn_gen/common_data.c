@@ -56,17 +56,17 @@ const ether_phy_extend_cfg_t g_ether_phy1_extend =
     .phy_reset_pin       = BSP_IO_PORT_13_PIN_4,
     .phy_reset_time      = 15000,
     .p_selector_instance = (ether_selector_instance_t *)&g_ether_selector1,
-    .p_target_init       = NULL,
+    .p_target_init       = eth_delay,
 };
 
 const ether_phy_cfg_t g_ether_phy1_cfg =
 {
 
     .channel                   = 1,
-    .phy_lsi_address           = 1,
+    .phy_lsi_address           = 2,
     .phy_reset_wait_time       = 0x00020000,
     .mii_bit_access_wait_time  = 0,                         // Unused
-    .phy_lsi_type              = ETHER_PHY_LSI_TYPE_KIT_COMPONENT,
+    .phy_lsi_type              = ETHER_PHY_LSI_TYPE_CUSTOM,
     .flow_control              = ETHER_PHY_FLOW_CONTROL_DISABLE,
     .mii_type                  = (ether_phy_mii_type_t) 0,  // Unused
     .p_context                 = NULL,
@@ -112,17 +112,17 @@ const ether_phy_extend_cfg_t g_ether_phy0_extend =
     .phy_reset_pin       = BSP_IO_PORT_13_PIN_4,
     .phy_reset_time      = 15000,
     .p_selector_instance = (ether_selector_instance_t *)&g_ether_selector0,
-    .p_target_init       = NULL,
+    .p_target_init       = eth_delay,
 };
 
 const ether_phy_cfg_t g_ether_phy0_cfg =
 {
 
     .channel                   = 0,
-    .phy_lsi_address           = 0,
+    .phy_lsi_address           = 1,
     .phy_reset_wait_time       = 0x00020000,
     .mii_bit_access_wait_time  = 0,                         // Unused
-    .phy_lsi_type              = ETHER_PHY_LSI_TYPE_KIT_COMPONENT,
+    .phy_lsi_type              = ETHER_PHY_LSI_TYPE_CUSTOM,
     .flow_control              = ETHER_PHY_FLOW_CONTROL_DISABLE,
     .mii_type                  = (ether_phy_mii_type_t) 0,  // Unused
     .p_context                 = NULL,
@@ -140,7 +140,7 @@ ethercat_ssc_port_instance_ctrl_t g_ethercat_ssc_port0_ctrl;
 
 const ethercat_ssc_port_extend_cfg_t g_ethercat_ssc_port0_ext_cfg =
 {
-    .eeprom_size             = ETHERCAT_SSC_PORT_EEPROM_SIZE_OVER_32KBIT,
+    .eeprom_size             = ETHERCAT_SSC_PORT_EEPROM_SIZE_UNDER_32KBIT,
     .txc0                    = ETHERCAT_SSC_PORT_TXC_DELAY_00NS,
     .txc1                    = ETHERCAT_SSC_PORT_TXC_DELAY_00NS,
     .txc2                    = ETHERCAT_SSC_PORT_TXC_DELAY_00NS,
@@ -168,8 +168,8 @@ const ethercat_ssc_port_extend_cfg_t g_ethercat_ssc_port0_ext_cfg =
 const ethercat_ssc_port_cfg_t g_ethercat_ssc_port0_cfg =
 {
     .reset_hold_time = 1,
-    .reset_wait_time = 15000,
-    .address_offset  = 0,
+    .reset_wait_time = 500000,
+    .address_offset  = 1,
 
 #if defined(VECTOR_NUMBER_ESC_CAT)
     .common_irq   = VECTOR_NUMBER_ESC_CAT,

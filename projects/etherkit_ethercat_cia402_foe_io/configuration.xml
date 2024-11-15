@@ -760,9 +760,9 @@
     <module id="module.middleware.ethercat_ssc_port_on_ethercat_ssc_port.582929409">
       <property id="module.middleware.ethercat_ssc_port.name" value="g_ethercat_ssc_port0"/>
       <property id="module.middleware.ethercat_ssc_port.phy_hold_time" value="1"/>
-      <property id="module.middleware.ethercat_ssc_port.phy_wait_time" value="15000"/>
-      <property id="module.middleware.ethercat_ssc_port.phy_offset_address" value="0"/>
-      <property id="module.middleware.ethercat_ssc_port.eepromsize" value="module.middleware.ethercat_ssc_port.eepromsize.over32kbit"/>
+      <property id="module.middleware.ethercat_ssc_port.phy_wait_time" value="500000"/>
+      <property id="module.middleware.ethercat_ssc_port.phy_offset_address" value="1"/>
+      <property id="module.middleware.ethercat_ssc_port.eepromsize" value="module.middleware.ethercat_ssc_port.eepromsize.under32kbit"/>
       <property id="module.middleware.ethercat_ssc_port.txc_delay.port0" value="module.middleware.ethercat_ssc_port.txc_delay.port0.delay_00ns"/>
       <property id="module.middleware.ethercat_ssc_port.txc_delay.port1" value="module.middleware.ethercat_ssc_port.txc_delay.port1.delay_00ns"/>
       <property id="module.middleware.ethercat_ssc_port.txc_delay.port2" value="module.middleware.ethercat_ssc_port.txc_delay.port2.delay_00ns"/>
@@ -774,12 +774,12 @@
     <module id="module.driver.ether_phy_on_ether_phy.375571045">
       <property id="module.driver.ether_phy.name" value="g_ether_phy0"/>
       <property id="module.driver.ether_phy.channel" value="module.driver.ether_phy.channel.0"/>
-      <property id="module.driver.ether_phy.phy_lsi_address" value="0"/>
+      <property id="module.driver.ether_phy.phy_lsi_address" value="1"/>
       <property id="module.driver.ether_phy.phy_reset_wait_time" value="0x00020000"/>
       <property id="module.driver.ether_phy.flow_control" value="module.driver.ether_phy.flow_control.disable"/>
       <property id="module.driver.ether_phy.port_type" value="module.driver.ether_phy.port_type.0"/>
-      <property id="module.driver.ether_phy.phy_lsi_type" value="module.driver.ether_phy.phy_lsi_type.kit_component"/>
-      <property id="module.driver.ether_phy.target_init" value="NULL"/>
+      <property id="module.driver.ether_phy.phy_lsi_type" value="module.driver.ether_phy.phy_lsi_type.custom"/>
+      <property id="module.driver.ether_phy.target_init" value="eth_delay"/>
       <property id="module.driver.ether_phy.mdio_type" value="module.driver.ether_phy.mdio_type.0"/>
       <property id="module.driver.ether_phy.auto_negotiation" value="module.driver.ether_phy.auto_negotiation.1"/>
       <property id="module.driver.ether_phy.bps" value="module.driver.ether_phy.bps.1"/>
@@ -862,12 +862,12 @@
     <module id="module.driver.ether_phy_on_ether_phy.499972896">
       <property id="module.driver.ether_phy.name" value="g_ether_phy1"/>
       <property id="module.driver.ether_phy.channel" value="module.driver.ether_phy.channel.1"/>
-      <property id="module.driver.ether_phy.phy_lsi_address" value="1"/>
+      <property id="module.driver.ether_phy.phy_lsi_address" value="2"/>
       <property id="module.driver.ether_phy.phy_reset_wait_time" value="0x00020000"/>
       <property id="module.driver.ether_phy.flow_control" value="module.driver.ether_phy.flow_control.disable"/>
       <property id="module.driver.ether_phy.port_type" value="module.driver.ether_phy.port_type.0"/>
-      <property id="module.driver.ether_phy.phy_lsi_type" value="module.driver.ether_phy.phy_lsi_type.kit_component"/>
-      <property id="module.driver.ether_phy.target_init" value="NULL"/>
+      <property id="module.driver.ether_phy.phy_lsi_type" value="module.driver.ether_phy.phy_lsi_type.custom"/>
+      <property id="module.driver.ether_phy.target_init" value="eth_delay"/>
       <property id="module.driver.ether_phy.mdio_type" value="module.driver.ether_phy.mdio_type.0"/>
       <property id="module.driver.ether_phy.auto_negotiation" value="module.driver.ether_phy.auto_negotiation.1"/>
       <property id="module.driver.ether_phy.bps" value="module.driver.ether_phy.bps.1"/>
@@ -922,12 +922,12 @@
     </config>
     <config id="config.driver.ether_phy">
       <property id="config.driver.ether_phy.param_checking_enable" value="config.driver.ether_phy.param_checking_enable.bsp"/>
-      <property id="config.driver.ether_phy.target_vsc8541" value="config.driver.ether_phy.target_vsc8541.enabled"/>
+      <property id="config.driver.ether_phy.target_vsc8541" value="config.driver.ether_phy.target_vsc8541.disabled"/>
       <property id="config.driver.ether_phy.target_ksz9131" value="config.driver.ether_phy.target_ksz9131.disabled"/>
       <property id="config.driver.ether_phy.target_ksz9031" value="config.driver.ether_phy.target_ksz9031.disabled"/>
       <property id="config.driver.ether_phy.target_ksz8081" value="config.driver.ether_phy.target_ksz8081.disabled"/>
       <property id="config.driver.ether_phy.target_ksz8041" value="config.driver.ether_phy.target_ksz8041.disabled"/>
-      <property id="config.driver.ether_phy.use_custom_phy_lsi" value="config.driver.ether_phy.use_custom_phy_lsi.disabled"/>
+      <property id="config.driver.ether_phy.use_custom_phy_lsi" value="config.driver.ether_phy.use_custom_phy_lsi.enabled"/>
     </config>
     <config id="config.bsp.memory_config">
       <property id="config.bsp.memory_config.mpu_type" value="config.bsp.memory_config.mpu_type.mpu"/>

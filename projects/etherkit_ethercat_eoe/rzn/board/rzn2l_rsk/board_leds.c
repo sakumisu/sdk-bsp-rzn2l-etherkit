@@ -50,10 +50,9 @@
 /** Array of LED IOPORT pins. */
 static const uint32_t g_bsp_prv_leds[][2] =
 {
-    {(uint32_t) BSP_IO_PORT_18_PIN_2, (uint32_t) BSP_IO_REGION_SAFE}, ///< RLED0
-    {(uint32_t) BSP_IO_PORT_22_PIN_3, (uint32_t) BSP_IO_REGION_SAFE}, ///< RLED1
-    {(uint32_t) BSP_IO_PORT_04_PIN_1, (uint32_t) BSP_IO_REGION_SAFE}, ///< RLED2
-    {(uint32_t) BSP_IO_PORT_17_PIN_3, (uint32_t) BSP_IO_REGION_SAFE}  ///< RLED3
+    {(uint32_t) BSP_IO_PORT_14_PIN_3, (uint32_t) BSP_IO_REGION_SAFE}, ///< RLED0
+    {(uint32_t) BSP_IO_PORT_14_PIN_0, (uint32_t) BSP_IO_REGION_SAFE}, ///< RLED1
+    {(uint32_t) BSP_IO_PORT_14_PIN_1, (uint32_t) BSP_IO_REGION_SAFE}, ///< RLED2
 };
 
 /***********************************************************************************************************************
