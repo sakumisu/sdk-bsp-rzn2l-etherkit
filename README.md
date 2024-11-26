@@ -6,7 +6,7 @@
 
 The `sdk-bsp-rzn2l-etherkit` is the support package provided by the RT-Thread team for the `EtherKit` development board. It can also be used as a software SDK for user development, allowing users to more easily and conveniently develop their own applications.
 
-The EtherKit development board is based on the Arm Cortex®-R52 architecture with the R9A07G084M04GBG chip. It offers a flexible and comprehensive development platform for engineers, helping developers gain a deeper experience in the field of machine vision.
+The EtherKit development board is a product of RT-Thread based on the Arm Cortex®-R52 architecture R9A07G084M04GBG chip, providing engineers with a flexible and comprehensive development platform to help developers gain a deeper experience in the field of EtherCAT industrial Ethernet.
 
 ![](docs/figures/big.png)
 
