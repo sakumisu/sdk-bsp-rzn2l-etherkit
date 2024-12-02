@@ -1,4 +1,40 @@
-include "memory_regions.icf";
+/* generated memory regions file - do not edit */
+define symbol ATCM_START = 0x00000000;
+define symbol ATCM_LENGTH   = 0x20000;
+define symbol BTCM_START = 0x00100000;
+define symbol BTCM_LENGTH   = 0x20000;
+define symbol SYSTEM_RAM_START = 0x10000000;
+define symbol SYSTEM_RAM_LENGTH   = 0x180000;
+define symbol SYSTEM_RAM_MIRROR_START = 0x30000000;
+define symbol SYSTEM_RAM_MIRROR_LENGTH   = 0x180000;
+define symbol xSPI0_CS0_SPACE_MIRROR_START = 0x40000000;
+define symbol xSPI0_CS0_SPACE_MIRROR_LENGTH   = 0x4000000;
+define symbol xSPI0_CS1_SPACE_MIRROR_START = 0x44000000;
+define symbol xSPI0_CS1_SPACE_MIRROR_LENGTH   = 0x4000000;
+define symbol xSPI1_CS0_SPACE_MIRROR_START = 0x48000000;
+define symbol xSPI1_CS0_SPACE_MIRROR_LENGTH   = 0x4000000;
+define symbol CS0_SPACE_MIRROR_START = 0x50000000;
+define symbol CS0_SPACE_MIRROR_LENGTH   = 0x4000000;
+define symbol CS2_SPACE_MIRROR_START = 0x54000000;
+define symbol CS2_SPACE_MIRROR_LENGTH   = 0x4000000;
+define symbol CS3_SPACE_MIRROR_START = 0x58000000;
+define symbol CS3_SPACE_MIRROR_LENGTH   = 0x4000000;
+define symbol CS5_SPACE_MIRROR_START = 0x5C000000;
+define symbol CS5_SPACE_MIRROR_LENGTH   = 0x4000000;
+define symbol xSPI0_CS0_SPACE_START = 0x60000000;
+define symbol xSPI0_CS0_SPACE_LENGTH   = 0x4000000;
+define symbol xSPI0_CS1_SPACE_START = 0x64000000;
+define symbol xSPI0_CS1_SPACE_LENGTH   = 0x4000000;
+define symbol xSPI1_CS0_SPACE_START = 0x68000000;
+define symbol xSPI1_CS0_SPACE_LENGTH   = 0x4000000;
+define symbol CS0_SPACE_START = 0x70000000;
+define symbol CS0_SPACE_LENGTH   = 0x4000000;
+define symbol CS2_SPACE_START = 0x74000000;
+define symbol CS2_SPACE_LENGTH   = 0x4000000;
+define symbol CS3_SPACE_START = 0x78000000;
+define symbol CS3_SPACE_LENGTH   = 0x4000000;
+define symbol CS5_SPACE_START = 0x7C000000;
+define symbol CS5_SPACE_LENGTH   = 0x4000000;
 
 /* The memory information for each device is done in memory regions file.
  * The starting address and length of memory not defined in memory regions file are defined as 0. */
@@ -368,6 +404,7 @@ else
 define symbol SYSTEM_RAM_END_OFFSET        = 0x00048000;
 define symbol FLASH_ADDRESS                = xSPI0_CS0_SPACE_PRV_START;
 
+/* 
 define symbol INTVEC_ADDRESS               = ATCM_PRV_START;
 define symbol RAM_ADDRESS                  = (ATCM_PRV_START + 0x100);
 define symbol RAM_END_ADDRESS              = (ATCM_PRV_START + ATCM_PRV_LENGTH - 1);
@@ -379,6 +416,20 @@ define symbol DMAC_LINK_MODE_OFFSET        = 0x00044000;
 define symbol DMAC_LINK_MODE_END_OFFSET    = 0x00040000;
 define symbol NONCACHE_BUFFER_OFFSET       = 0x00020000;
 define symbol NONCACHE_BUFFER_END_OFFSET   = 0;
+*/
+/************* Override define symbol to place EtherCAT protocol into SystemRAM ************/
+define symbol INTVEC_ADDRESS               = SYSTEM_RAM_PRV_START;
+define symbol RAM_ADDRESS                  = (SYSTEM_RAM_PRV_START + 0x100);
+define symbol RAM_END_ADDRESS              = (SYSTEM_RAM_PRV_START + SYSTEM_RAM_PRV_LENGTH - 1);
+define symbol LOADER_STACK_ADDRESS         = (BTCM_PRV_START + 0x2000);
+define symbol LOADER_STACK_END_ADDRESS     = (BTCM_PRV_START + BTCM_PRV_LENGTH - 1);
+define symbol DATA_NONCACHE_OFFSET         = 0x00048000;
+define symbol DATA_NONCACHE_END_OFFSET     = 0x00044000;
+define symbol DMAC_LINK_MODE_OFFSET        = 0x00044000;
+define symbol DMAC_LINK_MODE_END_OFFSET    = 0x00040000;
+define symbol NONCACHE_BUFFER_OFFSET       = 0x00020000;
+define symbol NONCACHE_BUFFER_END_OFFSET   = 0;
+/*********************************************************************************************/
 
 /*###ICF### Section handled by ICF editor, don't touch! ****/
 /*-Editor annotation file-*/
@@ -392,9 +443,15 @@ define symbol __ICFEDIT_region_RAM_start__ = RAM_ADDRESS;
 define symbol __ICFEDIT_region_RAM_end__   = RAM_END_ADDRESS;
 /**** End of ICF editor section. ###ICF###*/
 
+/*-Sizes-*/
+define symbol __ICFEDIT_size_cstack__ = 0x200;
+/**** End of ICF editor section. ###ICF###*/
+
 define memory mem with size = 4G;
 define region ROM_region    = mem:[from __ICFEDIT_region_ROM_start__   to __ICFEDIT_region_ROM_end__];
 define region RAM_region    = mem:[from __ICFEDIT_region_RAM_start__   to __ICFEDIT_region_RAM_end__];
+
+define block CSTACK    with alignment = 8, size = __ICFEDIT_size_cstack__   { };
 
 define symbol __region_D_LOADER_STACK_start__     = LOADER_STACK_ADDRESS;
 define symbol __region_D_LOADER_STACK_end__       = LOADER_STACK_END_ADDRESS;
@@ -646,7 +703,7 @@ place in D_LOADER_STACK_region  { section SYS_STACK, block SYS_STACK,
                                   section UND_STACK, block UND_STACK,
                                   section ABT_STACK, block ABT_STACK };
 place in RAM_region        { block USER_PRG_WBLOCK };
-place in RAM_region        { readwrite };
+place in RAM_region        { readwrite, last block CSTACK };
 place in RAM_region        { block USER_DATA_WBLOCK,
                              block USER_DATA_ZBLOCK };
 place in RAM_region        { section HEAP_BLOCK, block HEAP_BLOCK,
