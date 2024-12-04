@@ -16,9 +16,21 @@ This example mainly introduces how to use the CANFD device on the EtherKit.
 
 ### FSP Configuration Instructions
 
-![img](./figures/wps37.jpg) 
+ ![image-20241204165134218](./figures/image-20241204165134218.png)
 
-![img](./figures/wps38.jpg) 
+ ![image-20241204165137649](./figures/image-20241204165137649.png)
+
+![image-20241204165142223](./figures/image-20241204165142223.png)
+
+![image-20241204165146225](./figures/image-20241204165146225.png)
+
+![image-20241204165151880](./figures/image-20241204165151880.png)
+
+![image-20241204165156803](./figures/image-20241204165156803.png)
+
+![image-20241204165200238](./figures/image-20241204165200238.png)
+
+![image-20241204165204684](./figures/image-20241204165204684.png)
 
 ### RT-Thread Settings Configuration
 

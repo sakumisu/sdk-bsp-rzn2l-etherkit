@@ -16,7 +16,13 @@ EtherKit 板载资源有PMOD接口，连接到R9A07G084M08GBG 芯片的SCI_SPI3�
 
 打开FSP工具，新建 Stacks 并选择 r_sci_spi3：
 
-![image-20241126101545369](figures/image-20241126101545369.png)
+![image-20241204164426270](./figures/image-20241204164426270.png)
+
+![image-20241204164431412](./figures/image-20241204164431412.png)
+
+ Sci的片选引脚选择常低
+
+![image-20241204164435877](./figures/image-20241204164435877.png)
 
 ## RT-Thread Settings配置
 

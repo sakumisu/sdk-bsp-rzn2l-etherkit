@@ -18,7 +18,9 @@ EtherKit 上的EEROM 使用为AT24C16连接R9A07G084M08GBG 芯片的IIC0；
 
 ![image-20241126101119612](figures/image-20241126101119612.png)
 
-![image-20241126101131423](figures/image-20241126101131423.png)
+![image-20241204164307475](./figures/image-20241204164307475.png)
+
+![image-20241204164312806](./figures/image-20241204164312806.png)
 
 ## RT-Thread Settings 配置
 

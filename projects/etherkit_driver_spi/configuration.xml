@@ -1057,6 +1057,8 @@
       <configSetting altId="p18_0.gpio_speed.gpio_speed_high" configurationId="p18_0.gpio_drivecapacity"/>
       <configSetting altId="p18_0.gpio_mode.gpio_mode_peripheral" configurationId="p18_0.gpio_mode"/>
       <configSetting altId="p18_0.sr.sr.fast" configurationId="p18_0.sr"/>
+      <configSetting altId="p18_1.output.toinput.low" configurationId="p18_1"/>
+      <configSetting altId="p18_1.gpio_mode.gpio_mode_out.toinput.low" configurationId="p18_1.gpio_mode"/>
       <configSetting altId="p18_2.output.low" configurationId="p18_2"/>
       <configSetting altId="p18_2.gpio_mode.gpio_mode_out.low" configurationId="p18_2.gpio_mode"/>
       <configSetting altId="p18_4.spi2.spi_rspck2" configurationId="p18_4"/>

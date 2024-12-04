@@ -6,9 +6,13 @@
 In our specific applications, the use of timers is indispensable. This example mainly introduces how to use the GPT device on the EtherKit, including the use of basic timers and PWM.
 ## FSP Configuration Instructions
 FSP is configured to enable GPT0 as a basic timer mode, and GPT5 as a PWM mode:
-![image-20241126102129210](figures/image-20241126102129210.png)
+![image-20241204164845530](./figures/image-20241204164845530.png)
+
+![image-20241204164857627](./figures/image-20241204164857627.png)
+
 And configure pins to enable GPT0 and GPT5:
 ![image-20241126102147584](figures/image-20241126102147584.png)
+
 ### RT-Thread Settings Configuration
 In the configuration, enable timer0 and PWM:
 ![image-20241126102203077](figures/image-20241126102203077.png)

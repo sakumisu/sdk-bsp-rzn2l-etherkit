@@ -91,6 +91,7 @@
       <configSetting altId="p14_1.output.low" configurationId="p14_1"/>
       <configSetting altId="p16_3.input" configurationId="p16_3"/>
       <configSetting altId="p17_3.output.low" configurationId="p17_3"/>
+      <configSetting altId="p18_1.output.toinput.low" configurationId="p18_1"/>
       <configSetting altId="p18_2.output.low" configurationId="p18_2"/>
       <configSetting altId="p22_1.output.low" configurationId="p22_1"/>
       <configSetting altId="p22_3.output.low" configurationId="p22_3"/>
