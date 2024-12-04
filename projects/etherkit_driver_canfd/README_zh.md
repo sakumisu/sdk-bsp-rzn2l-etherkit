@@ -20,9 +20,21 @@
 
 ### FSP配置说明
 
-![img](./figures/wps37.jpg) 
+![image-20241204165016901](./figures/image-20241204165016901.png) 
 
-![img](./figures/wps38.jpg) 
+![image-20241204165022820](./figures/image-20241204165022820.png)
+
+![image-20241204165030808](./figures/image-20241204165030808.png)
+
+![image-20241204165038795](./figures/image-20241204165038795.png) 
+
+![image-20241204165102849](./figures/image-20241204165102849.png)
+
+![image-20241204165109012](./figures/image-20241204165109012.png)
+
+![image-20241204165112814](./figures/image-20241204165112814.png)
+
+![image-20241204165117877](./figures/image-20241204165117877.png)
 
 ### RT-Thread Settings配置
 

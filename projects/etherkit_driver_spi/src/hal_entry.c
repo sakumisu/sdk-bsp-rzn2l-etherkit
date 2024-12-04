@@ -95,3 +95,4 @@ void spi_loop_test(void)
     rt_kprintf("\n\n");
     rt_kprintf("SPI test end\n");
 }
+MSH_CMD_EXPORT(spi_loop_test,TEST SCI);

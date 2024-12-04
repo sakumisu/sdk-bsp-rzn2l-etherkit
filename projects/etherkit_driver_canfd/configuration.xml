@@ -781,7 +781,7 @@
       <property id="module.driver.canfd.manual.data.sync_jump_width" value="1"/>
       <property id="module.driver.canfd.bitrate.manual.use_manual" value="module.driver.canfd.bitrate.manual.use_manual.disabled"/>
       <property id="module.driver.canfd.p_callback" value="canfd0_callback"/>
-      <property id="module.driver.canfd.txmb.int" value="module.driver.canfd.txmb.int.0,module.driver.canfd.txmb.int.1"/>
+      <property id="module.driver.canfd.txmb.int" value="module.driver.canfd.txmb.int.0"/>
       <property id="module.driver.canfd.ch_err.int" value=""/>
       <property id="module.driver.canfd.ipl" value="board.icu.common.irq.priority12"/>
       <property id="module.driver.canfd.afl_array" value="p_canfd0_afl"/>
@@ -803,7 +803,7 @@
       <property id="module.driver.canfd.manual.data.sync_jump_width" value="1"/>
       <property id="module.driver.canfd.bitrate.manual.use_manual" value="module.driver.canfd.bitrate.manual.use_manual.disabled"/>
       <property id="module.driver.canfd.p_callback" value="canfd1_callback"/>
-      <property id="module.driver.canfd.txmb.int" value="module.driver.canfd.txmb.int.0,module.driver.canfd.txmb.int.1"/>
+      <property id="module.driver.canfd.txmb.int" value="module.driver.canfd.txmb.int.1"/>
       <property id="module.driver.canfd.ch_err.int" value=""/>
       <property id="module.driver.canfd.ipl" value="board.icu.common.irq.priority12"/>
       <property id="module.driver.canfd.afl_array" value="p_canfd1_afl"/>
@@ -839,7 +839,7 @@
       <property id="config.driver.canfd.rxmb.number" value="0"/>
       <property id="config.driver.canfd.rxmb.size" value="config.driver.canfd.rxmb.size.8"/>
       <property id="config.driver.canfd.rxfifo.ipl" value="board.icu.common.irq.priority12"/>
-      <property id="config.driver.canfd.rxfifo.0.enable" value="config.driver.canfd.rxfifo.0.enable.enabled"/>
+      <property id="config.driver.canfd.rxfifo.0.enable" value="config.driver.canfd.rxfifo.0.enable.disabled"/>
       <property id="config.driver.canfd.rxfifo.0.int_mode" value="enum.driver.canfd.fifo.int_mode.every_frame"/>
       <property id="config.driver.canfd.rxfifo.0.int_threshold" value="enum.driver.canfd.fifo.int_threshold.1_2"/>
       <property id="config.driver.canfd.rxfifo.0.payload" value="enum.driver.canfd.fifo.payload.64"/>

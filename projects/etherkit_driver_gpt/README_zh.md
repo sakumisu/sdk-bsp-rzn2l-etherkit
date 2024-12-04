@@ -10,7 +10,9 @@
 
 FSP 分别配置使能GPT0为基本定时器模式，GPT5为PWM 模式：
 
-![image-20241126102129210](figures/image-20241126102129210.png)
+![image-20241204164917896](./figures/image-20241204164917896.png)
+
+![image-20241204164922394](./figures/image-20241204164922394.png)
 
 并配置pins 使能GPT0 GPT5：
 

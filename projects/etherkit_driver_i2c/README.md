@@ -16,9 +16,9 @@ The EEPROM used on the EtherKit is an AT24C16, which is connected to the I2C0 of
 
 Create a new stack and select `r_iic_master`. Then, configure the I2C0 settings as shown below:
 
-![image-20241126101119612](figures/image-20241126101119612.png)
+![image-20241126101119612](figures/image-20241126101119612.png)![image-20241204164236877](./figures/image-20241204164236877.png)
 
-![image-20241126101131423](figures/image-20241126101131423.png)
+![image-20241204164246566](./figures/image-20241204164246566.png)
 
 ## RT-Thread Settings Configuration
 

@@ -16,7 +16,13 @@ The EtherKit board has a PMOD interface, which is connected to the SCI_SPI3 of t
 
 Open the FSP tool, create a new stack, and select `r_sci_spi3`:
 
-![image-20241126101545369](figures/image-20241126101545369.png)
+![image-20241204164343302](./figures/image-20241204164343302.png)
+
+![image-20241204164348364](./figures/image-20241204164348364.png)
+
+![image-20241204164400917](./figures/image-20241204164400917.png)
+
+
 
 ## RT-Thread Settings Configuration
 

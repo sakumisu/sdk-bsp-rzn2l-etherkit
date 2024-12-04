@@ -17,7 +17,7 @@
 * 第一步：打开FSP导入xml配置文件；（或者直接点击Rtthread Studio 的FSP链接文件）；
 * 第二步：新建r_adc Stack 配置adc设备以及所用通道;
 
-![image-20241126100556300](figures/image-20241126100556300.png)
+![image-20241204164153742](./figures/image-20241204164153742.png)
 
 * 第三步：保存并点击Generate Project；生成的代码保存到hal_data.c中；
 

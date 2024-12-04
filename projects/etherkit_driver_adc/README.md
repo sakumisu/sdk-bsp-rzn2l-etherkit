@@ -17,7 +17,7 @@ As shown in the schematic above, the EtherKit provides an 8-channel analog input
 * Step 1: Open FSP and import the XML configuration file (or directly click the FSP link file in RT-Thread Studio).
 * Step 2: Create a new `r_adc` stack, configure the ADC device, and select the channels to be used.
 
-![image-20241126100556300](figures/image-20241126100556300.png)
+![image-20241204164135500](./figures/image-20241204164135500.png)
 
 * Step 3: Save and click "Generate Project". The generated code will be saved in `hal_data.c`.
 
