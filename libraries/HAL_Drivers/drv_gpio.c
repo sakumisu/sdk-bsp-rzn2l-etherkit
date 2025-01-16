@@ -361,8 +361,21 @@ static rt_err_t ra_pin_dettach_irq(struct rt_device *device, rt_base_t pin)
 #endif
 }
 
-static rt_base_t ra_pin_get(const char *name)
+static rt_base_t ra_pin_get(const char *name) 
 {
+#if defined(SOC_FAMILY_RENESAS_RZ)
+    /* USE "PXX_X" or "pXX_X" format, the character 'P'/'p' and '_' are required. */
+    if ((rt_strlen(name) == 5) &&
+        ((name[0] == 'P') || (name[0] == 'p')) &&
+        (name[3] == '_') &&
+        ('0' <= (int) name[1] && (int) name[1] <= '1') &&
+        ('0' <= (int) name[2] && (int) name[2] <= '9') &&
+        ('0' <= (int) name[4] && (int) name[4] <= '7')) {
+        return (((int) name[1] - '0') * 10 + ((int) name[2] - '0')) * 0x100 + ((int) name[4] - '0');
+    }
+    LOG_W("Invalid pin expression, use `PXX_X` format");
+    return -1;
+#else
     int pin_number = -1, port = -1, pin = -1;
     if (rt_strlen(name) != 4)
         return -1;
@@ -380,12 +393,13 @@ static rt_base_t ra_pin_get(const char *name)
                     pin_number = port + pin;
                 }
                 else return -1;
-            }
+    }
             else return -1;
         }
         else return -1;
     }
     return pin_number;
+#endif
 }
 
 const static struct rt_pin_ops _ra_pin_ops =
