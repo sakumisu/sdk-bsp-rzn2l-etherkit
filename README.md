@@ -40,6 +40,7 @@ $ sdk-bsp-rzn2l-etherkit
 │   ├── etherkit_usb_pmsc
 │   ├── etherkit_component_netutils
 │   ├── etherkit_component_mqtt
+│   ├── etherkit_component_flash_fs
 │   ├── etherkit_modbus_tcpip
 │   ├── etherkit_modbus_uart
 │   ├── etherkit_ethercat_coe
