@@ -30,7 +30,7 @@ sci_uart_instance_ctrl_t     g_uart5_ctrl;
 
             sci_baud_setting_t           g_uart5_baud_setting =
             {
-                /* Baud rate calculated with 0.160% error. */ .baudrate_bits_b.abcse = 0, .baudrate_bits_b.abcs = 0, .baudrate_bits_b.bgdm = 1, .baudrate_bits_b.cks = 1, .baudrate_bits_b.brr = 155, .baudrate_bits_b.mddr = (uint8_t) 256, .baudrate_bits_b.brme = false
+                /* Baud rate calculated with 0.160% error. */ .baudrate_bits_b.abcse = 0, .baudrate_bits_b.abcs = 0, .baudrate_bits_b.bgdm = 1, .baudrate_bits_b.cks = 0, .baudrate_bits_b.brr = 51, .baudrate_bits_b.mddr = (uint8_t) 256, .baudrate_bits_b.brme = false
             };
 
             /** UART extended configuration for UARTonSCI HAL driver */
@@ -67,7 +67,7 @@ sci_uart_instance_ctrl_t     g_uart5_ctrl;
                 .data_bits           = UART_DATA_BITS_8,
                 .parity              = UART_PARITY_OFF,
                 .stop_bits           = UART_STOP_BITS_1,
-                .p_callback          = rs485_callback,
+                .p_callback          = user_uart5_callback,
                 .p_context           = NULL,
                 .p_extend            = &g_uart5_cfg_extend,
                 .p_transfer_tx       = g_uart5_P_TRANSFER_TX,

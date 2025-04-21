@@ -1,0 +1,21 @@
+from building import *
+import rtconfig
+
+cwd = GetCurrentDir()
+
+src = []
+
+src += Glob('*.c')
+
+path    = [cwd]
+
+LOCAL_CFLAGS = ''
+
+if rtconfig.PLATFORM in ['gcc', 'armclang']:
+    LOCAL_CFLAGS += ' -std=c99'
+elif rtconfig.PLATFORM in ['armcc']:
+    LOCAL_CFLAGS += ' --c99'
+
+group = DefineGroup('filesystem', src, depend = ['BSP_USING_FILESYSTEM'], CPPPATH = path, LOCAL_CFLAGS = LOCAL_CFLAGS)
+
+Return('group')

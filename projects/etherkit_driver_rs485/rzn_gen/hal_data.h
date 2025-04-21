@@ -15,8 +15,8 @@ FSP_HEADER
             extern const uart_cfg_t g_uart5_cfg;
             extern const sci_uart_extended_cfg_t g_uart5_cfg_extend;
 
-            #ifndef rs485_callback
-            void rs485_callback(uart_callback_args_t * p_args);
+            #ifndef user_uart5_callback
+            void user_uart5_callback(uart_callback_args_t * p_args);
             #endif
 
             #define FSP_NOT_DEFINED (1)

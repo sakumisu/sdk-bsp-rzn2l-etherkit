@@ -14,7 +14,7 @@ board:
   sale_contact_global: https://www.rt-thread.org/
   small_image: docs/figures/small.png
   vendor: Renesas
-  version: 1.2.0
+  version: 1.2.1
 chip:
   chip_name: R9A07G084
   clock_source: HSE
@@ -78,7 +78,7 @@ features_zh:
 - 电压：核心 1.1V，I/O 3.3V，1.8V
 pkg_type: Board_Support_Packages
 pkg_vendor: RealThread
-pkg_version: 1.2.0
+pkg_version: 1.2.1
 example_projects:
 - project_name: etherkit_blink_led
   project_description: LED闪烁示例
@@ -101,13 +101,6 @@ example_projects:
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
-  - package_name: PyOCD
-    package_type: Debugger_Support_Packages
-    package_vendor: 'RealThread'
-    package_version: 0.2.3
-    source_path_offset: ''
-    target_path_offset: ''
-    files_and_folders: []
 - project_name: etherkit_basic_key_irq
   project_description: 按键中断控制LED示例
   project_type: rt-thread|@full|@5.1.0
@@ -128,13 +121,6 @@ example_projects:
     package_version: 10.2.1
     source_path_offset: '.'
     target_path_offset: '.'
-    files_and_folders: []
-  - package_name: PyOCD
-    package_type: Debugger_Support_Packages
-    package_vendor: 'RealThread'
-    package_version: 0.2.3
-    source_path_offset: ''
-    target_path_offset: ''
     files_and_folders: []
 - project_name: etherkit_basic_rtc
   project_description: rtc示例及alarm功能演示
@@ -157,13 +143,6 @@ example_projects:
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
-  - package_name: PyOCD
-    package_type: Debugger_Support_Packages
-    package_vendor: 'RealThread'
-    package_version: 0.2.3
-    source_path_offset: ''
-    target_path_offset: ''
-    files_and_folders: []
 - project_name: etherkit_driver_adc
   project_description: adc 示例
   project_type: rt-thread|@full|@5.1.0
@@ -184,13 +163,6 @@ example_projects:
     package_version: 10.2.1
     source_path_offset: '.'
     target_path_offset: '.'
-    files_and_folders: []
-  - package_name: PyOCD
-    package_type: Debugger_Support_Packages
-    package_vendor: 'RealThread'
-    package_version: 0.2.3
-    source_path_offset: ''
-    target_path_offset: ''
     files_and_folders: []
 - project_name: etherkit_driver_i2c
   project_description: master i2c 示例
@@ -213,13 +185,6 @@ example_projects:
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
-  - package_name: PyOCD
-    package_type: Debugger_Support_Packages
-    package_vendor: 'RealThread'
-    package_version: 0.2.3
-    source_path_offset: ''
-    target_path_offset: ''
-    files_and_folders: []
 - project_name: etherkit_driver_spi
   project_description: sci spi 示例
   project_type: rt-thread|@full|@5.1.0
@@ -240,13 +205,6 @@ example_projects:
     package_version: 10.2.1
     source_path_offset: '.'
     target_path_offset: '.'
-    files_and_folders: []
-  - package_name: PyOCD
-    package_type: Debugger_Support_Packages
-    package_vendor: 'RealThread'
-    package_version: 0.2.3
-    source_path_offset: ''
-    target_path_offset: ''
     files_and_folders: []
 - project_name: etherkit_driver_rs485
   project_description: rs485 示例
@@ -269,13 +227,6 @@ example_projects:
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
-  - package_name: PyOCD
-    package_type: Debugger_Support_Packages
-    package_vendor: 'RealThread'
-    package_version: 0.2.3
-    source_path_offset: ''
-    target_path_offset: ''
-    files_and_folders: []
 - project_name: etherkit_driver_wdt
   project_description: wdt 示例
   project_type: rt-thread|@full|@5.1.0
@@ -296,13 +247,6 @@ example_projects:
     package_version: 10.2.1
     source_path_offset: '.'
     target_path_offset: '.'
-    files_and_folders: []
-  - package_name: PyOCD
-    package_type: Debugger_Support_Packages
-    package_vendor: 'RealThread'
-    package_version: 0.2.3
-    source_path_offset: ''
-    target_path_offset: ''
     files_and_folders: []
 - project_name: etherkit_driver_gpt
   project_description: gpt 示例
@@ -325,13 +269,6 @@ example_projects:
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
-  - package_name: PyOCD
-    package_type: Debugger_Support_Packages
-    package_vendor: 'RealThread'
-    package_version: 0.2.3
-    source_path_offset: ''
-    target_path_offset: ''
-    files_and_folders: []             
 - project_name: etherkit_driver_canfd
   project_description: canfd收发示例
   project_type: rt-thread|@full|@5.1.0
@@ -352,13 +289,6 @@ example_projects:
     package_version: 10.2.1
     source_path_offset: '.'
     target_path_offset: '.'
-    files_and_folders: []
-  - package_name: PyOCD
-    package_type: Debugger_Support_Packages
-    package_vendor: 'RealThread'
-    package_version: 0.2.3
-    source_path_offset: ''
-    target_path_offset: ''
     files_and_folders: []
 - project_name: etherkit_driver_hyperram
   project_description: hyperram示例
@@ -381,13 +311,6 @@ example_projects:
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
-  - package_name: PyOCD
-    package_type: Debugger_Support_Packages
-    package_vendor: 'RealThread'
-    package_version: 0.2.3
-    source_path_offset: ''
-    target_path_offset: ''
-    files_and_folders: []
 - project_name: etherkit_ethernet
   project_description: 以太网示例
   project_type: rt-thread|@full|@5.1.0
@@ -408,13 +331,6 @@ example_projects:
     package_version: 10.2.1
     source_path_offset: '.'
     target_path_offset: '.'
-    files_and_folders: []
-  - package_name: PyOCD
-    package_type: Debugger_Support_Packages
-    package_vendor: 'RealThread'
-    package_version: 0.2.3
-    source_path_offset: ''
-    target_path_offset: ''
     files_and_folders: []
 - project_name: etherkit_component_netutils
   project_description: netutils网络小组件示例
@@ -437,12 +353,26 @@ example_projects:
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
-  - package_name: PyOCD
-    package_type: Debugger_Support_Packages
-    package_vendor: 'RealThread'
-    package_version: 0.2.3
-    source_path_offset: ''
+- project_name: etherkit_component_flash_fs
+  project_description: littlefs 文件系统
+  project_type: rt-thread|@full|@5.1.0
+  builtin_files:
+  - source_path_offset: projects/etherkit_component_flash_fs
     target_path_offset: ''
+    files_and_folders:
+    - "*"
+  - source_path_offset: ''
+    target_path_offset: ''
+    files_and_folders:
+    - libraries
+    - rt-thread
+  external_files:
+  - package_name: GNU_Tools_for_ARM_Embedded_Processors
+    package_type: ToolChain_Support_Packages
+    package_vendor: 'ARM'
+    package_version: 10.2.1
+    source_path_offset: '.'
+    target_path_offset: '.'
     files_and_folders: []
 - project_name: etherkit_modbus_uart
   project_description: modbus-uart 示例
@@ -465,13 +395,6 @@ example_projects:
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
-  - package_name: PyOCD
-    package_type: Debugger_Support_Packages
-    package_vendor: 'RealThread'
-    package_version: 0.2.3
-    source_path_offset: ''
-    target_path_offset: ''
-    files_and_folders: []
 - project_name: etherkit_modbus_tcpip
   project_description: modbus-tcpip 示例
   project_type: rt-thread|@full|@5.1.0
@@ -492,13 +415,6 @@ example_projects:
     package_version: 10.2.1
     source_path_offset: '.'
     target_path_offset: '.'
-    files_and_folders: []
-  - package_name: PyOCD
-    package_type: Debugger_Support_Packages
-    package_vendor: 'RealThread'
-    package_version: 0.2.3
-    source_path_offset: ''
-    target_path_offset: ''
     files_and_folders: []
 - project_name: etherkit_component_mqtt
   project_description: mqtt component 示例
@@ -521,13 +437,6 @@ example_projects:
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
-  - package_name: PyOCD
-    package_type: Debugger_Support_Packages
-    package_vendor: 'RealThread'
-    package_version: 0.2.3
-    source_path_offset: ''
-    target_path_offset: ''
-    files_and_folders: []
 - project_name: etherkit_usb_pmsc
   project_description: usb pmsc 示例
   project_type: rt-thread|@full|@5.1.0
@@ -548,13 +457,6 @@ example_projects:
     package_version: 10.2.1
     source_path_offset: '.'
     target_path_offset: '.'
-    files_and_folders: []
-  - package_name: PyOCD
-    package_type: Debugger_Support_Packages
-    package_vendor: 'RealThread'
-    package_version: 0.2.3
-    source_path_offset: ''
-    target_path_offset: ''
     files_and_folders: []
 - project_name: etherkit_usb_pcdc
   project_description: usb pcdc 示例
@@ -577,13 +479,6 @@ example_projects:
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
-  - package_name: PyOCD
-    package_type: Debugger_Support_Packages
-    package_vendor: 'RealThread'
-    package_version: 0.2.3
-    source_path_offset: ''
-    target_path_offset: ''
-    files_and_folders: []
 - project_name: etherkit_ethercat_eoe
   project_description: EtherCAT EOE示例
   project_type: rt-thread|@full|@5.1.0
@@ -604,13 +499,6 @@ example_projects:
     package_version: 10.2.1
     source_path_offset: '.'
     target_path_offset: '.'
-    files_and_folders: []
-  - package_name: PyOCD
-    package_type: Debugger_Support_Packages
-    package_vendor: 'RealThread'
-    package_version: 0.2.3
-    source_path_offset: ''
-    target_path_offset: ''
     files_and_folders: []
 - project_name: etherkit_ethercat_coe
   project_description: EtherCAT CoE示例
@@ -633,13 +521,6 @@ example_projects:
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
-  - package_name: PyOCD
-    package_type: Debugger_Support_Packages
-    package_vendor: 'RealThread'
-    package_version: 0.2.3
-    source_path_offset: ''
-    target_path_offset: ''
-    files_and_folders: []
 - project_name: etherkit_profinet_pnet
   project_description: 使用P-Net运行profinet协议栈
   project_type: rt-thread|@full|@5.1.0
@@ -660,13 +541,6 @@ example_projects:
     package_version: 10.2.1
     source_path_offset: '.'
     target_path_offset: '.'
-    files_and_folders: []
-  - package_name: PyOCD
-    package_type: Debugger_Support_Packages
-    package_vendor: 'RealThread'
-    package_version: 0.2.3
-    source_path_offset: ''
-    target_path_offset: ''
     files_and_folders: []
 - project_name: etherkit_ethernetip_opener
   project_description: 使用OpENer运行EtherNet/IP协议栈
@@ -689,13 +563,6 @@ example_projects:
     source_path_offset: '.'
     target_path_offset: '.'
     files_and_folders: []
-  - package_name: PyOCD
-    package_type: Debugger_Support_Packages
-    package_vendor: 'RealThread'
-    package_version: 0.2.3
-    source_path_offset: ''
-    target_path_offset: ''
-    files_and_folders: []
 - project_name: etherkit_factory
   project_description: etherkit 产测程序
   project_type: rt-thread|@full|@5.1.0
@@ -716,13 +583,6 @@ example_projects:
     package_version: 10.2.1
     source_path_offset: '.'
     target_path_offset: '.'
-    files_and_folders: []
-  - package_name: PyOCD
-    package_type: Debugger_Support_Packages
-    package_vendor: 'RealThread'
-    package_version: 0.2.3
-    source_path_offset: ''
-    target_path_offset: ''
     files_and_folders: []
 template_projects:
 - project_name: template_project
@@ -745,12 +605,5 @@ template_projects:
     package_version: 10.2.1
     source_path_offset: '.'
     target_path_offset: '.'
-    files_and_folders: []
-  - package_name: PyOCD
-    package_type: Debugger_Support_Packages
-    package_vendor: 'RealThread'
-    package_version: 0.2.3
-    source_path_offset: ''
-    target_path_offset: ''
     files_and_folders: []
 yaml_version: 3

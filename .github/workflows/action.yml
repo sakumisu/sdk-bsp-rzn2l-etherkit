@@ -65,6 +65,7 @@ jobs:
          - {RTT_BSP: "etherkit_ethernet"}
          - {RTT_BSP: "etherkit_component_netutils"}
          - {RTT_BSP: "etherkit_component_mqtt"}
+         - {RTT_BSP: "etherkit_component_flash_fs"}
          - {RTT_BSP: "etherkit_modbus_tcpip"}
          - {RTT_BSP: "etherkit_modbus_uart"}
          - {RTT_BSP: "etherkit_usb_pmsc"}

@@ -41,42 +41,97 @@ void hal_entry(void)
     }
 }
 
-/*发送数据函数*/
-static void RS485_Send_Example( uint8_t ch )
-{
-    /*串口写入函数*/
-    R_SCI_UART_Write(&g_uart5_ctrl, (uint8_t*) &ch, 1);
-}
+#define RS485_NAME       "uart5"      /* 串口设备名称 */
 
-/*RS485_1中断回调函数*/
-void rs485_callback(uart_callback_args_t * p_args)
+struct rx_msg
 {
-    rt_interrupt_enter();
+    rt_device_t dev;
+    rt_size_t size;
+};
+static rt_device_t rs485;
+static struct rt_messagequeue rx_mq;
 
-    switch(p_args->event)
+static rt_err_t rs485_input(rt_device_t dev, rt_size_t size)
+{
+    struct rx_msg msg;
+    rt_err_t result;
+    msg.dev = dev;
+    msg.size = size;
+
+    result = rt_mq_send(&rx_mq, &msg, sizeof(msg));
+    if (result == -RT_EFULL)
     {
-        /*接收数据时将数据打印出来*/
-        case UART_EVENT_RX_CHAR:
-          {
-            rt_kprintf("%d\n", p_args->data);
-            break;
-          }
-        default:
-            break;
+        LOG_W("message queue full!");
     }
-    rt_interrupt_leave();
+    return result;
 }
 
-int rs485_send_test(void)
+static void rs485_thread_entry(void *parameter)
 {
-   static uint8_t i;
+    struct rx_msg msg;
+    rt_err_t result;
+    rt_uint32_t rx_length;
+    static char rx_buffer[BSP_UART5_RX_BUFSIZE + 1];
 
-   for(i =1; i <= 10; i++)
-   {
-       /*发送数据*/
-       RS485_Send_Example(i);
-       rt_thread_delay(1000);
-   }
-   return 0;
+    LOG_I("Start RS485 communication driver. Please open the RS485 serial port and start the functional test.");
+
+    while (1)
+    {
+        rt_memset(&msg, 0, sizeof(msg));
+        result = rt_mq_recv(&rx_mq, &msg, sizeof(msg), RT_WAITING_FOREVER);
+        if (result > 0)
+        {
+            rx_length = rt_device_read(msg.dev, 0, rx_buffer, msg.size);
+            rx_buffer[rx_length] = '\0';
+            rt_device_write(rs485, 0, rx_buffer, rx_length);
+            LOG_I("%s",rx_buffer);
+        }
+    }
 }
-MSH_CMD_EXPORT(rs485_send_test, rs485_send_test)
+
+static int rs485_sample(int argc, char *argv[])
+{
+    rt_err_t ret = RT_EOK;
+    char rs485_name[RT_NAME_MAX];
+    static char msg_pool[256];
+    char str[] = "hello RT-Thread!\r\n";
+
+    if (argc == 2)
+    {
+        rt_strncpy(rs485_name, argv[1], RT_NAME_MAX);
+    }
+    else
+    {
+        rt_strncpy(rs485_name, RS485_NAME, RT_NAME_MAX);
+    }
+
+    rs485 = rt_device_find(rs485_name);
+    if (!rs485)
+    {
+        LOG_E("find %s failed!", rs485_name);
+        return RT_ERROR;
+    }
+
+    rt_mq_init(&rx_mq, "rx_mq",
+               msg_pool,
+               sizeof(struct rx_msg),
+               sizeof(msg_pool),
+               RT_IPC_FLAG_FIFO);
+
+    rt_device_open(rs485, RT_DEVICE_FLAG_RX_NON_BLOCKING | RT_DEVICE_FLAG_TX_BLOCKING);
+    rt_device_set_rx_indicate(rs485, rs485_input);
+    rt_device_write(rs485, 0, str, (sizeof(str) - 1));
+
+    rt_thread_t thread = rt_thread_create("rs485", rs485_thread_entry, RT_NULL, 1024, 25, 10);
+    if (thread != RT_NULL)
+    {
+        rt_thread_startup(thread);
+    }
+    else
+    {
+        ret = RT_ERROR;
+    }
+
+    return ret;
+}
+MSH_CMD_EXPORT(rs485_sample, rs485 device sample);

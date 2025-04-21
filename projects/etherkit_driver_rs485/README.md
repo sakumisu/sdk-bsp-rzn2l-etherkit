@@ -4,70 +4,33 @@
 
 ## Introduction
 
-This example demonstrates how to use the RS485 device on the EtherKit.
+This example demonstrates how to use an RS485 device on the EtherKit.
 
-## Hardware Description
+## Hardware Overview
 
 ![image-20241126102525956](figures/image-20241126102525956.png)
 
-## FSP Configuration Instructions
+## FSP Configuration
 
-Open the FSP tool, create a new stack, and select `r_sci_uart5` with the following configuration:
+Open the FSP tool, create a new Stack, and select **r_sci_uart5**. The specific configuration details are as follows:
 
-![image-20241126102608069](figures/image-20241126102608069.png)
+![image-20250421150150683](figures/image-20250421150150683.png)
 
 ## Example Project Description
 
-RS485 Send Function: The function sends data every 1 second, for a total of 10 times, with each transmission being 1 byte:
+The RS485 driver is initialized, and characters received from the RS485 serial terminal are printed to the Finsh terminal, while being echoed back to the RS485 terminal.
 
-```c
-int rs485_send_test(void)
-{
-   static uint8_t i;
+## Build & Download
 
-   for(i =1; i <= 10; i++)
-   {
-      /* Send data */
-      RS485_Send_Example(i);
-      rt_thread_delay(1000);
-   }
-   return 0;
-}
-```
+* **RT-Thread Studio:** Download the EtherKit resource pack from the RT-Thread Studio package manager, then create a new project and compile it.
+* **IAR:** First, double-click `mklinks.bat` to generate links for the `rt-thread` and `libraries` folders. Then, use Env to generate the IAR project. Finally, double-click `project.eww` to open the IAR project and compile it.
 
-RS485 Receive Interrupt Function (Ensure to configure the receive interrupt name in FSP in advance):
+Once compiled, connect the development board’s JLink interface to the PC, and download the firmware to the development board.
 
-```c
-/* RS485_1 interrupt callback function */
-void rs485_callback(uart_callback_args_t * p_args)
-{
-    rt_interrupt_enter();
+### Running Result
 
-    switch(p_args->event)
-    {
-        /* Print received data */
-        case UART_EVENT_RX_CHAR:
-          {
-            rt_kprintf("%d\n", p_args->data);
-            break;
-          }
-        default:
-            break;
-    }
-}
-```
+Run the `rs485_sample` command in the serial console, and open the RS485 serial terminal to view the received data:
 
-## Compilation & Download
+![image-20250421150911150](figures/image-20250421150911150.png)
 
-* **RT-Thread Studio**: In RT-Thread Studio’s package manager, download the EtherKit resource package, create a new project, and compile it.
-* **IAR**: First, double-click `mklinks.bat` to create symbolic links between RT-Thread and the libraries folder. Then, use the `Env` tool to generate the IAR project. Finally, double-click `project.eww` to open the IAR project and compile it.
-
-After compiling, connect the development board’s JLink interface to the PC and download the firmware to the development board.
-
-### Run Effect
-
-After entering the `rs485_send` command in the serial terminal, open another serial terminal to observe the received data:
-
-![image-20241126102934625](figures/image-20241126102934625.png)
-
-![image-20241126102958240](figures/image-20241126102958240.png)
+![image-20250421150932481](figures/image-20250421150932481.png)

@@ -14,47 +14,11 @@
 
 打开FSP工具，新建Stacks并选择r_sci_uart5，具体配置信息如下：
 
-![image-20241126102608069](figures/image-20241126102608069.png)
+![image-20250421150150683](figures/image-20250421150150683.png)
 
 ## 工程示例说明
 
-rs485发送函数：每隔1s发送一次，总共发送10次数据，每次发送为1个字节；
-
-```c
-int rs485_send_test(void)
-{
-   static uint8_t i;
-
-   for(i =1; i <= 10; i++)
-   {
-       /*发送数据*/
-       RS485_Send_Example(i);
-       rt_thread_delay(1000);
-   }
-   return 0;
-}
-```
-
-rs485接收中断函数（需要在FSP里提前配置接收中断名称）：
-
-```c
-/*RS485_1中断回调函数*/
-void rs485_callback(uart_callback_args_t * p_args)
-{
-    rt_interrupt_enter();
-
-    switch(p_args->event)
-    {
-        /*接收数据时将数据打印出来*/
-        case UART_EVENT_RX_CHAR:
-          {
-            rt_kprintf("%d\n", p_args->data);
-            break;
-          }
-        default:
-            break;
-    }
-```
+初始化 RS485 驱动，在 Finsh 终端打印从 rs485 串口终端来的字符，并且回显在 rs485 终端。
 
 ##  编译&下载
 
@@ -65,8 +29,8 @@ void rs485_callback(uart_callback_args_t * p_args)
 
 ### 运行效果
 
-串口输出指令rs485_send指令，打开另一个串口的终端查看收到的数据：
+串口输出指令 rs485_sample 指令，打开 rs485 串口终端查看收到的数据：
 
-![image-20241126102934625](figures/image-20241126102934625.png)
+![image-20250421150911150](figures/image-20250421150911150.png)
 
-![image-20241126102958240](figures/image-20241126102958240.png)
+![image-20250421150932481](figures/image-20250421150932481.png)
