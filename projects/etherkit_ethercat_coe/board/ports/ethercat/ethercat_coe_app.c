@@ -70,7 +70,7 @@ static int coe_app(void)
     rt_kprintf("==================================================\n");
 
     rt_err_t ret = rt_thread_init(&ethercat_thread,
-                "ethercat_thread",
+                "ec",
                 ecat_thread_entry,
                 RT_NULL,
                 &ethercat_thread_stack[0],

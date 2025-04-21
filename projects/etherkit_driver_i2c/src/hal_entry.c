@@ -48,7 +48,7 @@ static at24cxx_device_t at24c02_dev;
 static void eeprom_test(void)
 {
     char str1[] = "test string-hello rtthread\n";
-    char str2[] = "test string-rzt2m eeprom testcase\n";
+    char str2[] = "test string-etherkit eeprom testcase\n";
     uint8_t read_buffer1[50];
     uint8_t read_buffer2[50];
     at24c02_dev = at24cxx_init(EEPROM_I2C_NAME, 0x0);

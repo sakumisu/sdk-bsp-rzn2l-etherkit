@@ -323,6 +323,9 @@
 #define BSP_USING_UART0
 #define BSP_UART0_RX_BUFSIZE 256
 #define BSP_UART0_TX_BUFSIZE 0
+#define BSP_USING_UART5
+#define BSP_UART5_RX_BUFSIZE 256
+#define BSP_UART5_TX_BUFSIZE 0
 /* end of On-chip Peripheral Drivers */
 
 /* Board extended module Drivers */
