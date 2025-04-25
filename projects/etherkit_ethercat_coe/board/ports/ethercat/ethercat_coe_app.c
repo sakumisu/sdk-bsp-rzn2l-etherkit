@@ -27,6 +27,17 @@
 static rt_uint8_t ethercat_thread_stack[1024 * 4];
 static struct rt_thread ethercat_thread;
 
+#ifdef BSP_USING_CYBERGEAR_MOTOR
+#include  "cybergear.h"
+#include "samplecia402.h"
+
+static rt_sem_t cyber_sem = RT_NULL;
+static rt_timer_t cyber_timer;
+
+void cyber_motor_entry(void *param);
+static void timer_cyber_init(void);
+#endif
+
 static void ecat_thread_entry ();
 
 void phy_rtl8211f_initial(ether_phy_instance_ctrl_t *phydev)
@@ -82,6 +93,15 @@ static int coe_app(void)
         rt_thread_startup(&ethercat_thread);
     }
 
+#ifdef BSP_USING_CYBERGEAR_MOTOR
+    timer_cyber_init();
+    rt_thread_t cy_tid = rt_thread_create("cyber_motor", cyber_motor_entry, RT_NULL, 1024, 5, 20);
+    if (cy_tid != RT_NULL)
+    {
+        rt_thread_startup(cy_tid);
+    }
+#endif
+
     return 0;
 }
 INIT_APP_EXPORT(coe_app);
@@ -107,7 +127,7 @@ static void ecat_thread_entry ()
     while(bRunApplication == TRUE)
     {
         MainLoop();
-        rt_thread_mdelay(1);
+        rt_thread_mdelay(2);
     }
 #if (CiA402_SAMPLE_APPLICATION == 1)
     /* Remove all allocated axes resources */
@@ -118,3 +138,36 @@ static void ecat_thread_entry ()
 
     return;
 }
+
+#ifdef BSP_USING_CYBERGEAR_MOTOR
+void cyber_motor_entry(void *param)
+{
+    rt_uint8_t result;
+    while (1)
+    {
+        result = rt_sem_take(cyber_sem, RT_WAITING_FOREVER);
+        if (result == RT_EOK)
+        {
+            //电机控制函数
+            CybergearMotor();
+        }
+    }
+}
+
+/* 定时器 1 超时函数 负责定时扫描主站映射数据 */
+static void cyimer_100ms_callback(void *parameter)
+{
+    rt_sem_release(cyber_sem);
+}
+
+static void timer_cyber_init(void)
+{
+    cyber_sem = rt_sem_create("sy_sem", 0, RT_IPC_FLAG_PRIO);
+    cyber_timer = rt_timer_create("sy_timer", cyimer_100ms_callback,
+    RT_NULL, 100,
+    RT_TIMER_FLAG_PERIODIC);
+    /* 启动定时器 1 */
+    if (cyber_timer != RT_NULL)
+        rt_timer_start(cyber_timer);
+}
+#endif

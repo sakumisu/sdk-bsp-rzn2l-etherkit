@@ -1,5 +1,273 @@
 /* generated HAL source file - do not edit */
 #include "hal_data.h"
+
+gpt_instance_ctrl_t g_timer1_ctrl;
+#if 0
+const gpt_extended_pwm_cfg_t g_timer1_pwm_extend =
+{
+    .trough_ipl          = (BSP_IRQ_DISABLED),
+#if defined(VECTOR_NUMBER_GPT8_UDF)
+    .trough_irq          = VECTOR_NUMBER_GPT8_UDF,
+#else
+    .trough_irq          = FSP_INVALID_VECTOR,
+#endif
+    .poeg_link           = GPT_POEG_LINK_POEG0,
+    .output_disable      =  GPT_OUTPUT_DISABLE_NONE,
+    .adc_trigger         =  GPT_ADC_TRIGGER_NONE,
+    .dead_time_count_up  = 0,
+    .dead_time_count_down = 0,
+    .adc_a_compare_match = 0,
+    .adc_b_compare_match = 0,
+    .interrupt_skip_source = GPT_INTERRUPT_SKIP_SOURCE_NONE,
+    .interrupt_skip_count  = GPT_INTERRUPT_SKIP_COUNT_0,
+    .interrupt_skip_adc    = GPT_INTERRUPT_SKIP_ADC_NONE,
+    .gtioca_disable_setting = GPT_GTIOC_DISABLE_PROHIBITED,
+    .gtiocb_disable_setting = GPT_GTIOC_DISABLE_PROHIBITED,
+    .interrupt_skip_source_ext1 = GPT_INTERRUPT_SKIP_SOURCE_NONE,
+    .interrupt_skip_count_ext1  = GPT_INTERRUPT_SKIP_COUNT_0,
+    .interrupt_skip_source_ext2 = GPT_INTERRUPT_SKIP_SOURCE_NONE,
+    .interrupt_skip_count_ext2  = GPT_INTERRUPT_SKIP_COUNT_0,
+    .interrupt_skip_func_ovf    = GPT_INTERRUPT_SKIP_SELECT_NONE,
+    .interrupt_skip_func_unf    = GPT_INTERRUPT_SKIP_SELECT_NONE,
+    .interrupt_skip_func_adc_a  = GPT_INTERRUPT_SKIP_SELECT_NONE,
+    .interrupt_skip_func_adc_b  = GPT_INTERRUPT_SKIP_SELECT_NONE,
+};
+#endif
+const gpt_extended_cfg_t g_timer1_extend =
+{
+    .gtioca = { .output_enabled = false,
+                .stop_level     = GPT_PIN_LEVEL_LOW
+              },
+    .gtiocb = { .output_enabled = false,
+                .stop_level     = GPT_PIN_LEVEL_LOW
+              },
+    .start_source        = (gpt_source_t) ( GPT_SOURCE_NONE),
+    .stop_source         = (gpt_source_t) ( GPT_SOURCE_NONE),
+    .clear_source        = (gpt_source_t) ( GPT_SOURCE_NONE),
+#if (0 == (0))
+    .count_up_source     = (gpt_source_t) ( GPT_SOURCE_NONE),
+    .count_down_source   = (gpt_source_t) ( GPT_SOURCE_NONE),
+#else
+    .count_up_source     = (gpt_source_t) ((GPT_PHASE_COUNTING_MODE_1_UP | (GPT_PHASE_COUNTING_MODE_1_DN << 16)) & 0x000FFFFU),
+    .count_down_source   = (gpt_source_t) (((GPT_PHASE_COUNTING_MODE_1_UP | (GPT_PHASE_COUNTING_MODE_1_DN << 16)) & 0xFFFF0000U) >> 16),
+#endif
+    .capture_a_source    = (gpt_source_t) ( GPT_SOURCE_NONE),
+    .capture_b_source    = (gpt_source_t) ( GPT_SOURCE_NONE),
+    .capture_a_ipl       = (BSP_IRQ_DISABLED),
+    .capture_b_ipl       = (BSP_IRQ_DISABLED),
+#if defined(VECTOR_NUMBER_GPT8_CCMPA)
+    .capture_a_irq       = VECTOR_NUMBER_GPT8_CCMPA,
+#else
+    .capture_a_irq       = FSP_INVALID_VECTOR,
+#endif
+#if defined(VECTOR_NUMBER_GPT8_CCMPB)
+    .capture_b_irq       = VECTOR_NUMBER_GPT8_CCMPB,
+#else
+    .capture_b_irq       = FSP_INVALID_VECTOR,
+#endif
+    .capture_filter_gtioca       = GPT_CAPTURE_FILTER_NONE,
+    .capture_filter_gtiocb       = GPT_CAPTURE_FILTER_NONE,
+#if 0
+    .p_pwm_cfg                   = &g_timer1_pwm_extend,
+#else
+    .p_pwm_cfg                   = NULL,
+#endif
+    .dead_time_ipl       = (BSP_IRQ_DISABLED),
+#if defined(VECTOR_NUMBER_GPT8_DTE)
+    .dead_time_irq       = VECTOR_NUMBER_GPT8_DTE,
+#else
+    .dead_time_irq       = FSP_INVALID_VECTOR,
+#endif
+    .icds                = 0,
+};
+const timer_cfg_t g_timer1_cfg =
+{
+    .mode                = TIMER_MODE_PERIODIC,
+    /* Actual period: 42.94967296 seconds. Actual duty: 50%. */ .period_counts = (uint32_t) 0x100000000, .duty_cycle_counts = 0x80000000, .source_div = (timer_source_div_t)0,
+    .channel             = GPT_CHANNEL_UNIT1_1,
+    .p_callback          = timer1_callback,
+    .p_context           = NULL,
+    .p_extend            = &g_timer1_extend,
+    .cycle_end_ipl       = (12),
+#if defined(VECTOR_NUMBER_GPT8_OVF)
+    .cycle_end_irq       = VECTOR_NUMBER_GPT8_OVF,
+#else
+    .cycle_end_irq       = FSP_INVALID_VECTOR,
+#endif
+};
+/* Instance structure to use this module. */
+const timer_instance_t g_timer1 =
+{
+    .p_ctrl        = &g_timer1_ctrl,
+    .p_cfg         = &g_timer1_cfg,
+    .p_api         = &g_timer_on_gpt
+};
+/* Nominal and Data bit timing configuration */
+
+can_bit_timing_cfg_t g_canfd1_bit_timing_cfg =
+{
+    /* Actual bitrate: 1000000 Hz. Actual sample point: 75 %. */
+    .baud_rate_prescaler = 1,
+    .time_segment_1 = 29,
+    .time_segment_2 = 10,
+    .synchronization_jump_width = 4
+};
+
+can_bit_timing_cfg_t g_canfd1_data_timing_cfg =
+{
+    /* Actual bitrate: 1000000 Hz. Actual sample point: 75 %. */
+    .baud_rate_prescaler = 1,
+    .time_segment_1 = 29,
+    .time_segment_2 = 10,
+    .synchronization_jump_width = 4
+};
+
+
+extern const canfd_afl_entry_t p_canfd1_afl[CANFD_CFG_AFL_CH1_RULE_NUM];
+
+#ifndef CANFD_PRV_GLOBAL_CFG
+#define CANFD_PRV_GLOBAL_CFG
+canfd_global_cfg_t g_canfd_global_cfg =
+{
+    .global_interrupts = CANFD_CFG_GLOBAL_ERR_SOURCES,
+    .global_config     = (CANFD_CFG_TX_PRIORITY | CANFD_CFG_DLC_CHECK | CANFD_CFD_CLOCK_SOURCE | CANFD_CFG_FD_OVERFLOW),
+    .rx_mb_config      = (CANFD_CFG_RXMB_NUMBER | (CANFD_CFG_RXMB_SIZE << R_CANFD_CFDRMNB_RMPLS_Pos)),
+    .global_err_ipl = CANFD_CFG_GLOBAL_ERR_IPL,
+    .rx_fifo_ipl    = CANFD_CFG_RX_FIFO_IPL,
+    .rx_fifo_config    =
+    {
+        ((CANFD_CFG_RXFIFO0_INT_THRESHOLD << R_CANFD_CFDRFCC_RFIGCV_Pos) | (CANFD_CFG_RXFIFO0_DEPTH << R_CANFD_CFDRFCC_RFDC_Pos) | (CANFD_CFG_RXFIFO0_PAYLOAD << R_CANFD_CFDRFCC_RFPLS_Pos) | (CANFD_CFG_RXFIFO0_INT_MODE) | (CANFD_CFG_RXFIFO0_ENABLE)),
+        ((CANFD_CFG_RXFIFO1_INT_THRESHOLD << R_CANFD_CFDRFCC_RFIGCV_Pos) | (CANFD_CFG_RXFIFO1_DEPTH << R_CANFD_CFDRFCC_RFDC_Pos) | (CANFD_CFG_RXFIFO1_PAYLOAD << R_CANFD_CFDRFCC_RFPLS_Pos) | (CANFD_CFG_RXFIFO1_INT_MODE) | (CANFD_CFG_RXFIFO1_ENABLE)),
+        ((CANFD_CFG_RXFIFO2_INT_THRESHOLD << R_CANFD_CFDRFCC_RFIGCV_Pos) | (CANFD_CFG_RXFIFO2_DEPTH << R_CANFD_CFDRFCC_RFDC_Pos) | (CANFD_CFG_RXFIFO2_PAYLOAD << R_CANFD_CFDRFCC_RFPLS_Pos) | (CANFD_CFG_RXFIFO2_INT_MODE) | (CANFD_CFG_RXFIFO2_ENABLE)),
+        ((CANFD_CFG_RXFIFO3_INT_THRESHOLD << R_CANFD_CFDRFCC_RFIGCV_Pos) | (CANFD_CFG_RXFIFO3_DEPTH << R_CANFD_CFDRFCC_RFDC_Pos) | (CANFD_CFG_RXFIFO3_PAYLOAD << R_CANFD_CFDRFCC_RFPLS_Pos) | (CANFD_CFG_RXFIFO3_INT_MODE) | (CANFD_CFG_RXFIFO3_ENABLE)),
+        ((CANFD_CFG_RXFIFO4_INT_THRESHOLD << R_CANFD_CFDRFCC_RFIGCV_Pos) | (CANFD_CFG_RXFIFO4_DEPTH << R_CANFD_CFDRFCC_RFDC_Pos) | (CANFD_CFG_RXFIFO4_PAYLOAD << R_CANFD_CFDRFCC_RFPLS_Pos) | (CANFD_CFG_RXFIFO4_INT_MODE) | (CANFD_CFG_RXFIFO4_ENABLE)),
+        ((CANFD_CFG_RXFIFO5_INT_THRESHOLD << R_CANFD_CFDRFCC_RFIGCV_Pos) | (CANFD_CFG_RXFIFO5_DEPTH << R_CANFD_CFDRFCC_RFDC_Pos) | (CANFD_CFG_RXFIFO5_PAYLOAD << R_CANFD_CFDRFCC_RFPLS_Pos) | (CANFD_CFG_RXFIFO5_INT_MODE) | (CANFD_CFG_RXFIFO5_ENABLE)),
+        ((CANFD_CFG_RXFIFO6_INT_THRESHOLD << R_CANFD_CFDRFCC_RFIGCV_Pos) | (CANFD_CFG_RXFIFO6_DEPTH << R_CANFD_CFDRFCC_RFDC_Pos) | (CANFD_CFG_RXFIFO6_PAYLOAD << R_CANFD_CFDRFCC_RFPLS_Pos) | (CANFD_CFG_RXFIFO6_INT_MODE) | (CANFD_CFG_RXFIFO6_ENABLE)),
+        ((CANFD_CFG_RXFIFO7_INT_THRESHOLD << R_CANFD_CFDRFCC_RFIGCV_Pos) | (CANFD_CFG_RXFIFO7_DEPTH << R_CANFD_CFDRFCC_RFDC_Pos) | (CANFD_CFG_RXFIFO7_PAYLOAD << R_CANFD_CFDRFCC_RFPLS_Pos) | (CANFD_CFG_RXFIFO7_INT_MODE) | (CANFD_CFG_RXFIFO7_ENABLE)),
+    },
+};
+#endif
+
+canfd_extended_cfg_t g_canfd1_extended_cfg =
+{
+    .p_afl              = p_canfd1_afl,
+    .txmb_txi_enable    = ((1ULL << 0) | (1ULL << 1) |  0ULL),
+    .error_interrupts   = ( 0U),
+    .p_data_timing      = &g_canfd1_data_timing_cfg,
+    .delay_compensation = (1),
+    .p_global_cfg       = &g_canfd_global_cfg,
+};
+
+canfd_instance_ctrl_t g_canfd1_ctrl;
+const can_cfg_t g_canfd1_cfg =
+{
+    .channel                = 1,
+    .p_bit_timing           = &g_canfd1_bit_timing_cfg,
+    .p_callback             = canfd1_callback,
+    .p_extend               = &g_canfd1_extended_cfg,
+    .p_context              = NULL,
+    .ipl                    = (12),
+#if defined(VECTOR_NUMBER_CAN1_TX)
+    .tx_irq             = VECTOR_NUMBER_CAN1_TX,
+#else
+    .tx_irq             = FSP_INVALID_VECTOR,
+#endif
+#if defined(VECTOR_NUMBER_CAN1_CHERR)
+    .error_irq             = VECTOR_NUMBER_CAN1_CHERR,
+#else
+    .error_irq             = FSP_INVALID_VECTOR,
+#endif
+};
+/* Instance structure to use this module. */
+const can_instance_t g_canfd1 =
+{
+    .p_ctrl        = &g_canfd1_ctrl,
+    .p_cfg         = &g_canfd1_cfg,
+    .p_api         = &g_canfd_on_canfd
+};
+/* Nominal and Data bit timing configuration */
+
+can_bit_timing_cfg_t g_canfd0_bit_timing_cfg =
+{
+    /* Actual bitrate: 1000000 Hz. Actual sample point: 75 %. */
+    .baud_rate_prescaler = 1,
+    .time_segment_1 = 29,
+    .time_segment_2 = 10,
+    .synchronization_jump_width = 4
+};
+
+can_bit_timing_cfg_t g_canfd0_data_timing_cfg =
+{
+    /* Actual bitrate: 1000000 Hz. Actual sample point: 75 %. */
+    .baud_rate_prescaler = 1,
+    .time_segment_1 = 29,
+    .time_segment_2 = 10,
+    .synchronization_jump_width = 4
+};
+
+
+extern const canfd_afl_entry_t p_canfd0_afl[CANFD_CFG_AFL_CH0_RULE_NUM];
+
+#ifndef CANFD_PRV_GLOBAL_CFG
+#define CANFD_PRV_GLOBAL_CFG
+canfd_global_cfg_t g_canfd_global_cfg =
+{
+    .global_interrupts = CANFD_CFG_GLOBAL_ERR_SOURCES,
+    .global_config     = (CANFD_CFG_TX_PRIORITY | CANFD_CFG_DLC_CHECK | CANFD_CFD_CLOCK_SOURCE | CANFD_CFG_FD_OVERFLOW),
+    .rx_mb_config      = (CANFD_CFG_RXMB_NUMBER | (CANFD_CFG_RXMB_SIZE << R_CANFD_CFDRMNB_RMPLS_Pos)),
+    .global_err_ipl = CANFD_CFG_GLOBAL_ERR_IPL,
+    .rx_fifo_ipl    = CANFD_CFG_RX_FIFO_IPL,
+    .rx_fifo_config    =
+    {
+        ((CANFD_CFG_RXFIFO0_INT_THRESHOLD << R_CANFD_CFDRFCC_RFIGCV_Pos) | (CANFD_CFG_RXFIFO0_DEPTH << R_CANFD_CFDRFCC_RFDC_Pos) | (CANFD_CFG_RXFIFO0_PAYLOAD << R_CANFD_CFDRFCC_RFPLS_Pos) | (CANFD_CFG_RXFIFO0_INT_MODE) | (CANFD_CFG_RXFIFO0_ENABLE)),
+        ((CANFD_CFG_RXFIFO1_INT_THRESHOLD << R_CANFD_CFDRFCC_RFIGCV_Pos) | (CANFD_CFG_RXFIFO1_DEPTH << R_CANFD_CFDRFCC_RFDC_Pos) | (CANFD_CFG_RXFIFO1_PAYLOAD << R_CANFD_CFDRFCC_RFPLS_Pos) | (CANFD_CFG_RXFIFO1_INT_MODE) | (CANFD_CFG_RXFIFO1_ENABLE)),
+        ((CANFD_CFG_RXFIFO2_INT_THRESHOLD << R_CANFD_CFDRFCC_RFIGCV_Pos) | (CANFD_CFG_RXFIFO2_DEPTH << R_CANFD_CFDRFCC_RFDC_Pos) | (CANFD_CFG_RXFIFO2_PAYLOAD << R_CANFD_CFDRFCC_RFPLS_Pos) | (CANFD_CFG_RXFIFO2_INT_MODE) | (CANFD_CFG_RXFIFO2_ENABLE)),
+        ((CANFD_CFG_RXFIFO3_INT_THRESHOLD << R_CANFD_CFDRFCC_RFIGCV_Pos) | (CANFD_CFG_RXFIFO3_DEPTH << R_CANFD_CFDRFCC_RFDC_Pos) | (CANFD_CFG_RXFIFO3_PAYLOAD << R_CANFD_CFDRFCC_RFPLS_Pos) | (CANFD_CFG_RXFIFO3_INT_MODE) | (CANFD_CFG_RXFIFO3_ENABLE)),
+        ((CANFD_CFG_RXFIFO4_INT_THRESHOLD << R_CANFD_CFDRFCC_RFIGCV_Pos) | (CANFD_CFG_RXFIFO4_DEPTH << R_CANFD_CFDRFCC_RFDC_Pos) | (CANFD_CFG_RXFIFO4_PAYLOAD << R_CANFD_CFDRFCC_RFPLS_Pos) | (CANFD_CFG_RXFIFO4_INT_MODE) | (CANFD_CFG_RXFIFO4_ENABLE)),
+        ((CANFD_CFG_RXFIFO5_INT_THRESHOLD << R_CANFD_CFDRFCC_RFIGCV_Pos) | (CANFD_CFG_RXFIFO5_DEPTH << R_CANFD_CFDRFCC_RFDC_Pos) | (CANFD_CFG_RXFIFO5_PAYLOAD << R_CANFD_CFDRFCC_RFPLS_Pos) | (CANFD_CFG_RXFIFO5_INT_MODE) | (CANFD_CFG_RXFIFO5_ENABLE)),
+        ((CANFD_CFG_RXFIFO6_INT_THRESHOLD << R_CANFD_CFDRFCC_RFIGCV_Pos) | (CANFD_CFG_RXFIFO6_DEPTH << R_CANFD_CFDRFCC_RFDC_Pos) | (CANFD_CFG_RXFIFO6_PAYLOAD << R_CANFD_CFDRFCC_RFPLS_Pos) | (CANFD_CFG_RXFIFO6_INT_MODE) | (CANFD_CFG_RXFIFO6_ENABLE)),
+        ((CANFD_CFG_RXFIFO7_INT_THRESHOLD << R_CANFD_CFDRFCC_RFIGCV_Pos) | (CANFD_CFG_RXFIFO7_DEPTH << R_CANFD_CFDRFCC_RFDC_Pos) | (CANFD_CFG_RXFIFO7_PAYLOAD << R_CANFD_CFDRFCC_RFPLS_Pos) | (CANFD_CFG_RXFIFO7_INT_MODE) | (CANFD_CFG_RXFIFO7_ENABLE)),
+    },
+};
+#endif
+
+canfd_extended_cfg_t g_canfd0_extended_cfg =
+{
+    .p_afl              = p_canfd0_afl,
+    .txmb_txi_enable    = ((1ULL << 0) | (1ULL << 1) |  0ULL),
+    .error_interrupts   = ( 0U),
+    .p_data_timing      = &g_canfd0_data_timing_cfg,
+    .delay_compensation = (1),
+    .p_global_cfg       = &g_canfd_global_cfg,
+};
+
+canfd_instance_ctrl_t g_canfd0_ctrl;
+const can_cfg_t g_canfd0_cfg =
+{
+    .channel                = 0,
+    .p_bit_timing           = &g_canfd0_bit_timing_cfg,
+    .p_callback             = canfd0_callback,
+    .p_extend               = &g_canfd0_extended_cfg,
+    .p_context              = NULL,
+    .ipl                    = (12),
+#if defined(VECTOR_NUMBER_CAN0_TX)
+    .tx_irq             = VECTOR_NUMBER_CAN0_TX,
+#else
+    .tx_irq             = FSP_INVALID_VECTOR,
+#endif
+#if defined(VECTOR_NUMBER_CAN0_CHERR)
+    .error_irq             = VECTOR_NUMBER_CAN0_CHERR,
+#else
+    .error_irq             = FSP_INVALID_VECTOR,
+#endif
+};
+/* Instance structure to use this module. */
+const can_instance_t g_canfd0 =
+{
+    .p_ctrl        = &g_canfd0_ctrl,
+    .p_cfg         = &g_canfd0_cfg,
+    .p_api         = &g_canfd_on_canfd
+};
 sci_uart_instance_ctrl_t     g_uart0_ctrl;
 
             #define FSP_NOT_DEFINED (1)

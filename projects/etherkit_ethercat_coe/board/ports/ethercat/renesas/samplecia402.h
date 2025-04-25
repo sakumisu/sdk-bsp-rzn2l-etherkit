@@ -31,7 +31,9 @@ V5.01 : Start file change log
 -----------------------------------------------------------------------------------------*/
 #include "ecat_def.h"
 #include "cia402appl.h"
-
+#ifdef BSP_USING_CYBERGEAR_MOTOR
+#include  "cybergear.h"
+#endif
 #if (CiA402_SAMPLE_APPLICATION == 1)
 
 #ifndef _CIA402_SAMPLE_H_

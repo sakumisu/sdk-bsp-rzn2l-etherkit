@@ -218,7 +218,13 @@ rt_ssize_t ra_can_sendmsg(struct rt_can_device *can_dev, const void *buf, rt_uin
     g_can_tx_frame.id_mode = (can_id_mode_t)msg_rt->ide;
     g_can_tx_frame.type = (can_frame_type_t)msg_rt->rtr;
     g_can_tx_frame.data_length_code = msg_rt->len;
+#if defined(BSP_USING_CANFD) && defined(BSP_USING_CAN_RZ)
+    g_can_tx_frame.options = 0;
+#elif defined(BSP_USING_CANFD)
     g_can_tx_frame.options = CANFD_FRAME_OPTION_FD | CANFD_FRAME_OPTION_BRS;
+#else
+    g_can_tx_frame.options = 0;
+#endif
     memcpy(g_can_tx_frame.data, msg_rt->data, 8);
     can = rt_container_of(can_dev, struct ra_can, can_dev);
     RT_ASSERT(boxno < can->config->num_of_mailboxs);
