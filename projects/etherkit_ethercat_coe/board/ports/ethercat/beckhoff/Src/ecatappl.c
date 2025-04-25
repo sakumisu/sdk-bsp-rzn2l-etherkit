@@ -155,7 +155,9 @@ V4.00 APPL 6: The main function was split in MainInit and MainLoop
 #include "hal_data.h"
 #include "samplecia402.h"
 #include "sampleappl.h"
-
+#ifdef BSP_USING_CYBERGEAR_MOTOR
+#include  "cybergear.h"
+#endif
 /*--------------------------------------------------------------------------------------
 ------
 ------    local Types and Defines
@@ -1062,7 +1064,9 @@ void MainLoop(void)
                 HW_ClearTimer();
 
 #if (CiA402_SAMPLE_APPLICATION == 1) && (BSP_CFG_CORE_CR52 == 0)
+#ifndef BSP_USING_CYBERGEAR_MOTOR
                 DummyMotor();
+#endif
 #endif
             }
         }

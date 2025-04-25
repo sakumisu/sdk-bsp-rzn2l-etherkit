@@ -197,5 +197,13 @@ menu "Hardware Drivers Config"
                     hex "(HEX)RESET pin index"
                     default 0x1706
             endif
+        
+        config BSP_USING_CYBERGEAR_MOTOR
+        	bool "Enable CyberGear Motor"
+        	default n
+        	select BSP_USING_CANFD
+        	select BSP_USING_CANFD0
+        	select BSP_USING_CANFD1
+        	select BSP_USING_CAN_RZ
     endmenu
 endmenu

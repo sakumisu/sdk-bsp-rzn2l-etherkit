@@ -61,7 +61,9 @@ V4.30 : create file (state machine; handling state transition options; input fee
 #define _CiA402_
 #include "cia402appl.h"
 #undef _CiA402_
-
+#ifdef BSP_USING_CYBERGEAR_MOTOR
+#include "cybergear.h"
+#endif
 #include "hal_data.h"
 
 #if (CiA402_SAMPLE_APPLICATION == 1)
@@ -472,8 +474,50 @@ void CiA402_StateMachine(void)
                 if (((ControlWord6040 & CONTROLWORD_COMMAND_SWITCHON_MASK) == CONTROLWORD_COMMAND_SWITCHON) ||
                     ((ControlWord6040 & CONTROLWORD_COMMAND_SWITCHON_ENABLEOPERATION_MASK) == CONTROLWORD_COMMAND_SWITCHON_ENABLEOPERATION))
                 {
-                    if(!CiA402_StateTransition3(pCiA402Axis)){
+                    if(!CiA402_StateTransition3(pCiA402Axis))
+                    {
                         pCiA402Axis->i16State = STATE_SWITCHED_ON;           // Transition 3
+#ifdef BSP_USING_CYBERGEAR_MOTOR
+                        //电机模式初始化
+                        switch (pCiA402Axis->Objects.objModesOfOperationDisplay)
+                        {
+                        case CYCLIC_SYNC_POSITION_MODE:
+                            /* code */
+                            //初始化电机位位置模式
+                            if (counter == 0)
+                            {
+                                //localAxis[0] 位置模式
+                                init_cybergear(&mi_motor[0], 0x7f, Position_mode, DEVICE_OF_CAN0);
+                                rt_kprintf("motor0 position set  to position %d\n", Position_mode);
+                            }
+                            if (counter == 1)
+                            {
+                                //localAxis[1] 位置模式
+                                init_cybergear(&mi_motor[1], 0x7f, Position_mode, DEVICE_OF_CAN1);
+                                rt_kprintf("motor1 position set  to position %d\n", Position_mode);
+                            }
+                            break;
+                        case CYCLIC_SYNC_VELOCITY_MODE:
+                            //init motor Velocity
+                            if (counter == 0)
+                            {
+                                //localAxis[0] 速度模式
+                                init_cybergear(&mi_motor[0], 0x7f, Velocity_mode, DEVICE_OF_CAN0);
+                                set_speed_cybergear(&mi_motor[0], 0, DEVICE_OF_CAN0);
+                                rt_kprintf("motor0 Velocity_mode set  to Velocity %d\n", Velocity_mode);
+                            }
+                            if (counter == 1)
+                            {
+                                //localAxis[1] 速度模式
+                                init_cybergear(&mi_motor[1], 0x7f, Velocity_mode, DEVICE_OF_CAN1);
+                                set_speed_cybergear(&mi_motor[1], 0, DEVICE_OF_CAN1);
+                                rt_kprintf("motor1 Velocity_mode set  to Velocity %d\n", Velocity_mode);
+                            }
+                            break;
+                        default:
+                            break;
+                        }
+#endif
                     }
                 }
                 break;
@@ -497,6 +541,13 @@ void CiA402_StateMachine(void)
                     {
                         if(!CiA402_StateTransition4(pCiA402Axis)){	
                             pCiA402Axis->i16State = STATE_OPERATION_ENABLED;  // Transition 4
+#ifdef BSP_USING_CYBERGEAR_MOTOR
+                    //enable motor
+                    if (counter == 0)
+                        start_cybergear(&mi_motor[0], DEVICE_OF_CAN0);
+                    if (counter == 1)
+                        start_cybergear(&mi_motor[1], DEVICE_OF_CAN1);
+#endif
                         //The Axis function shall be enabled and all internal set-points cleared.
                         }
                     }
@@ -540,6 +591,12 @@ void CiA402_StateMachine(void)
                         {
                             if(!CiA402_StateTransition9(pCiA402Axis)){
                                 pCiA402Axis->i16State = STATE_SWITCH_ON_DISABLED; // Transition 9
+#ifdef BSP_USING_CYBERGEAR_MOTOR
+                    if (counter == 0)
+                        stop_cybergear(&mi_motor[0], 1, DEVICE_OF_CAN0);
+                    if (counter == 1)
+                        stop_cybergear(&mi_motor[1], 1, DEVICE_OF_CAN1);
+#endif
                             }
                         }
                         break;
