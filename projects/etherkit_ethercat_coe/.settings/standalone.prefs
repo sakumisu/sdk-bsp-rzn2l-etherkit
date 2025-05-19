@@ -1,4 +1,4 @@
-#Fri Apr 25 10:14:28 CST 2025
+#Mon May 19 16:51:09 CST 2025
 com.renesas.cdt.ddsc.packs.componentfiles/Renesas\#\#BSP\#\#Board\#\#rzn2l_rsk\#\#xspi0_x1_boot\#\#2.0.0/libraries=
 com.renesas.cdt.ddsc.packs.componentfiles/Renesas\#\#BSP\#\#Board\#\#rzn2l_rsk\#\#xspi0_x1_boot\#\#2.0.0/all=907937621,script/fsp_xspi0_boot.icf|3822962514,rzn/board/rzn2l_rsk/board_leds.c|358444977,rzn/board/rzn2l_rsk/board_init.c|2067006575,rzn/board/rzn2l_rsk/board.h|736691883,rzn/board/rzn2l_rsk/board_ethernet_phy.h|1631979823,rzn/board/rzn2l_rsk/board_leds.h|1430483072,rzn/board/rzn2l_rsk/board_init.h
 com.renesas.cdt.ddsc.packs.componentfiles/Renesas\#\#HAL\ Drivers\#\#all\#\#r_ether_phy\#\#\#\#2.0.0/libraries=
