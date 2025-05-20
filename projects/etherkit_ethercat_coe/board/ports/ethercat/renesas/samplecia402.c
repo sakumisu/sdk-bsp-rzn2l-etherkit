@@ -105,9 +105,23 @@ void DummyMotor(void)
             case CYCLIC_SYNC_POSITION_MODE:
             if(pCiA402Axis->i16State == STATE_OPERATION_ENABLED)
             {
-                if(LocalTAxis[i].PositionActualValue < LocalTAxis[i].TargetPosition)
+                if (LocalTAxis[i].TargetPosition > 0)
                 {
-                    LocalTAxis[i].PositionActualValue++;
+                    if(LocalTAxis[i].PositionActualValue < LocalTAxis[i].TargetPosition)
+                    {
+                        LocalTAxis[i].PositionActualValue++;
+                    }
+                }
+                else if (LocalTAxis[i].TargetPosition < 0)
+                {
+                    if(LocalTAxis[i].PositionActualValue > LocalTAxis[i].TargetPosition)
+                    {
+                        LocalTAxis[i].PositionActualValue--;
+                    }
+                }
+                else
+                {
+                    LocalTAxis[i].PositionActualValue = 0;
                 }
             }
             else
@@ -118,10 +132,7 @@ void DummyMotor(void)
             case CYCLIC_SYNC_VELOCITY_MODE:
             if(pCiA402Axis->i16State == STATE_OPERATION_ENABLED)
             {
-                if(LocalTAxis[i].VelocityActualValue < LocalTAxis[i].TargetVelocity)
-                {
-                    LocalTAxis[i].VelocityActualValue++;
-                }
+                LocalTAxis[i].VelocityActualValue = LocalTAxis[i].TargetVelocity;
             }
             else
             {

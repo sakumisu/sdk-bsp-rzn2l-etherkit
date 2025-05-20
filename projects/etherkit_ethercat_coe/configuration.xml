@@ -787,7 +787,7 @@
     <module id="module.middleware.ethercat_ssc_port_on_ethercat_ssc_port.1071887396">
       <property id="module.middleware.ethercat_ssc_port.name" value="g_ethercat_ssc_port0"/>
       <property id="module.middleware.ethercat_ssc_port.phy_hold_time" value="1"/>
-      <property id="module.middleware.ethercat_ssc_port.phy_wait_time" value="50000"/>
+      <property id="module.middleware.ethercat_ssc_port.phy_wait_time" value="200000"/>
       <property id="module.middleware.ethercat_ssc_port.phy_offset_address" value="0"/>
       <property id="module.middleware.ethercat_ssc_port.eepromsize" value="module.middleware.ethercat_ssc_port.eepromsize.under32kbit"/>
       <property id="module.middleware.ethercat_ssc_port.txc_delay.port0" value="module.middleware.ethercat_ssc_port.txc_delay.port0.delay_00ns"/>

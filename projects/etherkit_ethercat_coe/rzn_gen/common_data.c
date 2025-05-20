@@ -168,7 +168,7 @@ const ethercat_ssc_port_extend_cfg_t g_ethercat_ssc_port0_ext_cfg =
 const ethercat_ssc_port_cfg_t g_ethercat_ssc_port0_cfg =
 {
     .reset_hold_time = 1,
-    .reset_wait_time = 50000,
+    .reset_wait_time = 200000,
     .address_offset  = 0,
 
 #if defined(VECTOR_NUMBER_ESC_CAT)
