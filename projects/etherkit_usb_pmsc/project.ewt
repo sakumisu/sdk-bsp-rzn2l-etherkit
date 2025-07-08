@@ -3093,15 +3093,6 @@
                 <name>$PROJ_DIR$\rzn_cfg\fsp_cfg\r_sci_uart_cfg.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\rzn_cfg\fsp_cfg\r_usb_basic_cfg.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn_cfg\fsp_cfg\r_usb_class_cfg.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn_cfg\fsp_cfg\r_usb_pmsc_cfg.h</name>
-            </file>
-            <file>
                 <name>$PROJ_DIR$\rzn_cfg\SConscript</name>
             </file>
         </group>
@@ -3127,9 +3118,6 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\rzn\fsp\inc\api\bsp_api.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\inc\api\bsp_api.h</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\rzn\fsp\src\bsp\mcu\all\bsp_cache.c</name>
@@ -3255,19 +3243,10 @@
                 <name>$PROJ_DIR$\rzn\fsp\inc\fsp_common_api.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\inc\fsp_common_api.h</name>
-            </file>
-            <file>
                 <name>$PROJ_DIR$\rzn\fsp\inc\fsp_features.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\inc\fsp_features.h</name>
-            </file>
-            <file>
                 <name>$PROJ_DIR$\rzn\fsp\inc\fsp_version.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\inc\fsp_version.h</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\rzn\arm\CMSIS_5\LICENSE.txt</name>
@@ -3282,16 +3261,7 @@
                 <name>$PROJ_DIR$\rzn\fsp\inc\instances\r_ioport.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\inc\instances\r_ioport.h</name>
-            </file>
-            <file>
                 <name>$PROJ_DIR$\rzn\fsp\inc\api\r_ioport_api.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\inc\api\r_ioport_api.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_pmsc\src\r_media_driver_api.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\rzn\fsp\src\r_sci_uart\r_sci_uart.c</name>
@@ -3300,283 +3270,13 @@
                 <name>$PROJ_DIR$\rzn\fsp\inc\instances\r_sci_uart.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\inc\instances\r_sci_uart.h</name>
-            </file>
-            <file>
                 <name>$PROJ_DIR$\rzn\fsp\inc\api\r_transfer_api.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\inc\api\r_transfer_api.h</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\rzn\fsp\inc\api\r_uart_api.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\inc\api\r_uart_api.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_pmsc\src\r_usb_atapi_driver.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\r_usb_basic.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\inc\instances\r_usb_basic.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\inc\instances\r_usb_basic.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\inc\api\r_usb_basic_api.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\inc\api\r_usb_basic_api.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\inc\r_usb_basic_config.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\inc\r_usb_basic_define.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\inc\r_usb_basic_if.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\inc\r_usb_basic_local.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\hw\inc\r_usb_bitdefine.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\r_usb_cdataio.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\r_usb_clibusbip.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\hw\r_usb_creg_abs.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\hw\r_usb_creg_access.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\r_usb_cstd_rtos.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\inc\r_usb_cstd_rtos.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\hw\r_usb_dma.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\hw\r_usb_dma_rz.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\hw\inc\r_usb_dmac.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\hw\r_usb_dmaca_rz.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\hw\inc\r_usb_dmaca_rz_config.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\hw\inc\r_usb_dmaca_rz_config_reference.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\hw\inc\r_usb_dmaca_rz_if.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\hw\inc\r_usb_dmaca_rz_private.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\hw\r_usb_dmaca_rz_target.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\hw\inc\r_usb_dmaca_rz_target.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\inc\r_usb_extern.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\r_usb_hbc.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\r_usb_hcontrolrw.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\r_usb_hdriver.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\r_usb_hdriver_api_rz.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\r_usb_hdriver_rz.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\inc\r_usb_hehci_def_usr.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\inc\r_usb_hehci_extern.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\r_usb_hehci_main.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\r_usb_hehci_memory.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\r_usb_hehci_transfer.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\inc\r_usb_hehci_typedef.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\r_usb_hhci.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\inc\r_usb_hhci.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\inc\r_usb_hhci_local.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\r_usb_hhubsys.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\r_usb_hintfifo.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\r_usb_hinthandler_rz.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\r_usb_hinthandler_usbip0.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\r_usb_hinthandler_usbip1.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\r_usb_hlibusbip.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\r_usb_hmanager.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\r_usb_hmanager_rz.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\inc\r_usb_hohci_def_usr.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\inc\r_usb_hohci_extern.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\r_usb_hohci_main.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\r_usb_hohci_memory.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\r_usb_hohci_transfer.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\inc\r_usb_hohci_typedef.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\hw\r_usb_hostelectrical.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\hw\r_usb_hreg_abs.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\hw\r_usb_hreg_access.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\r_usb_hscheduler.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\r_usb_hscheduler_rz.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\r_usb_hsignal.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\r_usb_hstdfunction.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\hw\r_usb_mcu.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_pmsc\src\inc\r_usb_patapi.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\r_usb_pbc.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\r_usb_pcontrolrw.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\r_usb_pdriver.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\r_usb_pintfifo.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\r_usb_pinthandler_usbip0.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\r_usb_plibusbip.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_pmsc\src\inc\r_usb_pmsc.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\inc\api\r_usb_pmsc_api.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\inc\api\r_usb_pmsc_api.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_pmsc\r_usb_pmsc_descriptor.c.template</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_pmsc\src\r_usb_pmsc_driver.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_pmsc\src\inc\r_usb_pmsc_driver.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\hw\r_usb_preg_abs.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\hw\r_usb_preg_access.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\r_usb_psignal.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\r_usb_pstdfunction.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\r_usb_pstdrequest.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\hw\inc\r_usb_reg_access.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\inc\r_usb_rtos_config.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_usb_basic\src\driver\inc\r_usb_typedef.h</name>
-            </file>
-            <file>
                 <name>$PROJ_DIR$\rzn\fsp\src\bsp\cmsis\Device\RENESAS\Include\renesas.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\inc\api\rm_block_media_api.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\inc\api\rm_block_media_api.h</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\rzn\SConscript</name>
@@ -3636,27 +3336,6 @@
                 <name>$PROJ_DIR$\src\hal_entry.c</name>
             </file>
         </group>
-    </group>
-    <group>
-        <name>FreeRTOS</name>
-        <file>
-            <name>$PROJ_DIR$\packages\FreeRTOS_Wrapper-v1.0.0\FreeRTOS\event_groups.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\packages\FreeRTOS_Wrapper-v1.0.0\FreeRTOS\list.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\packages\FreeRTOS_Wrapper-v1.0.0\FreeRTOS\portable\rt-thread\port.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\packages\FreeRTOS_Wrapper-v1.0.0\FreeRTOS\queue.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\packages\FreeRTOS_Wrapper-v1.0.0\FreeRTOS\tasks.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\packages\FreeRTOS_Wrapper-v1.0.0\FreeRTOS\timers.c</name>
-        </file>
     </group>
     <group>
         <name>Kernel</name>
@@ -3720,21 +3399,6 @@
     </group>
     <group>
         <name>POSIX</name>
-    </group>
-    <group>
-        <name>usb_pmsc</name>
-        <file>
-            <name>$PROJ_DIR$\board\ports\pmsc\r_usb_pmsc_apl.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\board\ports\pmsc\r_usb_pmsc_descriptor.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\board\ports\pmsc\rm_block_media_ram_disk_format_data.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\board\ports\pmsc\rm_block_media_user_media.c</name>
-        </file>
     </group>
     <file>
         <name>$PROJ_DIR$\buildinfo.ipcf</name>

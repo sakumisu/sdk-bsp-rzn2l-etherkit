@@ -2918,12 +2918,6 @@
         </settings>
     </configuration>
     <group>
-        <name>at24cxx</name>
-        <file>
-            <name>$PROJ_DIR$\packages\at24cxx-latest\at24cxx.c</name>
-        </file>
-    </group>
-    <group>
         <name>Compiler</name>
         <file>
             <name>$PROJ_DIR$\rt-thread\components\libc\compilers\common\cctype.c</name>
@@ -3016,15 +3010,6 @@
             <name>$PROJ_DIR$\rt-thread\components\drivers\core\device.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\rt-thread\components\drivers\i2c\i2c-bit-ops.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\drivers\i2c\i2c_core.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\drivers\i2c\i2c_dev.c</name>
-        </file>
-        <file>
             <name>$PROJ_DIR$\rt-thread\components\drivers\pin\pin.c</name>
         </file>
         <file>
@@ -3053,9 +3038,6 @@
         </file>
         <file>
             <name>$PROJ_DIR$\libraries\HAL_Drivers\drv_gpio.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\libraries\HAL_Drivers\drv_i2c.c</name>
         </file>
         <file>
             <name>$PROJ_DIR$\libraries\HAL_Drivers\drv_usart_v2.c</name>
@@ -3103,9 +3085,6 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\rzn_cfg\fsp_cfg\bsp\bsp_pin_cfg.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn_cfg\fsp_cfg\r_iic_master_cfg.h</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\rzn_cfg\fsp_cfg\r_ioport_cfg.h</name>
@@ -3274,15 +3253,6 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\rzn\fsp\src\bsp\cmsis\Device\RENESAS\Include\R9A07G084.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\inc\api\r_i2c_master_api.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_iic_master\r_iic_master.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\inc\instances\r_iic_master.h</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\rzn\fsp\src\r_ioport\r_ioport.c</name>

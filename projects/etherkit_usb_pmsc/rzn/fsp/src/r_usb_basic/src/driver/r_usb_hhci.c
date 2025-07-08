@@ -1,22 +1,8 @@
-/***********************************************************************************************************************
- * Copyright [2020-2024] Renesas Electronics Corporation and/or its affiliates.  All Rights Reserved.
- *
- * This software and documentation are supplied by Renesas Electronics Corporation and/or its affiliates and may only
- * be used with products of Renesas Electronics Corp. and its affiliates ("Renesas").  No other uses are authorized.
- * Renesas products are sold pursuant to Renesas terms and conditions of sale.  Purchasers are solely responsible for
- * the selection and use of Renesas products and Renesas assumes no liability.  No license, express or implied, to any
- * intellectual property right is granted by Renesas.  This software is protected under all applicable laws, including
- * copyright laws. Renesas reserves the right to change or discontinue this software and/or this documentation.
- * THE SOFTWARE AND DOCUMENTATION IS DELIVERED TO YOU "AS IS," AND RENESAS MAKES NO REPRESENTATIONS OR WARRANTIES, AND
- * TO THE FULLEST EXTENT PERMISSIBLE UNDER APPLICABLE LAW, DISCLAIMS ALL WARRANTIES, WHETHER EXPLICITLY OR IMPLICITLY,
- * INCLUDING WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT, WITH RESPECT TO THE
- * SOFTWARE OR DOCUMENTATION.  RENESAS SHALL HAVE NO LIABILITY ARISING OUT OF ANY SECURITY VULNERABILITY OR BREACH.
- * TO THE MAXIMUM EXTENT PERMITTED BY LAW, IN NO EVENT WILL RENESAS BE LIABLE TO YOU IN CONNECTION WITH THE SOFTWARE OR
- * DOCUMENTATION (OR ANY PERSON OR ENTITY CLAIMING RIGHTS DERIVED FROM YOU) FOR ANY LOSS, DAMAGES, OR CLAIMS WHATSOEVER,
- * INCLUDING, WITHOUT LIMITATION, ANY DIRECT, CONSEQUENTIAL, SPECIAL, INDIRECT, PUNITIVE, OR INCIDENTAL DAMAGES; ANY
- * LOST PROFITS, OTHER ECONOMIC DAMAGE, PROPERTY DAMAGE, OR PERSONAL INJURY; AND EVEN IF RENESAS HAS BEEN ADVISED OF THE
- * POSSIBILITY OF SUCH LOSS, DAMAGES, CLAIMS OR COSTS.
- **********************************************************************************************************************/
+/*
+* Copyright (c) 2020 - 2025 Renesas Electronics Corporation and/or its affiliates
+*
+* SPDX-License-Identifier: BSD-3-Clause
+*/
 
 /***********************************************************************************************************************
  * File Name    : r_usb_hHci.c
@@ -37,30 +23,34 @@
 /***********************************************************************************************************************
  * Macro definitions
  ***********************************************************************************************************************/
-#define USB_HCI_MESS_MAX         (32U) /* Maximum number of HCI message buffers */
+#define USB_HCI_MESS_MAX              (32U) /* Maximum number of HCI message buffers */
 /* For RIIC */
-#define TUSB320LI_DEV_ADDRESS    (0x47U << 1)
+#define TUSB320LI_DEV_ADDRESS         (0x47U << 1)
 
-#define USB_VAL_0200             (0x0200U)
-#define USB_VAL_X40              (0x40U)
-#define USB_VAL_X08              (0x08U)
-#define USB_VAL_XC0              (0x000000C0U)
-#define USB_VAL_XFFCF            (0xFFFFFFCFU)
-#define USB_VAL_X0080            (0x00000080U)
-#define USB_VAL_XFF              (0xFFU)
-#define USB_VAL_66U              (66U)
+#define USB_VAL_0200                  (0x0200U)
+#define USB_VAL_X40                   (0x40U)
+#define USB_VAL_X08                   (0x08U)
+#define USB_VAL_XC0                   (0x000000C0U)
+#define USB_VAL_XFFCF                 (0xFFFFFFCFU)
+#define USB_VAL_X0080                 (0x00000080U)
+#define USB_VAL_XFF                   (0xFFU)
+#define USB_VAL_66U                   (66U)
 
-#define USB_VAL_LSDA             (0x00000200U)
-#define USB_VAL_POCI             (0x00000008U)
-#define USB_VAL_PO1              (0x00002000U)
-#define USB_VAL_PO0              (0xFFFFDFFFU)
-#define USB_VAL_POCI_1           (0x00000100U)
+#define USB_VAL_LSDA                  (0x00000200U)
+#define USB_VAL_POCI                  (0x00000008U)
+#define USB_VAL_PO1                   (0x00002000U)
+#define USB_VAL_PO0                   (0xFFFFDFFFU)
+#define USB_VAL_POCI_1                (0x00000100U)
 
-#define USB_VAL_PPS              (0x00000001U)
-#define USB_VAL_LPSC             (0x00010000U)
+#define USB_VAL_PPS                   (0x00000001U)
+#define USB_VAL_LPSC                  (0x00010000U)
 
-#define USB_VAL_NPS_A            (0xFFFFFDFFU)
-#define USB_VAL_NPS_B            (0x00000200U)
+#define USB_VAL_NPS_A                 (0xFFFFFDFFU)
+#define USB_VAL_NPS_B                 (0x00000200U)
+#if USB_HOST_COMPLIANCE_MODE == USB_CFG_ENABLE
+ #define USB_VAL_15000                (15000)
+ #define USB_TEST_VAL_PACKET_PARAM    (0x0108)
+#endif                                 /* USB_HOST_COMPLIANCE_MODE == USB_CFG_ENABLE */
 
 #if  USB_IP_EHCI_OHCI == 1
 
@@ -69,11 +59,6 @@
  ***********************************************************************************************************************/
 extern void usb_hstd_int_enable(void);
 extern void usb_hstd_int_disable(void);
-
- #ifdef USB_HOST_COMPLIANCE_MODE
-extern void usb_hstd_electrical_test_mode(uint16_t product_id, uint16_t port);
-
- #endif                                /* USB_HOST_COMPLIANCE_MODE */
 
 /***********************************************************************************************************************
  * Private global variables and functions
@@ -113,12 +98,10 @@ static st_usb_hci_endpoint_descriptor_t * usb_hstd_hci_search_endpoint_descripto
 
 static void usb_hub_diconnect_delay(void);
 
- #if 0
-static void     usb_hstd_hci_deinit(usb_utr_t * ptr);
-static uint16_t usb_hstd_hci_get_pid_status(uint16_t devaddr, uint16_t epnum);
-static uint32_t usb_hstd_hci_get_port_current_connect_status(uint16_t rootport);
+ #if USB_HOST_COMPLIANCE_MODE == USB_CFG_ENABLE
+void r_usb_hstd_hci_test_port_reset(uint16_t rootport);
 
- #endif
+ #endif                                /* USB_HOST_COMPLIANCE_MODE == USB_CFG_ENABLE */
 
  #ifdef RZA2_USB_OHCI_IP
 static void r_usb_port_clean_seq(void);
@@ -690,8 +673,8 @@ st_usb_hci_tr_req_t * usb_hstd_hci_alloc_transefer_request (void)
             memset(p_tr_req, 0, sizeof(st_usb_hci_tr_req_t));
 
             p_tr_req->bit.enable = TRUE;
- #if 0
-            R_MMU_VAtoPA((uint32_t) &usb_hci_setup_buffer[i][0], (uint32_t *) &p_tr_req->setupbuf);
+ #if defined(BSP_CFG_CORE_CA55)
+            p_tr_req->setupbuf = (uint32_t *) r_usb_va_to_pa((uint64_t) &usb_hci_setup_buffer[i][0]);
  #else
             p_tr_req->setupbuf = &usb_hci_setup_buffer[i][0];
  #endif
@@ -848,23 +831,23 @@ uint16_t r_usb_hstd_hci_make_transfer_request (void   * p_utr,
         p_tr_req->bit.direction = USB_HCI_DIRECTION_IN;
     }
 
-    p_tr_req->bit.epnum = epnum & 0x0000000FU;            /* Endpoint Number */
-    p_tr_req->trsize    = tranlen;                        /* Transfer Size */
- #if 0
-    R_MMU_VAtoPA((uint32_t) tranadr, &p_tr_req->databuf); /* Transfer Data Buffer */
+    p_tr_req->bit.epnum = epnum & 0x0000000FU;                         /* Endpoint Number */
+    p_tr_req->trsize    = tranlen;                                     /* Transfer Size */
+ #if defined(BSP_CFG_CORE_CA55)
+    p_tr_req->databuf = (uint32_t) r_usb_va_to_pa((uint64_t) tranadr); /* Transfer Data Buffer */
  #else
-    p_tr_req->databuf = tranadr;                          /* Transfer Data Buffer */
+    p_tr_req->databuf = tranadr;                                       /* Transfer Data Buffer */
  #endif
-    p_tr_req->utr_p = p_utr;                              /* Set UTR Pointer */
+    p_tr_req->utr_p = p_utr;                                           /* Set UTR Pointer */
 
     /* Control Transfer */
     if (USB_EP_CNTRL == eptype)
     {
         /* Setup Buffer */
         /* Because the data format is different, location is converted. */
- #if 0
-        p_dst = (uint8_t *) r_usb_pa_to_va((uint32_t) p_tr_req->setupbuf);
-        p_src = (uint8_t *) r_usb_pa_to_va((uint32_t) p_setup);
+ #if defined(BSP_CFG_CORE_CA55)
+        p_dst = (uint8_t *) (r_usb_pa_to_va((uint64_t) p_tr_req->setupbuf));
+        p_src = (uint8_t *) (r_usb_pa_to_va((uint64_t) p_setup));
  #else
         p_dst = (uint8_t *) p_tr_req->setupbuf;
         p_src = (uint8_t *) p_setup;
@@ -1303,8 +1286,27 @@ void r_usb_hstd_hci_set_device_address_of_hub_port (uint16_t hubaddr, uint16_t d
 /*********************/
 /* utility function  */
 /*********************/
- #ifdef USB_HOST_COMPLIANCE_MODE
-void r_usb_hstd_hci_electrical_test (uint16_t rootport, uint8_t mode)
+ #if USB_HOST_COMPLIANCE_MODE == 1
+void r_usb_hstd_hci_test_port_reset (uint16_t rootport)
+{
+    uint16_t devaddr;
+
+    devaddr = usb_hstd_ehci_get_device_address_of_rootpoot(rootport);
+    if (USB_HCI_NODEVICE != devaddr)
+    {
+        usb_hstd_ehci_port_reset(rootport);
+    }
+    else
+    {
+        devaddr = usb_hstd_ohci_get_device_address_of_rootpoot(rootport);
+        if (USB_HCI_NODEVICE != devaddr)
+        {
+            usb_hstd_ohci_port_reset(rootport);
+        }
+    }
+}                                      /* End of function r_usb_hstd_hci_port_reset() */
+
+void r_usb_hstd_hci_electrical_test (usb_utr_t * ptr, uint16_t rootport, uint8_t mode)
 {
     switch (mode)
     {
@@ -1352,20 +1354,20 @@ void r_usb_hstd_hci_electrical_test (uint16_t rootport, uint8_t mode)
             break;
         }
 
-        case 4:                              /* Suspend/Resume */
+        case 4:                                      /* Suspend/Resume */
         {
-            r_usb_hstd_hci_wait_time(15000); /* wait 15sec */
-            USB00->PORTSC1_b.SUSPEND = 1;    /* Suspend */
-            r_usb_hstd_hci_wait_time(15000); /* wait 15sec */
-            USB00->PORTSC1_b.FRCPTRSM = 1;   /* Resume start */
-            r_usb_hstd_hci_wait_time(20);    /* wait 20ms */
-            USB00->PORTSC1_b.FRCPTRSM = 0;   /* Resume end */
+            r_usb_hstd_hci_wait_time(USB_VAL_15000); /* wait 15sec */
+            USB00->PORTSC1_b.SUSPEND = 1;            /* Suspend */
+            r_usb_hstd_hci_wait_time(USB_VAL_15000); /* wait 15sec */
+            USB00->PORTSC1_b.FRCPTRSM = 1;           /* Resume start */
+            r_usb_hstd_hci_wait_time(20);            /* wait 20ms */
+            USB00->PORTSC1_b.FRCPTRSM = 0;           /* Resume end */
             break;
         }
 
-        case 5:                              /* Packet Parameters */
+        case 5:                                      /* Packet Parameters */
         {
-            usb_hstd_electrical_test_mode(0x0108, rootport);
+            usb_hstd_electrical_test_mode(ptr, USB_TEST_VAL_PACKET_PARAM, rootport);
             break;
         }
 
@@ -1374,14 +1376,14 @@ void r_usb_hstd_hci_electrical_test (uint16_t rootport, uint8_t mode)
             USB00->PORTSC1_b.SUSPEND = 1;
             if (1 == USB00->PORTSC1_b.CCSTS)
             {
-                USB00->USBINTR = 0x00000000;     /* Disable interrupt */
-                r_usb_hstd_hci_port_reset(rootport);
-                r_usb_hstd_hci_wait_time(15000); /* wait 15sec */
+                USB00->USBINTR = 0x00000000;             /* Disable interrupt */
+                r_usb_hstd_hci_test_port_reset(rootport);
+                r_usb_hstd_hci_wait_time(USB_VAL_15000); /* wait 15sec */
             }
 
             if (1 == USB00->PORTSC1_b.CCSTS)
             {
-                r_usb_hstd_hci_port_reset(rootport);
+                r_usb_hstd_hci_test_port_reset(rootport);
             }
 
             USB00->USBINTR = 0x00000007; /* PortChange, USBError, USBInt */

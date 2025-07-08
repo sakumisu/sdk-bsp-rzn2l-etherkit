@@ -2998,9 +2998,6 @@
     <group>
         <name>DeviceDrivers</name>
         <file>
-            <name>$PROJ_DIR$\rt-thread\components\drivers\rtc\alarm.c</name>
-        </file>
-        <file>
             <name>$PROJ_DIR$\rt-thread\components\drivers\ipc\completion.c</name>
         </file>
         <file>
@@ -3025,13 +3022,7 @@
             <name>$PROJ_DIR$\rt-thread\components\drivers\ipc\ringbuffer.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\rt-thread\components\drivers\rtc\rtc.c</name>
-        </file>
-        <file>
             <name>$PROJ_DIR$\rt-thread\components\drivers\serial\serial_v2.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\drivers\rtc\soft_rtc.c</name>
         </file>
         <file>
             <name>$PROJ_DIR$\rt-thread\components\drivers\ipc\waitqueue.c</name>
@@ -3047,9 +3038,6 @@
         </file>
         <file>
             <name>$PROJ_DIR$\libraries\HAL_Drivers\drv_gpio.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\libraries\HAL_Drivers\drv_rtc.c</name>
         </file>
         <file>
             <name>$PROJ_DIR$\libraries\HAL_Drivers\drv_usart_v2.c</name>
@@ -3100,9 +3088,6 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\rzn_cfg\fsp_cfg\r_ioport_cfg.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn_cfg\fsp_cfg\r_rtc_cfg.h</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\rzn_cfg\fsp_cfg\r_sci_uart_cfg.h</name>
@@ -3277,15 +3262,6 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\rzn\fsp\inc\api\r_ioport_api.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_rtc\r_rtc.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\inc\instances\r_rtc.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\inc\api\r_rtc_api.h</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\rzn\fsp\src\r_sci_uart\r_sci_uart.c</name>

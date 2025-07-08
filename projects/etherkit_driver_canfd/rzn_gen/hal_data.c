@@ -28,7 +28,7 @@ extern const canfd_afl_entry_t p_canfd1_afl[CANFD_CFG_AFL_CH1_RULE_NUM];
 canfd_global_cfg_t g_canfd_global_cfg =
 {
     .global_interrupts = CANFD_CFG_GLOBAL_ERR_SOURCES,
-    .global_config     = (CANFD_CFG_TX_PRIORITY | CANFD_CFG_DLC_CHECK | CANFD_CFD_CLOCK_SOURCE | CANFD_CFG_FD_OVERFLOW),
+    .global_config     = (CANFD_CFG_TX_PRIORITY | CANFD_CFG_DLC_CHECK | CANFD_CFD_CLOCK_SOURCE | CANFD_CFG_FD_OVERFLOW | (uint32_t) (CANFD_CFG_TIMER_PRESCALER << R_CANFD_CFDGCFG_ITRCP_Pos)),
     .rx_mb_config      = (CANFD_CFG_RXMB_NUMBER | (CANFD_CFG_RXMB_SIZE << R_CANFD_CFDRMNB_RMPLS_Pos)),
     .global_err_ipl = CANFD_CFG_GLOBAL_ERR_IPL,
     .rx_fifo_ipl    = CANFD_CFG_RX_FIFO_IPL,
@@ -43,6 +43,15 @@ canfd_global_cfg_t g_canfd_global_cfg =
         ((CANFD_CFG_RXFIFO6_INT_THRESHOLD << R_CANFD_CFDRFCC_RFIGCV_Pos) | (CANFD_CFG_RXFIFO6_DEPTH << R_CANFD_CFDRFCC_RFDC_Pos) | (CANFD_CFG_RXFIFO6_PAYLOAD << R_CANFD_CFDRFCC_RFPLS_Pos) | (CANFD_CFG_RXFIFO6_INT_MODE) | (CANFD_CFG_RXFIFO6_ENABLE)),
         ((CANFD_CFG_RXFIFO7_INT_THRESHOLD << R_CANFD_CFDRFCC_RFIGCV_Pos) | (CANFD_CFG_RXFIFO7_DEPTH << R_CANFD_CFDRFCC_RFDC_Pos) | (CANFD_CFG_RXFIFO7_PAYLOAD << R_CANFD_CFDRFCC_RFPLS_Pos) | (CANFD_CFG_RXFIFO7_INT_MODE) | (CANFD_CFG_RXFIFO7_ENABLE)),
     },
+    .common_fifo_config =
+    {
+        CANFD_CFG_COMMONFIFO0,
+        CANFD_CFG_COMMONFIFO1,
+        CANFD_CFG_COMMONFIFO2,
+        CANFD_CFG_COMMONFIFO3,
+        CANFD_CFG_COMMONFIFO4,
+        CANFD_CFG_COMMONFIFO5,
+    }
 };
 #endif
 
@@ -65,6 +74,11 @@ const can_cfg_t g_canfd1_cfg =
     .p_extend               = &g_canfd1_extended_cfg,
     .p_context              = NULL,
     .ipl                    = (12),
+#if defined(VECTOR_NUMBER_CAN1_COMFRX)
+    .rx_irq             = VECTOR_NUMBER_CAN1_COMFRX,
+#else
+    .rx_irq             = FSP_INVALID_VECTOR,
+#endif
 #if defined(VECTOR_NUMBER_CAN1_TX)
     .tx_irq             = VECTOR_NUMBER_CAN1_TX,
 #else
@@ -111,7 +125,7 @@ extern const canfd_afl_entry_t p_canfd0_afl[CANFD_CFG_AFL_CH0_RULE_NUM];
 canfd_global_cfg_t g_canfd_global_cfg =
 {
     .global_interrupts = CANFD_CFG_GLOBAL_ERR_SOURCES,
-    .global_config     = (CANFD_CFG_TX_PRIORITY | CANFD_CFG_DLC_CHECK | CANFD_CFD_CLOCK_SOURCE | CANFD_CFG_FD_OVERFLOW),
+    .global_config     = (CANFD_CFG_TX_PRIORITY | CANFD_CFG_DLC_CHECK | CANFD_CFD_CLOCK_SOURCE | CANFD_CFG_FD_OVERFLOW | (uint32_t) (CANFD_CFG_TIMER_PRESCALER << R_CANFD_CFDGCFG_ITRCP_Pos)),
     .rx_mb_config      = (CANFD_CFG_RXMB_NUMBER | (CANFD_CFG_RXMB_SIZE << R_CANFD_CFDRMNB_RMPLS_Pos)),
     .global_err_ipl = CANFD_CFG_GLOBAL_ERR_IPL,
     .rx_fifo_ipl    = CANFD_CFG_RX_FIFO_IPL,
@@ -126,6 +140,15 @@ canfd_global_cfg_t g_canfd_global_cfg =
         ((CANFD_CFG_RXFIFO6_INT_THRESHOLD << R_CANFD_CFDRFCC_RFIGCV_Pos) | (CANFD_CFG_RXFIFO6_DEPTH << R_CANFD_CFDRFCC_RFDC_Pos) | (CANFD_CFG_RXFIFO6_PAYLOAD << R_CANFD_CFDRFCC_RFPLS_Pos) | (CANFD_CFG_RXFIFO6_INT_MODE) | (CANFD_CFG_RXFIFO6_ENABLE)),
         ((CANFD_CFG_RXFIFO7_INT_THRESHOLD << R_CANFD_CFDRFCC_RFIGCV_Pos) | (CANFD_CFG_RXFIFO7_DEPTH << R_CANFD_CFDRFCC_RFDC_Pos) | (CANFD_CFG_RXFIFO7_PAYLOAD << R_CANFD_CFDRFCC_RFPLS_Pos) | (CANFD_CFG_RXFIFO7_INT_MODE) | (CANFD_CFG_RXFIFO7_ENABLE)),
     },
+    .common_fifo_config =
+    {
+        CANFD_CFG_COMMONFIFO0,
+        CANFD_CFG_COMMONFIFO1,
+        CANFD_CFG_COMMONFIFO2,
+        CANFD_CFG_COMMONFIFO3,
+        CANFD_CFG_COMMONFIFO4,
+        CANFD_CFG_COMMONFIFO5,
+    }
 };
 #endif
 
@@ -148,6 +171,11 @@ const can_cfg_t g_canfd0_cfg =
     .p_extend               = &g_canfd0_extended_cfg,
     .p_context              = NULL,
     .ipl                    = (12),
+#if defined(VECTOR_NUMBER_CAN0_COMFRX)
+    .rx_irq             = VECTOR_NUMBER_CAN0_COMFRX,
+#else
+    .rx_irq             = FSP_INVALID_VECTOR,
+#endif
 #if defined(VECTOR_NUMBER_CAN0_TX)
     .tx_irq             = VECTOR_NUMBER_CAN0_TX,
 #else

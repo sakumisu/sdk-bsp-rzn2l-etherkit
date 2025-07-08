@@ -1,22 +1,8 @@
-/***********************************************************************************************************************
- * Copyright [2020-2024] Renesas Electronics Corporation and/or its affiliates.  All Rights Reserved.
- *
- * This software and documentation are supplied by Renesas Electronics Corporation and/or its affiliates and may only
- * be used with products of Renesas Electronics Corp. and its affiliates ("Renesas").  No other uses are authorized.
- * Renesas products are sold pursuant to Renesas terms and conditions of sale.  Purchasers are solely responsible for
- * the selection and use of Renesas products and Renesas assumes no liability.  No license, express or implied, to any
- * intellectual property right is granted by Renesas.  This software is protected under all applicable laws, including
- * copyright laws. Renesas reserves the right to change or discontinue this software and/or this documentation.
- * THE SOFTWARE AND DOCUMENTATION IS DELIVERED TO YOU "AS IS," AND RENESAS MAKES NO REPRESENTATIONS OR WARRANTIES, AND
- * TO THE FULLEST EXTENT PERMISSIBLE UNDER APPLICABLE LAW, DISCLAIMS ALL WARRANTIES, WHETHER EXPLICITLY OR IMPLICITLY,
- * INCLUDING WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT, WITH RESPECT TO THE
- * SOFTWARE OR DOCUMENTATION.  RENESAS SHALL HAVE NO LIABILITY ARISING OUT OF ANY SECURITY VULNERABILITY OR BREACH.
- * TO THE MAXIMUM EXTENT PERMITTED BY LAW, IN NO EVENT WILL RENESAS BE LIABLE TO YOU IN CONNECTION WITH THE SOFTWARE OR
- * DOCUMENTATION (OR ANY PERSON OR ENTITY CLAIMING RIGHTS DERIVED FROM YOU) FOR ANY LOSS, DAMAGES, OR CLAIMS WHATSOEVER,
- * INCLUDING, WITHOUT LIMITATION, ANY DIRECT, CONSEQUENTIAL, SPECIAL, INDIRECT, PUNITIVE, OR INCIDENTAL DAMAGES; ANY
- * LOST PROFITS, OTHER ECONOMIC DAMAGE, PROPERTY DAMAGE, OR PERSONAL INJURY; AND EVEN IF RENESAS HAS BEEN ADVISED OF THE
- * POSSIBILITY OF SUCH LOSS, DAMAGES, CLAIMS OR COSTS.
- **********************************************************************************************************************/
+/*
+* Copyright (c) 2020 - 2025 Renesas Electronics Corporation and/or its affiliates
+*
+* SPDX-License-Identifier: BSD-3-Clause
+*/
 
 /***********************************************************************************************************************
  * File Name    : r_usb_hmanager.c
@@ -33,9 +19,11 @@
  ***********************************************************************************************************************/
 #include <string.h>
 
+#include "r_usb_basic_local.h"
+#include "r_usb_hhci.h"
+#include "r_usb_extern.h"
+
 #if  USB_IP_EHCI_OHCI == 1
- #include "r_usb_basic_local.h"
- #include "r_usb_hhci.h"
 
 /***********************************************************************************************************************
  * Macro definitions
@@ -58,10 +46,8 @@
  * uint16_t            g_usb_hstd_device_num;                         //    Device driver number
  * uint16_t            g_usb_hstd_check_enu_result;
  */
- #ifdef USB_HOST_COMPLIANCE_MODE
+ #if USB_HOST_COMPLIANCE_MODE == USB_CFG_ENABLE
 volatile uint8_t g_usb_hstd_test_packet_parameter_flag = 0;
-void usb_hstd_electrical_test_mode(uint16_t product_id, uint16_t port);
-
  #endif                                /* USB_HOST_COMPLIANCE_MODE */
 
 /***********************************************************************************************************************
@@ -76,7 +62,16 @@ void usb_hstd_electrical_test_mode(uint16_t product_id, uint16_t port);
  #ifdef __CC_ARM
  #endif                                /* __CC_ARM */
 
- #ifdef USB_HOST_COMPLIANCE_MODE
+ #if USB_HOST_COMPLIANCE_MODE == USB_CFG_ENABLE
+
+  #define USB_TEST_VAL_SE0_NAK              (0x0101)
+  #define USB_TEST_VAL_J                    (0x0102)
+  #define USB_TEST_VAL_K                    (0x0103)
+  #define USB_TEST_VAL_TEST_PACKET          (0x0104)
+  #define USB_TEST_VAL_RESERVED             (0x0105)
+  #define USB_TEST_VAL_SUSPEND_RESUME       (0x0106)
+  #define USB_TEST_VAL_GET_DEV_DESC         (0x0107)
+  #define USB_TEST_VAL_GET_DEV_DESC_DATA    (0x0108)
 
 /***********************************************************************************************************************
  * Function Name   : usb_hstd_electrical_test_mode
@@ -85,7 +80,7 @@ void usb_hstd_electrical_test_mode(uint16_t product_id, uint16_t port);
  *              : port                : rootport number
  * Return          : none
  ***********************************************************************************************************************/
-void usb_hstd_electrical_test_mode (uint16_t product_id, uint16_t port)
+void usb_hstd_electrical_test_mode (usb_utr_t * ptr, uint16_t product_id, uint16_t port)
 {
     uint16_t dev_addr;
 
@@ -93,52 +88,52 @@ void usb_hstd_electrical_test_mode (uint16_t product_id, uint16_t port)
 
     switch (product_id)
     {
-        case 0x0101:                   /* Test_SE0_NAK */
+        case USB_TEST_VAL_SE0_NAK:     /* Test_SE0_NAK */
         {
-            r_usb_hstd_hci_electrical_test(port, 0);
+            r_usb_hstd_hci_electrical_test(ptr, port, 0);
             break;
         }
 
-        case 0x0102:                   /* Test_J */
+        case USB_TEST_VAL_J:           /* Test_J */
         {
-            r_usb_hstd_hci_electrical_test(port, 1);
+            r_usb_hstd_hci_electrical_test(ptr, port, 1);
             break;
         }
 
-        case 0x0103:                   /* Test_K */
+        case USB_TEST_VAL_K:           /* Test_K */
         {
-            r_usb_hstd_hci_electrical_test(port, 2);
+            r_usb_hstd_hci_electrical_test(ptr, port, 2);
             break;
         }
 
-        case 0x0104:                   /* Test_Packet */
+        case USB_TEST_VAL_TEST_PACKET: /* Test_Packet */
         {
-            r_usb_hstd_hci_electrical_test(port, 3);
+            r_usb_hstd_hci_electrical_test(ptr, port, 3);
             break;
         }
 
-        case 0x0105:                   /* Reserved */
+        case USB_TEST_VAL_RESERVED:    /* Reserved */
         {
             break;
         }
 
-        case 0x0106:                   /* HS_HOST_PORT_SUSPEND_RESUME */
+        case USB_TEST_VAL_SUSPEND_RESUME: /* HS_HOST_PORT_SUSPEND_RESUME */
         {
-            r_usb_hstd_hci_electrical_test(port, 4);
+            r_usb_hstd_hci_electrical_test(ptr, port, 4);
             break;
         }
 
-        case 0x0107:                   /* SINGLE_STEP_GET_DEV_DESC */
+        case USB_TEST_VAL_GET_DEV_DESC: /* SINGLE_STEP_GET_DEV_DESC */
         {
             /* R_USB_HstdDelayXms(15000); */            /* wait 15sec */
-            usb_hstd_enum_get_descriptor(dev_addr, 0);
+            usb_hstd_enum_get_descriptor(ptr, dev_addr, 0);
             break;
         }
 
-        case 0x0108:                   /* SINGLE_STEP_GET_DEV_DESC_DATA */
+        case USB_TEST_VAL_GET_DEV_DESC_DATA: /* SINGLE_STEP_GET_DEV_DESC_DATA */
         {
             g_usb_hstd_test_packet_parameter_flag = 1;
-            usb_hstd_enum_get_descriptor(dev_addr, 0);
+            usb_hstd_enum_get_descriptor(ptr, dev_addr, 0);
             break;
         }
 

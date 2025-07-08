@@ -37,62 +37,6 @@ const ether_switch_instance_t g_ethsw0 =
     .p_cfg         = &g_ethsw0_cfg,
     .p_api         = &g_ether_switch_on_ethsw
 };
-ether_selector_instance_ctrl_t g_ether_selector2_ctrl;
-
-const ether_selector_cfg_t g_ether_selector2_cfg =
-{
-    .channel                   = 2,
-    .phylink                   = ETHER_SELECTOR_PHYLINK_POLARITY_LOW,
-    .interface                 = ETHER_SELECTOR_INTERFACE_RGMII,
-    .speed                     = ETHER_SELECTOR_SPEED_100_MBPS,
-    .duplex                    = ETHER_SELECTOR_DUPLEX_FULL,
-    .ref_clock                 = ETHER_SELECTOR_REF_CLOCK_INPUT,
-    .p_extend                  = NULL,
-};
-
-/* Instance structure to use this module. */
-const ether_selector_instance_t g_ether_selector2 =
-{
-    .p_ctrl        = &g_ether_selector2_ctrl,
-    .p_cfg         = &g_ether_selector2_cfg,
-    .p_api         = &g_ether_selector_on_ether_selector
-};
-ether_phy_instance_ctrl_t g_ether_phy2_ctrl;
-
-const ether_phy_extend_cfg_t g_ether_phy2_extend =
-{
-    .port_type           = ETHER_PHY_PORT_TYPE_ETHERNET,
-    .mdio_type           = ETHER_PHY_MDIO_GMAC,
-    .bps                 = ETHER_PHY_SPEED_100,
-    .duplex              = ETHER_PHY_DUPLEX_FULL,
-    .auto_negotiation    = ETHER_PHY_AUTO_NEGOTIATION_ON,
-    .phy_reset_pin       = BSP_IO_PORT_13_PIN_4,
-    .phy_reset_time      = 15000,
-    .p_selector_instance = (ether_selector_instance_t *)&g_ether_selector2,
-    .p_target_init       = ether_phy_targets_initialize_rtl8211_rgmii,
-};
-
-const ether_phy_cfg_t g_ether_phy2_cfg =
-{
-
-    .channel                   = 2,
-    .phy_lsi_address           = 3,
-    .phy_reset_wait_time       = 0x00020000,
-    .mii_bit_access_wait_time  = 0,                         // Unused
-    .phy_lsi_type              = ETHER_PHY_LSI_TYPE_CUSTOM,
-    .flow_control              = ETHER_PHY_FLOW_CONTROL_DISABLE,
-    .mii_type                  = (ether_phy_mii_type_t) 0,  // Unused
-    .p_context                 = NULL,
-    .p_extend                  = &g_ether_phy2_extend
-};
-
-/* Instance structure to use this module. */
-const ether_phy_instance_t g_ether_phy2 =
-{
-    .p_ctrl        = &g_ether_phy2_ctrl,
-    .p_cfg         = &g_ether_phy2_cfg,
-    .p_api         = &g_ether_phy_on_ether_phy
-};
 ether_selector_instance_ctrl_t g_ether_selector1_ctrl;
 
 const ether_selector_cfg_t g_ether_selector1_cfg =
@@ -218,17 +162,28 @@ const ether_phy_instance_t *g_ether0_phy_instance[BSP_FEATURE_GMAC_MAX_PORTS] =
 #else
                     &g_ether_phy1,
 #endif
-#if (FSP_NOT_DEFINED == g_ether_phy2)
+#if (FSP_NOT_DEFINED == FSP_NOT_DEFINED)
                     NULL,
 #else
-                    &g_ether_phy2,
+                    &FSP_NOT_DEFINED,
 #endif
 #undef FSP_NOT_DEFINED
             };
 
             gmac_instance_ctrl_t g_ether0_ctrl;
 
+#define ETHER_MAC_ADDRESS_INVALID (0)
+#define ETHER_MAC_ADDRESS_VALID   (1)
+
             uint8_t g_ether0_mac_address[6] = { 0x00,0x11,0x22,0x33,0x44,0x55 };
+
+#if ETHER_MAC_ADDRESS_INVALID == ETHER_MAC_ADDRESS_VALID
+            uint8_t g_ether0_mac_address_1[6] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
+#endif
+
+#if ETHER_MAC_ADDRESS_INVALID == ETHER_MAC_ADDRESS_VALID
+            uint8_t g_ether0_mac_address_2[6] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
+#endif
 
             __attribute__((__aligned__(16))) gmac_instance_descriptor_t g_ether0_tx_descriptors[8] ETHER_BUFFER_PLACE_IN_SECTION;
             __attribute__((__aligned__(16))) gmac_instance_descriptor_t g_ether0_rx_descriptors[8] ETHER_BUFFER_PLACE_IN_SECTION;
@@ -288,8 +243,19 @@ uint8_t *pp_g_ether0_ether_buffers[( 8 + 8 )] = {
                 .pp_phy_instance         = (ether_phy_instance_t const *(*)[BSP_FEATURE_GMAC_MAX_PORTS]) g_ether0_phy_instance,
 
 #if defined(GMAC_IMPLEMENT_ETHSW)
-                .p_ethsw_instance        = &g_ethsw0
+                .p_ethsw_instance        = &g_ethsw0,
 #endif // GMAC_IMPLEMENT_ETHSW
+
+#if ETHER_MAC_ADDRESS_INVALID == ETHER_MAC_ADDRESS_VALID
+                .p_mac_address1          = g_ether0_mac_address_1,
+#else
+                .p_mac_address1          = NULL,
+#endif
+#if ETHER_MAC_ADDRESS_INVALID == ETHER_MAC_ADDRESS_VALID
+                .p_mac_address2          = g_ether0_mac_address_2
+#else
+                .p_mac_address2          = NULL,
+#endif
             };
 
             const ether_cfg_t g_ether0_cfg =

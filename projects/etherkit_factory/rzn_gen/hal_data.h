@@ -37,6 +37,41 @@ extern const timer_cfg_t g_timer17_cfg;
 #ifndef gpt17_timing_callback
 void gpt17_timing_callback(timer_callback_args_t * p_args);
 #endif
+#ifndef NULL
+void NULL(timer_callback_args_t * p_args);
+#endif
+
+/** Error check the duplicated channel number, same GPT_INT number between MTU3 and GPT */
+#if (1 == BSP_FEATURE_BSP_IRQ_GPT_SEL_SUPPORTED)
+ #ifndef TIMER_GPT01_3_INT0_DISABLE
+  #define TIMER_GPT01_3_INT0_DISABLE
+ #else
+  #ifdef TIMER_GPT01_3_INT0_ENABLE
+   #error "GPT_INT0 of GPT_SEL cannot be duplicated"
+  #endif
+ #endif
+ #ifndef TIMER_GPT01_3_INT1_DISABLE
+  #define TIMER_GPT01_3_INT1_DISABLE
+ #else
+  #ifdef TIMER_GPT01_3_INT1_ENABLE
+   #error "GPT_INT1 of GPT_SEL cannot be duplicated"
+  #endif
+ #endif
+ #ifndef TIMER_GPT01_3_INT2_DISABLE
+  #define TIMER_GPT01_3_INT2_DISABLE
+ #else
+  #ifdef TIMER_GPT01_3_INT2_ENABLE
+   #error "GPT_INT2 of GPT_SEL cannot be duplicated"
+  #endif
+ #endif
+ #ifndef TIMER_GPT01_3_INT3_DISABLE
+  #define TIMER_GPT01_3_INT3_DISABLE
+ #else
+  #ifdef TIMER_GPT01_3_INT3_ENABLE
+   #error "GPT_INT3 of GPT_SEL cannot be duplicated"
+  #endif
+ #endif
+#endif
 /** Timer on GPT Instance. */
 extern const timer_instance_t g_timer14;
 
@@ -46,6 +81,41 @@ extern const timer_cfg_t g_timer14_cfg;
 
 #ifndef gpt14_timing_callback
 void gpt14_timing_callback(timer_callback_args_t * p_args);
+#endif
+#ifndef NULL
+void NULL(timer_callback_args_t * p_args);
+#endif
+
+/** Error check the duplicated channel number, same GPT_INT number between MTU3 and GPT */
+#if (1 == BSP_FEATURE_BSP_IRQ_GPT_SEL_SUPPORTED)
+ #ifndef TIMER_GPT01_1_INT0_DISABLE
+  #define TIMER_GPT01_1_INT0_DISABLE
+ #else
+  #ifdef TIMER_GPT01_1_INT0_ENABLE
+   #error "GPT_INT0 of GPT_SEL cannot be duplicated"
+  #endif
+ #endif
+ #ifndef TIMER_GPT01_1_INT1_DISABLE
+  #define TIMER_GPT01_1_INT1_DISABLE
+ #else
+  #ifdef TIMER_GPT01_1_INT1_ENABLE
+   #error "GPT_INT1 of GPT_SEL cannot be duplicated"
+  #endif
+ #endif
+ #ifndef TIMER_GPT01_1_INT2_DISABLE
+  #define TIMER_GPT01_1_INT2_DISABLE
+ #else
+  #ifdef TIMER_GPT01_1_INT2_ENABLE
+   #error "GPT_INT2 of GPT_SEL cannot be duplicated"
+  #endif
+ #endif
+ #ifndef TIMER_GPT01_1_INT3_DISABLE
+  #define TIMER_GPT01_1_INT3_DISABLE
+ #else
+  #ifdef TIMER_GPT01_1_INT3_ENABLE
+   #error "GPT_INT3 of GPT_SEL cannot be duplicated"
+  #endif
+ #endif
 #endif
 /** Timer on GPT Instance. */
 extern const timer_instance_t g_timer15;
@@ -57,6 +127,41 @@ extern const timer_cfg_t g_timer15_cfg;
 #ifndef gpt15_timing_callback
 void gpt15_timing_callback(timer_callback_args_t * p_args);
 #endif
+#ifndef NULL
+void NULL(timer_callback_args_t * p_args);
+#endif
+
+/** Error check the duplicated channel number, same GPT_INT number between MTU3 and GPT */
+#if (1 == BSP_FEATURE_BSP_IRQ_GPT_SEL_SUPPORTED)
+ #ifndef TIMER_GPT00_2_INT0_DISABLE
+  #define TIMER_GPT00_2_INT0_DISABLE
+ #else
+  #ifdef TIMER_GPT00_2_INT0_ENABLE
+   #error "GPT_INT0 of GPT_SEL cannot be duplicated"
+  #endif
+ #endif
+ #ifndef TIMER_GPT00_2_INT1_DISABLE
+  #define TIMER_GPT00_2_INT1_DISABLE
+ #else
+  #ifdef TIMER_GPT00_2_INT1_ENABLE
+   #error "GPT_INT1 of GPT_SEL cannot be duplicated"
+  #endif
+ #endif
+ #ifndef TIMER_GPT00_2_INT2_DISABLE
+  #define TIMER_GPT00_2_INT2_DISABLE
+ #else
+  #ifdef TIMER_GPT00_2_INT2_ENABLE
+   #error "GPT_INT2 of GPT_SEL cannot be duplicated"
+  #endif
+ #endif
+ #ifndef TIMER_GPT00_2_INT3_DISABLE
+  #define TIMER_GPT00_2_INT3_DISABLE
+ #else
+  #ifdef TIMER_GPT00_2_INT3_ENABLE
+   #error "GPT_INT3 of GPT_SEL cannot be duplicated"
+  #endif
+ #endif
+#endif
 /** Timer on GPT Instance. */
 extern const timer_instance_t g_timer6;
 
@@ -67,6 +172,41 @@ extern const timer_cfg_t g_timer6_cfg;
 #ifndef gpt6_timing_callback
 void gpt6_timing_callback(timer_callback_args_t * p_args);
 #endif
+#ifndef NULL
+void NULL(timer_callback_args_t * p_args);
+#endif
+
+/** Error check the duplicated channel number, same GPT_INT number between MTU3 and GPT */
+#if (1 == BSP_FEATURE_BSP_IRQ_GPT_SEL_SUPPORTED)
+ #ifndef TIMER_GPT00_1_INT0_DISABLE
+  #define TIMER_GPT00_1_INT0_DISABLE
+ #else
+  #ifdef TIMER_GPT00_1_INT0_ENABLE
+   #error "GPT_INT0 of GPT_SEL cannot be duplicated"
+  #endif
+ #endif
+ #ifndef TIMER_GPT00_1_INT1_DISABLE
+  #define TIMER_GPT00_1_INT1_DISABLE
+ #else
+  #ifdef TIMER_GPT00_1_INT1_ENABLE
+   #error "GPT_INT1 of GPT_SEL cannot be duplicated"
+  #endif
+ #endif
+ #ifndef TIMER_GPT00_1_INT2_DISABLE
+  #define TIMER_GPT00_1_INT2_DISABLE
+ #else
+  #ifdef TIMER_GPT00_1_INT2_ENABLE
+   #error "GPT_INT2 of GPT_SEL cannot be duplicated"
+  #endif
+ #endif
+ #ifndef TIMER_GPT00_1_INT3_DISABLE
+  #define TIMER_GPT00_1_INT3_DISABLE
+ #else
+  #ifdef TIMER_GPT00_1_INT3_ENABLE
+   #error "GPT_INT3 of GPT_SEL cannot be duplicated"
+  #endif
+ #endif
+#endif
 /** Timer on GPT Instance. */
 extern const timer_instance_t g_timer5;
 
@@ -76,6 +216,41 @@ extern const timer_cfg_t g_timer5_cfg;
 
 #ifndef gpt5_timing_callback
 void gpt5_timing_callback(timer_callback_args_t * p_args);
+#endif
+#ifndef NULL
+void NULL(timer_callback_args_t * p_args);
+#endif
+
+/** Error check the duplicated channel number, same GPT_INT number between MTU3 and GPT */
+#if (1 == BSP_FEATURE_BSP_IRQ_GPT_SEL_SUPPORTED)
+ #ifndef TIMER_GPT00_3_INT0_DISABLE
+  #define TIMER_GPT00_3_INT0_DISABLE
+ #else
+  #ifdef TIMER_GPT00_3_INT0_ENABLE
+   #error "GPT_INT0 of GPT_SEL cannot be duplicated"
+  #endif
+ #endif
+ #ifndef TIMER_GPT00_3_INT1_DISABLE
+  #define TIMER_GPT00_3_INT1_DISABLE
+ #else
+  #ifdef TIMER_GPT00_3_INT1_ENABLE
+   #error "GPT_INT1 of GPT_SEL cannot be duplicated"
+  #endif
+ #endif
+ #ifndef TIMER_GPT00_3_INT2_DISABLE
+  #define TIMER_GPT00_3_INT2_DISABLE
+ #else
+  #ifdef TIMER_GPT00_3_INT2_ENABLE
+   #error "GPT_INT2 of GPT_SEL cannot be duplicated"
+  #endif
+ #endif
+ #ifndef TIMER_GPT00_3_INT3_DISABLE
+  #define TIMER_GPT00_3_INT3_DISABLE
+ #else
+  #ifdef TIMER_GPT00_3_INT3_ENABLE
+   #error "GPT_INT3 of GPT_SEL cannot be duplicated"
+  #endif
+ #endif
 #endif
 /** CANFD on CANFD Instance. */
 extern const can_instance_t g_canfd1;

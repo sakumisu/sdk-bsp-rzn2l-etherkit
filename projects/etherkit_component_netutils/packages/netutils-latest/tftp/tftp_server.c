@@ -509,8 +509,8 @@ void tftp_server_run(struct tftp_server *server)
             /* Client data handle */
             for (i = 0; i < _private->table_num; i++)
             {
-                rt_kprintf("%d\n", FD_ISSET(_private->client_table[i].xfer->sock, &_private->fdr));
-                if (_private->client_table[i].xfer != NULL)
+                if (_private->client_table[i].xfer != NULL &&
+                    FD_ISSET(_private->client_table[i].xfer->sock, &_private->fdr))
                 {
                     client_xfer = tftp_client_xfer_get(server, i);
                     tftp_server_transf_handle(server, client_xfer, TFTP_SERVER_EVENT_DATA, packet);

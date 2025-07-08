@@ -1,5 +1,5 @@
 FSP Configuration
-  Board "RSK+RZN2L (xSPI0 x1 boot mode)"
+  Board "RSK+RZN2L|RSK+RZN2L (xSPI0 x1 boot mode)"
     Parameter information for the loader: CACHE_FLG: 0x00000000
     Parameter information for the loader: WRAPCFG_V: 0x00000000
     Parameter information for the loader: COMCFG_V: 0x00000000
@@ -12,6 +12,7 @@ FSP Configuration
     Parameter information for the loader: LIOCFGCS0_V: 0x00070000
     Parameter information for the loader: ACCESS_SPEED: 0x00000006
     Parameter information for the loader: CHECK_SUM: Auto Calculate.
+    Use loader parameter: Used
     
   R9A07G084M04GBG
     part_number: R9A07G084M04GBG
@@ -595,7 +596,7 @@ FSP Configuration
     SPI1ASYNCCLK: 96MHz
     SPI2ASYNCCLK: 96MHz
     SPI3ASYNCCLK: 96MHz
-    PCLKCAN 40MHz
+    CANFDCLK Src: PCLKCAN 40MHz
     XSPI_CLK0 133.3MHz
     XSPI_CLK1 75MHz
     
@@ -1093,6 +1094,17 @@ FSP Configuration
     Parameter Checking: Default (BSP)
     Unit 0 Prefetch Function: Enable
     Unit 1 Prefetch Function: Enable
+    Unit 0 IO voltage: Not Supported
+    Unit 1 IO voltage: Not Supported
+    Custom Address Space: Unit0: CS0: Start Address: 0x60000000
+    Custom Address Space: Unit0: CS0: End Address: 0x400FFFFF
+    Custom Address Space: Unit0: CS1: Start Address: 0x48000000
+    Custom Address Space: Unit0: CS1: End Address: 0x480FFFFF
+    Custom Address Space: Unit1: CS0: Start Address: 0x68000000
+    Custom Address Space: Unit1: CS0: End Address: 0x500FFFFF
+    Custom Address Space: Unit1: CS1: Start Address: 0x58000000
+    Custom Address Space: Unit1: CS1: End Address: 0x580FFFFF
+    Custom Address Space: Custom Address Space Enable: Disable
     
   Module "ADC (r_adc)"
     Parameter Checking: Default (BSP)
@@ -1116,7 +1128,6 @@ FSP Configuration
     Global Error Interrupt: Callback Channel: Channel 1
     Transmission Priority: Buffer Number
     DLC Check: Disabled
-    Clock Source: PCLKCAN
     Flexible Data (FD): Protocol Exceptions: Enabled (ISO 11898-1)
     Flexible Data (FD): Payload Overflow: Reject
     Reception: Message Buffers: Number of Buffers: 0
@@ -1162,6 +1173,79 @@ FSP Configuration
     Reception: FIFOs: FIFO 7: Interrupt Threshold: 1/2 full
     Reception: FIFOs: FIFO 7: Payload Size: 64 bytes
     Reception: FIFOs: FIFO 7: Depth: 16 stages
+    Common FIFOs: Interval Timer Reference Clock Prescaler: 0
+    Common FIFOs: FIFO 0: Enable: Disabled
+    Common FIFOs: FIFO 0: Mode: Receive
+    Common FIFOs: FIFO 0: RX Interrupt Enable: Disabled
+    Common FIFOs: FIFO 0: TX Interrupt Enable: Disabled
+    Common FIFOs: FIFO 0: Interrupt Mode: At Threshold Value
+    Common FIFOs: FIFO 0: Interrupt Threshold: 1/2 full
+    Common FIFOs: FIFO 0: Payload Size: 64 bytes
+    Common FIFOs: FIFO 0: Depth: 16 stages
+    Common FIFOs: FIFO 0: TX Message Buffer: TX Message Buffer 32
+    Common FIFOs: FIFO 0: Interval TX Delay: 0
+    Common FIFOs: FIFO 0: Interval Timer: Reference clock
+    Common FIFOs: FIFO 0: Interval Timer Reference Clock Resolution: x1
+    Common FIFOs: FIFO 1: Enable: Disabled
+    Common FIFOs: FIFO 1: Mode: Receive
+    Common FIFOs: FIFO 1: RX Interrupt Enable: Disabled
+    Common FIFOs: FIFO 1: TX Interrupt Enable: Disabled
+    Common FIFOs: FIFO 1: Interrupt Mode: At Threshold Value
+    Common FIFOs: FIFO 1: Interrupt Threshold: 1/2 full
+    Common FIFOs: FIFO 1: Payload Size: 64 bytes
+    Common FIFOs: FIFO 1: Depth: 16 stages
+    Common FIFOs: FIFO 1: TX Message Buffer: TX Message Buffer 32
+    Common FIFOs: FIFO 1: Interval TX Delay: 0
+    Common FIFOs: FIFO 1: Interval Timer: Reference clock
+    Common FIFOs: FIFO 1: Interval Timer Reference Clock Resolution: x1
+    Common FIFOs: FIFO 2: Enable: Disabled
+    Common FIFOs: FIFO 2: Mode: Receive
+    Common FIFOs: FIFO 2: RX Interrupt Enable: Disabled
+    Common FIFOs: FIFO 2: TX Interrupt Enable: Disabled
+    Common FIFOs: FIFO 2: Interrupt Mode: At Threshold Value
+    Common FIFOs: FIFO 2: Interrupt Threshold: 1/2 full
+    Common FIFOs: FIFO 2: Payload Size: 64 bytes
+    Common FIFOs: FIFO 2: Depth: 16 stages
+    Common FIFOs: FIFO 2: TX Message Buffer: TX Message Buffer 32
+    Common FIFOs: FIFO 2: Interval TX Delay: 0
+    Common FIFOs: FIFO 2: Interval Timer: Reference clock
+    Common FIFOs: FIFO 2: Interval Timer Reference Clock Resolution: x1
+    Common FIFOs: FIFO 3: Enable: Disabled
+    Common FIFOs: FIFO 3: Mode: Receive
+    Common FIFOs: FIFO 3: RX Interrupt Enable: Disabled
+    Common FIFOs: FIFO 3: TX Interrupt Enable: Disabled
+    Common FIFOs: FIFO 3: Interrupt Mode: At Threshold Value
+    Common FIFOs: FIFO 3: Interrupt Threshold: 1/2 full
+    Common FIFOs: FIFO 3: Payload Size: 64 bytes
+    Common FIFOs: FIFO 3: Depth: 16 stages
+    Common FIFOs: FIFO 3: TX Message Buffer: TX Message Buffer 32
+    Common FIFOs: FIFO 3: Interval TX Delay: 0
+    Common FIFOs: FIFO 3: Interval Timer: Reference clock
+    Common FIFOs: FIFO 3: Interval Timer Reference Clock Resolution: x1
+    Common FIFOs: FIFO 4: Enable: Disabled
+    Common FIFOs: FIFO 4: Mode: Receive
+    Common FIFOs: FIFO 4: RX Interrupt Enable: Disabled
+    Common FIFOs: FIFO 4: TX Interrupt Enable: Disabled
+    Common FIFOs: FIFO 4: Interrupt Mode: At Threshold Value
+    Common FIFOs: FIFO 4: Interrupt Threshold: 1/2 full
+    Common FIFOs: FIFO 4: Payload Size: 64 bytes
+    Common FIFOs: FIFO 4: Depth: 16 stages
+    Common FIFOs: FIFO 4: TX Message Buffer: TX Message Buffer 32
+    Common FIFOs: FIFO 4: Interval TX Delay: 0
+    Common FIFOs: FIFO 4: Interval Timer: Reference clock
+    Common FIFOs: FIFO 4: Interval Timer Reference Clock Resolution: x1
+    Common FIFOs: FIFO 5: Enable: Disabled
+    Common FIFOs: FIFO 5: Mode: Receive
+    Common FIFOs: FIFO 5: RX Interrupt Enable: Disabled
+    Common FIFOs: FIFO 5: TX Interrupt Enable: Disabled
+    Common FIFOs: FIFO 5: Interrupt Mode: At Threshold Value
+    Common FIFOs: FIFO 5: Interrupt Threshold: 1/2 full
+    Common FIFOs: FIFO 5: Payload Size: 64 bytes
+    Common FIFOs: FIFO 5: Depth: 16 stages
+    Common FIFOs: FIFO 5: TX Message Buffer: TX Message Buffer 32
+    Common FIFOs: FIFO 5: Interval TX Delay: 0
+    Common FIFOs: FIFO 5: Interval Timer: Reference clock
+    Common FIFOs: FIFO 5: Interval Timer Reference Clock Resolution: x1
     Reception: Acceptance Filtering: Channel 0 Rule Count: 64
     Reception: Acceptance Filtering: Channel 1 Rule Count: 64
     
@@ -1189,25 +1273,27 @@ FSP Configuration
       ELC Input Port Group 1: Port Selection: 
       ELC Input Port Group 1: Edge Detection: Rising edge
       ELC Input Port Group 1: Buffer Overwrite: Disabled
-      ELC Input Port Group 1: Buffer Initial Value: P16_0: Low input
-      ELC Input Port Group 1: Buffer Initial Value: P16_1: Low input
-      ELC Input Port Group 1: Buffer Initial Value: P16_2: Low input
-      ELC Input Port Group 1: Buffer Initial Value: P16_3: Low input
-      ELC Input Port Group 1: Buffer Initial Value: P16_5: Low input
-      ELC Input Port Group 1: Buffer Initial Value: P16_6: Low input
-      ELC Input Port Group 1: Buffer Initial Value: P16_7: Low input
+      ELC Input Port Group 1: Buffer Initial Value: PIN0: Low Input (P16_0)
+      ELC Input Port Group 1: Buffer Initial Value: PIN1: Low Input (P16_1)
+      ELC Input Port Group 1: Buffer Initial Value: PIN2: Low Input (P16_2)
+      ELC Input Port Group 1: Buffer Initial Value: PIN3: Low Input (P16_3)
+      ELC Input Port Group 1: Buffer Initial Value: PIN4: Low Input (P16_4)
+      ELC Input Port Group 1: Buffer Initial Value: PIN5: Low Input (P16_5)
+      ELC Input Port Group 1: Buffer Initial Value: PIN6: Low Input (P16_6)
+      ELC Input Port Group 1: Buffer Initial Value: PIN7: Low Input (P16_7)
       ELC Input Port Group 2: Trigger Source: Disabled
       ELC Input Port Group 2: Event Link Control: Disabled
       ELC Input Port Group 2: Port Selection: 
       ELC Input Port Group 2: Edge Detection: Rising edge
       ELC Input Port Group 2: Buffer Overwrite: Disabled
-      ELC Input Port Group 2: Buffer Initial Value: P18_0: Low input
-      ELC Input Port Group 2: Buffer Initial Value: P18_1: Low input
-      ELC Input Port Group 2: Buffer Initial Value: P18_2: Low input
-      ELC Input Port Group 2: Buffer Initial Value: P18_3: Low input
-      ELC Input Port Group 2: Buffer Initial Value: P18_4: Low input
-      ELC Input Port Group 2: Buffer Initial Value: P18_5: Low input
-      ELC Input Port Group 2: Buffer Initial Value: P18_6: Low input
+      ELC Input Port Group 2: Buffer Initial Value: PIN0: Low Input (P18_0)
+      ELC Input Port Group 2: Buffer Initial Value: PIN1: Low Input (P18_1)
+      ELC Input Port Group 2: Buffer Initial Value: PIN2: Low Input (P18_2)
+      ELC Input Port Group 2: Buffer Initial Value: PIN3: Low Input (P18_3)
+      ELC Input Port Group 2: Buffer Initial Value: PIN4: Low Input (P18_4)
+      ELC Input Port Group 2: Buffer Initial Value: PIN5: Low Input (P18_5)
+      ELC Input Port Group 2: Buffer Initial Value: PIN6: Low Input (P18_6)
+      ELC Input Port Group 2: Buffer Initial Value: PIN7: Low Input (P18_7)
       ELC Single Port 0: Common: Event Link Control: Disabled
       ELC Single Port 0: Common: Event Direction: Output direction
       ELC Single Port 0: Common: Port selection: P16_0
@@ -1264,7 +1350,9 @@ FSP Configuration
     Instance "g_ether0 Ethernet (r_gmac)"
       General: Name: g_ether0
       General: Channel: 0
-      General: MAC address: 00:11:22:33:44:55
+      General: MAC address 0: 00:11:22:33:44:55
+      General: MAC address 1: NULL
+      General: MAC address 2: NULL
       General: Zero-copy Mode: Disable
       General: Flow control functionality: Disable
       Filters: Promiscuous Mode: Disable
@@ -1395,10 +1483,23 @@ FSP Configuration
       Input: Addition/Averaging Mask (channel availability varies by MCU and unit): 
       Input: Sample and Hold: Sample and Hold Channels (Available only on selected MCUs): 
       Input: Sample and Hold: Sample Hold States (Applies only to channels 0, 1, 2): 24
+      Input: Window Compare: Window Mode: Disabled
+      Input: Window Compare: Window A: Enable: Disabled
+      Input: Window Compare: Window A: Channels to compare (channel availability varies by MCU and unit): 
+      Input: Window Compare: Window A: Channel comparison mode (channel availability varies by MCU and unit): 
+      Input: Window Compare: Window A: Lower Reference: 0
+      Input: Window Compare: Window A: Upper Reference: 0
+      Input: Window Compare: Window B: Enable: Disabled
+      Input: Window Compare: Window B: Channel to compare (channel availability varies by MCU and unit): Channel 0
+      Input: Window Compare: Window B: Comparison mode: Less Than or Outside Window
+      Input: Window Compare: Window B: Lower Reference: 0
+      Input: Window Compare: Window B: Upper Reference: 0
       Interrupts: Callback: NULL
       Interrupts: Scan End Interrupt Priority: Disabled
       Interrupts: Scan End Group B Interrupt Priority: Disabled
       Interrupts: Scan End Group C Interrupt Priority: Disabled
+      Interrupts: Window Compare A Interrupt Priority: Disabled
+      Interrupts: Window Compare B Interrupt Priority: Disabled
       Input: Group C Scan Mask (channel availability varies by MCU): 
       Input: Start Trigger: Group A: Disabled
       Input: Start Trigger: Group B: Disabled
@@ -1409,6 +1510,8 @@ FSP Configuration
       ELC: ADC0 event B: Trigger Source: Disabled
       ELC: ADC1 event A: Trigger Source: Disabled
       ELC: ADC1 event B: Trigger Source: Disabled
+      ELC: ADC2 event A: Trigger Source: Disabled
+      ELC: ADC2 event B: Trigger Source: Disabled
       
     Instance "g_adc1 ADC (r_adc)"
       General: Name: g_adc1
@@ -1425,10 +1528,23 @@ FSP Configuration
       Input: Addition/Averaging Mask (channel availability varies by MCU and unit): 
       Input: Sample and Hold: Sample and Hold Channels (Available only on selected MCUs): 
       Input: Sample and Hold: Sample Hold States (Applies only to channels 0, 1, 2): 24
+      Input: Window Compare: Window Mode: Disabled
+      Input: Window Compare: Window A: Enable: Disabled
+      Input: Window Compare: Window A: Channels to compare (channel availability varies by MCU and unit): 
+      Input: Window Compare: Window A: Channel comparison mode (channel availability varies by MCU and unit): 
+      Input: Window Compare: Window A: Lower Reference: 0
+      Input: Window Compare: Window A: Upper Reference: 0
+      Input: Window Compare: Window B: Enable: Disabled
+      Input: Window Compare: Window B: Channel to compare (channel availability varies by MCU and unit): Channel 0
+      Input: Window Compare: Window B: Comparison mode: Less Than or Outside Window
+      Input: Window Compare: Window B: Lower Reference: 0
+      Input: Window Compare: Window B: Upper Reference: 0
       Interrupts: Callback: NULL
       Interrupts: Scan End Interrupt Priority: Disabled
       Interrupts: Scan End Group B Interrupt Priority: Disabled
       Interrupts: Scan End Group C Interrupt Priority: Disabled
+      Interrupts: Window Compare A Interrupt Priority: Disabled
+      Interrupts: Window Compare B Interrupt Priority: Disabled
       Input: Group C Scan Mask (channel availability varies by MCU): 
       Input: Start Trigger: Group A: Disabled
       Input: Start Trigger: Group B: Disabled
@@ -1439,11 +1555,14 @@ FSP Configuration
       ELC: ADC0 event B: Trigger Source: Disabled
       ELC: ADC1 event A: Trigger Source: Disabled
       ELC: ADC1 event B: Trigger Source: Disabled
+      ELC: ADC2 event A: Trigger Source: Disabled
+      ELC: ADC2 event B: Trigger Source: Disabled
       
     Instance "g_i2c_master0 I2C Master (r_iic_master)"
       Name: g_i2c_master0
       Channel: 0
       Rate: Standard
+      Custom Rate (bps): 0
       Rise Time (ns): 120
       Fall Time (ns): 120
       Duty Cycle (%): 50
@@ -1578,6 +1697,17 @@ FSP Configuration
       Interrupts: Capture A Interrupt Priority: Priority 12
       Interrupts: Capture B Interrupt Priority: Priority 12
       Interrupts: Trough Interrupt Priority: Disabled
+      Interrupts (GPT_SEL): Callback: NULL
+      Interrupts (GPT_SEL): Overflow/Crest Interrupt Source: 
+      Interrupts (GPT_SEL): Capture A Interrupt Source: 
+      Interrupts (GPT_SEL): Capture B Interrupt Source: 
+      Interrupts (GPT_SEL): Trough Interrupt Source: 
+      Interrupts (GPT_SEL): Dead Time Error Interrupt Source: 
+      Interrupts (GPT_SEL): INT0 Interrupt Priority: Disabled
+      Interrupts (GPT_SEL): INT1 Interrupt Priority: Disabled
+      Interrupts (GPT_SEL): INT2 Interrupt Priority: Disabled
+      Interrupts (GPT_SEL): INT3 Interrupt Priority: Disabled
+      Interrupts (GPT_SEL): INT4 Interrupt Priority: Disabled
       Extra Features: Extra Features: Disabled
       Extra Features: Output Disable: POEG Link: POEG Channel 0
       Extra Features: Output Disable: Output Disable POEG Trigger: 
@@ -1601,6 +1731,7 @@ FSP Configuration
       Extra Features: Input Capture Interrupt Extended Skipping Function: GTADTRB A/D Converter Start Request: None
       Interrupts: Dead Time Error Interrupt Priority: Disabled
       Extra Features: Input Capture at Count Stop: Enabled
+      Extra Features: Input Capture Signal: Not Supported
       ELC: LLPP GPT event A: Trigger Source: Disabled
       ELC: LLPP GPT event B: Trigger Source: Disabled
       ELC: LLPP GPT event C: Trigger Source: Disabled
@@ -1646,6 +1777,17 @@ FSP Configuration
       Interrupts: Capture A Interrupt Priority: Priority 12
       Interrupts: Capture B Interrupt Priority: Priority 12
       Interrupts: Trough Interrupt Priority: Disabled
+      Interrupts (GPT_SEL): Callback: NULL
+      Interrupts (GPT_SEL): Overflow/Crest Interrupt Source: 
+      Interrupts (GPT_SEL): Capture A Interrupt Source: 
+      Interrupts (GPT_SEL): Capture B Interrupt Source: 
+      Interrupts (GPT_SEL): Trough Interrupt Source: 
+      Interrupts (GPT_SEL): Dead Time Error Interrupt Source: 
+      Interrupts (GPT_SEL): INT0 Interrupt Priority: Disabled
+      Interrupts (GPT_SEL): INT1 Interrupt Priority: Disabled
+      Interrupts (GPT_SEL): INT2 Interrupt Priority: Disabled
+      Interrupts (GPT_SEL): INT3 Interrupt Priority: Disabled
+      Interrupts (GPT_SEL): INT4 Interrupt Priority: Disabled
       Extra Features: Extra Features: Disabled
       Extra Features: Output Disable: POEG Link: POEG Channel 0
       Extra Features: Output Disable: Output Disable POEG Trigger: 
@@ -1669,6 +1811,7 @@ FSP Configuration
       Extra Features: Input Capture Interrupt Extended Skipping Function: GTADTRB A/D Converter Start Request: None
       Interrupts: Dead Time Error Interrupt Priority: Disabled
       Extra Features: Input Capture at Count Stop: Enabled
+      Extra Features: Input Capture Signal: Not Supported
       ELC: LLPP GPT event A: Trigger Source: Disabled
       ELC: LLPP GPT event B: Trigger Source: Disabled
       ELC: LLPP GPT event C: Trigger Source: Disabled
@@ -1714,6 +1857,17 @@ FSP Configuration
       Interrupts: Capture A Interrupt Priority: Priority 12
       Interrupts: Capture B Interrupt Priority: Priority 12
       Interrupts: Trough Interrupt Priority: Disabled
+      Interrupts (GPT_SEL): Callback: NULL
+      Interrupts (GPT_SEL): Overflow/Crest Interrupt Source: 
+      Interrupts (GPT_SEL): Capture A Interrupt Source: 
+      Interrupts (GPT_SEL): Capture B Interrupt Source: 
+      Interrupts (GPT_SEL): Trough Interrupt Source: 
+      Interrupts (GPT_SEL): Dead Time Error Interrupt Source: 
+      Interrupts (GPT_SEL): INT0 Interrupt Priority: Disabled
+      Interrupts (GPT_SEL): INT1 Interrupt Priority: Disabled
+      Interrupts (GPT_SEL): INT2 Interrupt Priority: Disabled
+      Interrupts (GPT_SEL): INT3 Interrupt Priority: Disabled
+      Interrupts (GPT_SEL): INT4 Interrupt Priority: Disabled
       Extra Features: Extra Features: Disabled
       Extra Features: Output Disable: POEG Link: POEG Channel 0
       Extra Features: Output Disable: Output Disable POEG Trigger: 
@@ -1737,6 +1891,7 @@ FSP Configuration
       Extra Features: Input Capture Interrupt Extended Skipping Function: GTADTRB A/D Converter Start Request: None
       Interrupts: Dead Time Error Interrupt Priority: Disabled
       Extra Features: Input Capture at Count Stop: Enabled
+      Extra Features: Input Capture Signal: Not Supported
       ELC: LLPP GPT event A: Trigger Source: Disabled
       ELC: LLPP GPT event B: Trigger Source: Disabled
       ELC: LLPP GPT event C: Trigger Source: Disabled
@@ -1782,6 +1937,17 @@ FSP Configuration
       Interrupts: Capture A Interrupt Priority: Priority 12
       Interrupts: Capture B Interrupt Priority: Disabled
       Interrupts: Trough Interrupt Priority: Disabled
+      Interrupts (GPT_SEL): Callback: NULL
+      Interrupts (GPT_SEL): Overflow/Crest Interrupt Source: 
+      Interrupts (GPT_SEL): Capture A Interrupt Source: 
+      Interrupts (GPT_SEL): Capture B Interrupt Source: 
+      Interrupts (GPT_SEL): Trough Interrupt Source: 
+      Interrupts (GPT_SEL): Dead Time Error Interrupt Source: 
+      Interrupts (GPT_SEL): INT0 Interrupt Priority: Disabled
+      Interrupts (GPT_SEL): INT1 Interrupt Priority: Disabled
+      Interrupts (GPT_SEL): INT2 Interrupt Priority: Disabled
+      Interrupts (GPT_SEL): INT3 Interrupt Priority: Disabled
+      Interrupts (GPT_SEL): INT4 Interrupt Priority: Disabled
       Extra Features: Extra Features: Disabled
       Extra Features: Output Disable: POEG Link: POEG Channel 0
       Extra Features: Output Disable: Output Disable POEG Trigger: 
@@ -1805,6 +1971,7 @@ FSP Configuration
       Extra Features: Input Capture Interrupt Extended Skipping Function: GTADTRB A/D Converter Start Request: None
       Interrupts: Dead Time Error Interrupt Priority: Disabled
       Extra Features: Input Capture at Count Stop: Enabled
+      Extra Features: Input Capture Signal: Not Supported
       ELC: LLPP GPT event A: Trigger Source: Disabled
       ELC: LLPP GPT event B: Trigger Source: Disabled
       ELC: LLPP GPT event C: Trigger Source: Disabled
@@ -1850,6 +2017,17 @@ FSP Configuration
       Interrupts: Capture A Interrupt Priority: Priority 12
       Interrupts: Capture B Interrupt Priority: Disabled
       Interrupts: Trough Interrupt Priority: Disabled
+      Interrupts (GPT_SEL): Callback: NULL
+      Interrupts (GPT_SEL): Overflow/Crest Interrupt Source: 
+      Interrupts (GPT_SEL): Capture A Interrupt Source: 
+      Interrupts (GPT_SEL): Capture B Interrupt Source: 
+      Interrupts (GPT_SEL): Trough Interrupt Source: 
+      Interrupts (GPT_SEL): Dead Time Error Interrupt Source: 
+      Interrupts (GPT_SEL): INT0 Interrupt Priority: Disabled
+      Interrupts (GPT_SEL): INT1 Interrupt Priority: Disabled
+      Interrupts (GPT_SEL): INT2 Interrupt Priority: Disabled
+      Interrupts (GPT_SEL): INT3 Interrupt Priority: Disabled
+      Interrupts (GPT_SEL): INT4 Interrupt Priority: Disabled
       Extra Features: Extra Features: Disabled
       Extra Features: Output Disable: POEG Link: POEG Channel 0
       Extra Features: Output Disable: Output Disable POEG Trigger: 
@@ -1873,6 +2051,7 @@ FSP Configuration
       Extra Features: Input Capture Interrupt Extended Skipping Function: GTADTRB A/D Converter Start Request: None
       Interrupts: Dead Time Error Interrupt Priority: Disabled
       Extra Features: Input Capture at Count Stop: Enabled
+      Extra Features: Input Capture Signal: Not Supported
       ELC: LLPP GPT event A: Trigger Source: Disabled
       ELC: LLPP GPT event B: Trigger Source: Disabled
       ELC: LLPP GPT event C: Trigger Source: Disabled

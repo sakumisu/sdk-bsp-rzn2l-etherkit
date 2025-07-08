@@ -1,22 +1,8 @@
-/***********************************************************************************************************************
- * Copyright [2020-2024] Renesas Electronics Corporation and/or its affiliates.  All Rights Reserved.
- *
- * This software and documentation are supplied by Renesas Electronics Corporation and/or its affiliates and may only
- * be used with products of Renesas Electronics Corp. and its affiliates ("Renesas").  No other uses are authorized.
- * Renesas products are sold pursuant to Renesas terms and conditions of sale.  Purchasers are solely responsible for
- * the selection and use of Renesas products and Renesas assumes no liability.  No license, express or implied, to any
- * intellectual property right is granted by Renesas.  This software is protected under all applicable laws, including
- * copyright laws. Renesas reserves the right to change or discontinue this software and/or this documentation.
- * THE SOFTWARE AND DOCUMENTATION IS DELIVERED TO YOU "AS IS," AND RENESAS MAKES NO REPRESENTATIONS OR WARRANTIES, AND
- * TO THE FULLEST EXTENT PERMISSIBLE UNDER APPLICABLE LAW, DISCLAIMS ALL WARRANTIES, WHETHER EXPLICITLY OR IMPLICITLY,
- * INCLUDING WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT, WITH RESPECT TO THE
- * SOFTWARE OR DOCUMENTATION.  RENESAS SHALL HAVE NO LIABILITY ARISING OUT OF ANY SECURITY VULNERABILITY OR BREACH.
- * TO THE MAXIMUM EXTENT PERMITTED BY LAW, IN NO EVENT WILL RENESAS BE LIABLE TO YOU IN CONNECTION WITH THE SOFTWARE OR
- * DOCUMENTATION (OR ANY PERSON OR ENTITY CLAIMING RIGHTS DERIVED FROM YOU) FOR ANY LOSS, DAMAGES, OR CLAIMS WHATSOEVER,
- * INCLUDING, WITHOUT LIMITATION, ANY DIRECT, CONSEQUENTIAL, SPECIAL, INDIRECT, PUNITIVE, OR INCIDENTAL DAMAGES; ANY
- * LOST PROFITS, OTHER ECONOMIC DAMAGE, PROPERTY DAMAGE, OR PERSONAL INJURY; AND EVEN IF RENESAS HAS BEEN ADVISED OF THE
- * POSSIBILITY OF SUCH LOSS, DAMAGES, CLAIMS OR COSTS.
- **********************************************************************************************************************/
+/*
+* Copyright (c) 2020 - 2025 Renesas Electronics Corporation and/or its affiliates
+*
+* SPDX-License-Identifier: BSD-3-Clause
+*/
 
 /******************************************************************************
  * Includes   <System Includes> , "Project Includes"
@@ -242,10 +228,12 @@ void usb_hhub_open (usb_utr_t * ptr, uint16_t devaddr, uint16_t data2)
             USB_PRINTF1("### hHubOpen pget_blk error (%ld)\n", err);
 
             /* WAIT_LOOP */
+  #ifdef USB_DEBUG_ON
             while (1)
             {
                 /* Non */
             }
+  #endif
         }
 
         /* Pipe number set */
@@ -1477,14 +1465,12 @@ static uint16_t usb_hhub_port_attach (uint16_t hubaddr, uint16_t portnum, usb_cl
 
     return USB_DETACHED;
   #else                                /* (BSP_CFG_RTOS == 2) */
-    uint16_t    devaddr = 0;
-    uint16_t    retval;
-    uint16_t    hpphub, hubport, buffer;
-    usb_er_t    err;
-    usb_utr_t * ptr;
-   #if (!defined(BSP_MCU_GROUP_RA6M3))
+    uint16_t            devaddr = 0;
+    uint16_t            retval;
+    uint16_t            hpphub, hubport, buffer;
+    usb_er_t            err;
+    usb_utr_t         * ptr;
     usb_instance_ctrl_t ctrl;
-   #endif                              /* (!defined(BSP_MCU_GROUP_RA6M3)) */
 
     ptr     = (usb_utr_t *) mess;
     hubaddr = g_usb_shhub_hub_addr[ptr->ip];
@@ -1534,15 +1520,10 @@ static uint16_t usb_hhub_port_attach (uint16_t hubaddr, uint16_t portnum, usb_cl
 
                     case 0x02:
                     {
-   #if defined(BSP_MCU_GROUP_RA6M3)
-                        g_usb_hstd_device_speed[ptr->ip] = USB_LSCONNECT;
-   #else                                                              /* defined(BSP_MCU_GROUP_RA6M3) */
                         g_usb_hstd_device_speed[ptr->ip] = USB_NOCONNECT;
-
-                        ctrl.device_address = 0;                      /* USB Device address */
-                        ctrl.module_number  = (uint8_t) ptr->ip;      /* Module number setting */
-                        usb_set_event(USB_STATUS_NOT_SUPPORT, &ctrl); /* Set Event()  */
-   #endif /* defined(BSP_MCU_GROUP_RA6M3) */
+                        ctrl.device_address              = 0;                 /* USB Device address */
+                        ctrl.module_number               = (uint8_t) ptr->ip; /* Module number setting */
+                        usb_set_event(USB_STATUS_NOT_SUPPORT, &ctrl);         /* Set Event()  */
                         USB_PRINTF0(" Low-Speed Device\n");
                         break;
                     }
@@ -2423,10 +2404,12 @@ static void usb_hhub_check_class (usb_utr_t * ptr, uint16_t ** table)
     {
         /* Send Message failure */
         /* WAIT_LOOP */
+   #ifdef USB_DEBUG_ON
         while (1)
         {
             /* Non */
         }
+   #endif
     }
   #endif                               /* (BSP_CFG_RTOS == 2) */
 }
@@ -2821,10 +2804,12 @@ static void usb_hhub_class_request_complete (usb_utr_t * ptr, uint16_t data1, ui
         USB_PRINTF0("### CheckResult function pget_blk error\n");
 
         /* WAIT_LOOP */
+   #ifdef USB_DEBUG_ON
         while (1)
         {
             /* Non */
         }
+   #endif
     }
 }
 
@@ -3019,10 +3004,12 @@ static void usb_hhub_check_request (usb_utr_t * ptr, uint16_t result)
         USB_PRINTF0("### CheckRequest function pget_blk error\n");
 
         /* WAIT_LOOP */
+   #ifdef USB_DEBUG_ON
         while (1)
         {
             /* Non */
         }
+   #endif
     }
 }
 
@@ -3612,10 +3599,12 @@ static void usb_hhub_specified_path (usb_clsinfo_t * ptr)
         USB_PRINTF0("### SpecifiedPass function pget_blk error\n");
 
         /* WAIT_LOOP */
+   #ifdef USB_DEBUG_ON
         while (1)
         {
             /* Non */
         }
+   #endif
     }
 }
 
@@ -3661,10 +3650,12 @@ static void usb_hhub_specified_path_wait (usb_clsinfo_t * ptr, uint16_t times)
         USB_PRINTF0("### SpecifiedPassWait function pget_blk error\n");
 
         /* WAIT_LOOP */
+   #ifdef USB_DEBUG_ON
         while (1)
         {
             /* Non */
         }
+   #endif
     }
 }
 

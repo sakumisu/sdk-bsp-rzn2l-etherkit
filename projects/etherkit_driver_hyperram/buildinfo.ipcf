@@ -51,7 +51,7 @@
         <group name="RA Smart Configurator">
             <argVar>
                 <name>RASC_EXE_PATH</name>
-                <value>D:\manufacture_apps\Renesas\fsp\rzn_v2.0.0\eclipse\rasc.exe</value>
+                <value>C:\Renesas\rzn\sc_v2024-01.1_fsp_v2.0.0\eclipse\rasc.exe</value>
             </argVar>
         </group>
     </customArgVars>
@@ -71,7 +71,6 @@
             <path>rzn/board/rzn2l_rsk/board_leds.c</path>
             <path>rzn/board/rzn2l_rsk/board_leds.h</path>
             <path>rzn/fsp/inc/api/bsp_api.h</path>
-            <path>rzn/fsp/inc/api/r_hyperbus_api.h</path>
             <path>rzn/fsp/inc/api/r_ioport_api.h</path>
             <path>rzn/fsp/inc/api/r_transfer_api.h</path>
             <path>rzn/fsp/inc/api/r_uart_api.h</path>
@@ -80,7 +79,6 @@
             <path>rzn/fsp/inc/fsp_version.h</path>
             <path>rzn/fsp/inc/instances/r_ioport.h</path>
             <path>rzn/fsp/inc/instances/r_sci_uart.h</path>
-            <path>rzn/fsp/inc/instances/r_xspi_hyper.h</path>
             <path>rzn/fsp/src/bsp/cmsis/Device/RENESAS/Include/R9A07G084.h</path>
             <path>rzn/fsp/src/bsp/cmsis/Device/RENESAS/Include/renesas.h</path>
             <path>rzn/fsp/src/bsp/cmsis/Device/RENESAS/Include/system.h</path>
@@ -124,7 +122,6 @@
             <path>rzn/fsp/src/bsp/mcu/rzn2l/bsp_override.h</path>
             <path>rzn/fsp/src/r_ioport/r_ioport.c</path>
             <path>rzn/fsp/src/r_sci_uart/r_sci_uart.c</path>
-            <path>rzn/fsp/src/r_xspi_hyper/r_xspi_hyper.c</path>
             <path>rzn/SConscript</path>
         </group>
         <group name="Build Configuration">
@@ -138,7 +135,6 @@
             <path>rzn_cfg/fsp_cfg/bsp/bsp_pin_cfg.h</path>
             <path>rzn_cfg/fsp_cfg/r_ioport_cfg.h</path>
             <path>rzn_cfg/fsp_cfg/r_sci_uart_cfg.h</path>
-            <path>rzn_cfg/fsp_cfg/r_xspi_hyper_cfg.h</path>
             <path>rzn_cfg/SConscript</path>
         </group>
         <group name="Generated Data">

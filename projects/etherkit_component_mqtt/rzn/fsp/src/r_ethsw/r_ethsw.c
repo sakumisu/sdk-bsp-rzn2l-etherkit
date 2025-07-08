@@ -1,22 +1,8 @@
-/***********************************************************************************************************************
- * Copyright [2020-2024] Renesas Electronics Corporation and/or its affiliates.  All Rights Reserved.
- *
- * This software and documentation are supplied by Renesas Electronics Corporation and/or its affiliates and may only
- * be used with products of Renesas Electronics Corp. and its affiliates ("Renesas").  No other uses are authorized.
- * Renesas products are sold pursuant to Renesas terms and conditions of sale.  Purchasers are solely responsible for
- * the selection and use of Renesas products and Renesas assumes no liability.  No license, express or implied, to any
- * intellectual property right is granted by Renesas.  This software is protected under all applicable laws, including
- * copyright laws. Renesas reserves the right to change or discontinue this software and/or this documentation.
- * THE SOFTWARE AND DOCUMENTATION IS DELIVERED TO YOU "AS IS," AND RENESAS MAKES NO REPRESENTATIONS OR WARRANTIES, AND
- * TO THE FULLEST EXTENT PERMISSIBLE UNDER APPLICABLE LAW, DISCLAIMS ALL WARRANTIES, WHETHER EXPLICITLY OR IMPLICITLY,
- * INCLUDING WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT, WITH RESPECT TO THE
- * SOFTWARE OR DOCUMENTATION.  RENESAS SHALL HAVE NO LIABILITY ARISING OUT OF ANY SECURITY VULNERABILITY OR BREACH.
- * TO THE MAXIMUM EXTENT PERMITTED BY LAW, IN NO EVENT WILL RENESAS BE LIABLE TO YOU IN CONNECTION WITH THE SOFTWARE OR
- * DOCUMENTATION (OR ANY PERSON OR ENTITY CLAIMING RIGHTS DERIVED FROM YOU) FOR ANY LOSS, DAMAGES, OR CLAIMS WHATSOEVER,
- * INCLUDING, WITHOUT LIMITATION, ANY DIRECT, CONSEQUENTIAL, SPECIAL, INDIRECT, PUNITIVE, OR INCIDENTAL DAMAGES; ANY
- * LOST PROFITS, OTHER ECONOMIC DAMAGE, PROPERTY DAMAGE, OR PERSONAL INJURY; AND EVEN IF RENESAS HAS BEEN ADVISED OF THE
- * POSSIBILITY OF SUCH LOSS, DAMAGES, CLAIMS OR COSTS.
- **********************************************************************************************************************/
+/*
+* Copyright (c) 2020 - 2025 Renesas Electronics Corporation and/or its affiliates
+*
+* SPDX-License-Identifier: BSD-3-Clause
+*/
 
 /***********************************************************************************************************************
  * Includes   <System Includes> , "Project Includes"
@@ -252,6 +238,9 @@
 /* ASI_MEM_ADDR Register Bit Definitions */
 #define ETHSW_MEM_WEN_ENABLE                  (0x80U)
 #define ETHSW_MEM_REQ_ALL_ACCESS              (0x700U)
+
+/* Nanosecond count value for 1 second */
+#define NANO_COUNT_FOR_1SEC                   (1000000000)
 
 /***********************************************************************************************************************
  * Typedef definitions
@@ -624,9 +613,9 @@ fsp_err_t R_ETHSW_SpeedCfg (ether_switch_ctrl_t * const p_ctrl, uint32_t const p
     {
         command_config = *p_reg_command_config;
 
-        command_config &= ~(ETHSW_COMMAND_CONFIG_ENA_10 |
-                            ETHSW_COMMAND_CONFIG_HD_ENA |
-                            ETHSW_COMMAND_CONFIG_ETH_SPEED);
+        command_config &= (uint32_t) ~(ETHSW_COMMAND_CONFIG_ENA_10 |
+                                       ETHSW_COMMAND_CONFIG_HD_ENA |
+                                       ETHSW_COMMAND_CONFIG_ETH_SPEED);
         switch (speed)
         {
             case ETHSW_LINK_SPEED_10H:
@@ -1813,7 +1802,7 @@ fsp_err_t R_ETHSW_EfpVlanVerificationModeSet (ether_switch_ctrl_t * const       
     volatile uint32_t * pn_vlan_mode = &p_reg_switch->P0_VLAN_MODE;
     pn_vlan_mode += (ETHSW_VLAN_MODE_OFFSET * port);
 
-    *pn_vlan_mode = (
+    *pn_vlan_mode = (uint32_t) (
         ((uint32_t) (vicm << R_ETHSW_P0_VLAN_MODE_VICM_Pos) & R_ETHSW_P0_VLAN_MODE_VICM_Msk) |
         (*pn_vlan_mode & R_ETHSW_P0_VLAN_MODE_VITM_Msk)
         );
@@ -1851,14 +1840,14 @@ fsp_err_t R_ETHSW_EfpPriorityRegenerationSet (ether_switch_ctrl_t * const       
 
     volatile uint32_t * pn_vlan_mode = &p_reg_switch->P0_VLAN_MODE;
     pn_vlan_mode += (ETHSW_VLAN_MODE_OFFSET * port);
-    *pn_vlan_mode = (
+    *pn_vlan_mode = (uint32_t) (
         ((uint32_t) (p_pri_regen->vitm << R_ETHSW_P0_VLAN_MODE_VITM_Pos) & R_ETHSW_P0_VLAN_MODE_VITM_Msk) |
         (*pn_vlan_mode & R_ETHSW_P0_VLAN_MODE_VICM_Msk)
         );
 
     volatile uint32_t * pn_vlan_tag = &p_reg_switch->P0_VLAN_TAG;
     pn_vlan_tag += (ETHSW_VLAN_TAG_OFFSET * port);
-    *pn_vlan_tag = (
+    *pn_vlan_tag = (uint32_t) (
         ((uint32_t) ((p_pri_regen->tpid[0] << 8 | p_pri_regen->tpid[1]) << R_ETHSW_P0_VLAN_TAG_TPID_Pos) &
          R_ETHSW_P0_VLAN_TAG_TPID_Msk) |
         ((uint32_t) (p_pri_regen->pcp << R_ETHSW_P0_VLAN_TAG_PCP_Pos) & R_ETHSW_P0_VLAN_TAG_PCP_Msk) |
@@ -1869,7 +1858,7 @@ fsp_err_t R_ETHSW_EfpPriorityRegenerationSet (ether_switch_ctrl_t * const       
 
     volatile uint32_t * pn_pcp_remap = &p_reg_switch->P0_PCP_REMAP;
     pn_pcp_remap += (ETHSW_PCP_REMAP_OFFSET * port);
-    *pn_pcp_remap = (
+    *pn_pcp_remap = (uint32_t) (
         ((uint32_t) (p_pri_regen->pcp_remap[7] << R_ETHSW_P2_PCP_REMAP_PCP_REMAP7_Pos) &
          R_ETHSW_P2_PCP_REMAP_PCP_REMAP7_Msk) |
         ((uint32_t) (p_pri_regen->pcp_remap[6] << R_ETHSW_P2_PCP_REMAP_PCP_REMAP6_Pos) &
@@ -1924,7 +1913,7 @@ fsp_err_t R_ETHSW_EfpFilterTableSet (ether_switch_ctrl_t * const     p_ctrl,
     /* Figure 28.61 Qci stream filter table setting flow */
     volatile uint32_t * pn_qsftbls = &p_reg_switch->P0_QSFTBL0;
     pn_qsftbls  += ((ETHSW_QSFTBL_OFFSET_PORT * port) + (ETHSW_QSFTBL_OFFSET_SID * sid));
-    *pn_qsftbls &= ~(R_ETHSW_P0_QSFTBL0_QSTE_Msk);
+    *pn_qsftbls &= (uint32_t) ~(R_ETHSW_P0_QSFTBL0_QSTE_Msk);
     while ((*pn_qsftbls & R_ETHSW_P0_QSFTBL0_QSTE_Msk) != 0)
     {
         ;
@@ -1932,7 +1921,7 @@ fsp_err_t R_ETHSW_EfpFilterTableSet (ether_switch_ctrl_t * const     p_ctrl,
 
     volatile uint32_t * pn_qstmacus = &p_reg_switch->P0_QSTMACU0;
     pn_qstmacus += ((ETHSW_QSTMACU_OFFSET_PORT * port) + (ETHSW_QSTMACU_OFFSET_SID * sid));
-    *pn_qstmacus = (
+    *pn_qstmacus = (uint32_t) (
         (((uint32_t) p_flt_entry->qdasa << R_ETHSW_P1_QSTMACU0_DASA_Pos) & R_ETHSW_P1_QSTMACU0_DASA_Msk) |
         (((uint32_t) (p_flt_entry->qmac[0] << 8 | p_flt_entry->qmac[1]) << R_ETHSW_P0_QSTMACU0_MACA_Pos) &
          R_ETHSW_P0_QSTMACU0_MACA_Msk)
@@ -1963,7 +1952,7 @@ fsp_err_t R_ETHSW_EfpFilterTableSet (ether_switch_ctrl_t * const     p_ctrl,
 
     volatile uint32_t * pn_qsftvls = &p_reg_switch->P0_QSFTVL0;
     pn_qsftvls += ((ETHSW_QSFTVL_OFFSET_PORT * port) + (ETHSW_QSFTVL_OFFSET_SID * sid));
-    *pn_qsftvls = (
+    *pn_qsftvls = (uint32_t) (
         ((uint32_t) (p_flt_entry->tagmd << R_ETHSW_P0_QSFTVL0_TAGMD_Pos) & R_ETHSW_P0_QSFTVL0_TAGMD_Msk) |
         ((uint32_t) (p_flt_entry->dei << R_ETHSW_P0_QSFTVL0_DEI_Pos) & R_ETHSW_P0_QSFTVL0_DEI_Msk) |
         ((uint32_t) (p_flt_entry->pcp << R_ETHSW_P0_QSFTVL0_PCP_Pos) & R_ETHSW_P0_QSFTVL0_PCP_Msk) |
@@ -1973,7 +1962,7 @@ fsp_err_t R_ETHSW_EfpFilterTableSet (ether_switch_ctrl_t * const     p_ctrl,
 
     volatile uint32_t * pn_qsftvlms = &p_reg_switch->P0_QSFTVLM0;
     pn_qsftvlms += ((ETHSW_QSFTVLM_OFFSET_PORT * port) + (ETHSW_QSFTVLM_OFFSET_SID * sid));
-    *pn_qsftvlms = (
+    *pn_qsftvlms = (uint32_t) (
         ((uint32_t) (p_flt_entry->deim << R_ETHSW_P0_QSFTVLM0_DEIM_Pos) & R_ETHSW_P0_QSFTVLM0_DEIM_Msk) |
         ((uint32_t) (p_flt_entry->pcpm << R_ETHSW_P0_QSFTVLM0_PCPM_Pos) & R_ETHSW_P0_QSFTVLM0_PCPM_Msk) |
         ((uint32_t) ((p_flt_entry->vlanidm[0] << 8 | p_flt_entry->vlanidm[1]) << R_ETHSW_P0_QSFTVLM0_VLANIDM_Pos) &
@@ -2007,8 +1996,8 @@ fsp_err_t R_ETHSW_EfpQsfTableEnable (ether_switch_ctrl_t * const p_ctrl, uint32_
 
     volatile uint32_t * pn_qsftbls = &p_reg_switch->P0_QSFTBL0;
     pn_qsftbls  += ((ETHSW_QSFTBL_OFFSET_PORT * port) + (ETHSW_QSFTBL_OFFSET_SID * sid));
-    *pn_qsftbls &= ~R_ETHSW_P0_QSFTBL0_QSTE_Msk;
-    *pn_qsftbls |= ((uint32_t) (qste << R_ETHSW_P0_QSFTBL0_QSTE_Pos) & R_ETHSW_P0_QSFTBL0_QSTE_Msk);
+    *pn_qsftbls &= (uint32_t) ~R_ETHSW_P0_QSFTBL0_QSTE_Msk;
+    *pn_qsftbls |= (uint32_t) ((uint32_t) (qste << R_ETHSW_P0_QSFTBL0_QSTE_Pos) & R_ETHSW_P0_QSFTBL0_QSTE_Msk);
 
     return err;
 }                                      /* End of function R_ETHSW_EfpQsfTableEnable()*/
@@ -2046,15 +2035,17 @@ fsp_err_t R_ETHSW_EfpGatingCheckSet (ether_switch_ctrl_t * const p_ctrl,
     /* Figure 28.62 Gating check process flow */
     volatile uint32_t * pn_qsftbls = &p_reg_switch->P0_QSFTBL0;
     pn_qsftbls  += ((ETHSW_QSFTBL_OFFSET_PORT * port) + (ETHSW_QSFTBL_OFFSET_SID * sid));
-    *pn_qsftbls &= ~R_ETHSW_P0_QSFTBL0_GAIDV_Msk;
-    *pn_qsftbls |= ((uint32_t) p_gt_chk->gaidv << R_ETHSW_P0_QSFTBL0_GAIDV_Pos) & R_ETHSW_P0_QSFTBL0_GAIDV_Msk;
-    *pn_qsftbls &= ~R_ETHSW_P0_QSFTBL0_GAID_Msk;
-    *pn_qsftbls |= ((uint32_t) p_gt_chk->gaid << R_ETHSW_P0_QSFTBL0_GAID_Pos) & R_ETHSW_P0_QSFTBL0_GAID_Msk;
+    *pn_qsftbls &= (uint32_t) ~R_ETHSW_P0_QSFTBL0_GAIDV_Msk;
+    *pn_qsftbls |=
+        (uint32_t) (((uint32_t) p_gt_chk->gaidv << R_ETHSW_P0_QSFTBL0_GAIDV_Pos) & R_ETHSW_P0_QSFTBL0_GAIDV_Msk);
+    *pn_qsftbls &= (uint32_t) ~R_ETHSW_P0_QSFTBL0_GAID_Msk;
+    *pn_qsftbls |=
+        (uint32_t) (((uint32_t) p_gt_chk->gaid << R_ETHSW_P0_QSFTBL0_GAID_Pos) & R_ETHSW_P0_QSFTBL0_GAID_Msk);
 
     volatile uint32_t * pn_qgmod = &p_reg_switch->P0_QGMOD;
     pn_qgmod  += (ETHSW_QGMOD_OFFSET * port);
     *pn_qgmod &= ~((1U << p_gt_chk->gaid) << R_ETHSW_P0_QGMOD_QGMOD_Pos);
-    *pn_qgmod |= ((uint32_t) (p_gt_chk->qgmod << p_gt_chk->gaid) & R_ETHSW_P0_QGMOD_QGMOD_Msk);
+    *pn_qgmod |= (uint32_t) ((uint32_t) (p_gt_chk->qgmod << p_gt_chk->gaid) & R_ETHSW_P0_QGMOD_QGMOD_Msk);
 
     return err;
 }                                      /* End of function R_ETHSW_EfpGatingCheckSet()*/
@@ -2091,8 +2082,9 @@ fsp_err_t R_ETHSW_EfpSDUmaxVerificationSet (ether_switch_ctrl_t * const        p
 
     volatile uint32_t * pn_qsftbls = &p_reg_switch->P0_QSFTBL0;
     pn_qsftbls  += ((ETHSW_QSFTBL_OFFSET_PORT * port) + (ETHSW_QSFTBL_OFFSET_SID * sid));
-    *pn_qsftbls &= ~(R_ETHSW_P0_QSFTBL0_QSMSM_Msk | R_ETHSW_P0_QSFTBL0_MSDUE_Msk | R_ETHSW_P0_QSFTBL0_MSDU_Msk);
-    *pn_qsftbls |= (
+    *pn_qsftbls &=
+        (uint32_t) ~(R_ETHSW_P0_QSFTBL0_QSMSM_Msk | R_ETHSW_P0_QSFTBL0_MSDUE_Msk | R_ETHSW_P0_QSFTBL0_MSDU_Msk);
+    *pn_qsftbls |= (uint32_t) (
         (((uint32_t) p_sdumax->qsmsm << R_ETHSW_P0_QSFTBL0_QSMSM_Pos) & R_ETHSW_P0_QSFTBL0_QSMSM_Msk) |
         (((uint32_t) p_sdumax->msdue << R_ETHSW_P0_QSFTBL0_MSDUE_Pos) & R_ETHSW_P0_QSFTBL0_MSDUE_Msk) |
         (((uint32_t) p_sdumax->msdu << R_ETHSW_P0_QSFTBL0_MSDU_Pos) & R_ETHSW_P0_QSFTBL0_MSDU_Msk)
@@ -2135,16 +2127,16 @@ fsp_err_t R_ETHSW_EfpFlowMeteringSet (ether_switch_ctrl_t * const p_ctrl,
     /* Figure 28.66 Flow Meter setting flow */
     volatile uint32_t * pn_qsftbls = &p_reg_switch->P0_QSFTBL0;
     pn_qsftbls  += ((ETHSW_QSFTBL_OFFSET_PORT * port) + (ETHSW_QSFTBL_OFFSET_SID * sid));
-    *pn_qsftbls &= ~(R_ETHSW_P0_QSFTBL0_MEIDV_Msk | R_ETHSW_P0_QSFTBL0_MEID_Msk);
-    *pn_qsftbls |= (
+    *pn_qsftbls &= (uint32_t) ~(R_ETHSW_P0_QSFTBL0_MEIDV_Msk | R_ETHSW_P0_QSFTBL0_MEID_Msk);
+    *pn_qsftbls |= (uint32_t) (
         (((uint32_t) p_meter->meidv << R_ETHSW_P0_QSFTBL0_MEIDV_Pos) & R_ETHSW_P0_QSFTBL0_MEIDV_Msk) |
         (((uint32_t) p_meter->meid << R_ETHSW_P0_QSFTBL0_MEID_Pos) & R_ETHSW_P0_QSFTBL0_MEID_Msk)
         );
 
     volatile uint32_t * pn_qmdescm = &p_reg_switch->P0_QMDESC0;
     pn_qmdescm  += ((ETHSW_QMDESC_OFFSET_PORT * port) + (ETHSW_QMDESC_OFFSET_METER * p_meter->meid));
-    *pn_qmdescm &= ~(R_ETHSW_P0_QMDESC0_CF_Msk | R_ETHSW_P0_QMDESC0_MM_Msk | R_ETHSW_P0_QMDESC0_RFD_Msk);
-    *pn_qmdescm |= (
+    *pn_qmdescm &= (uint32_t) ~(R_ETHSW_P0_QMDESC0_CF_Msk | R_ETHSW_P0_QMDESC0_MM_Msk | R_ETHSW_P0_QMDESC0_RFD_Msk);
+    *pn_qmdescm |= (uint32_t) (
         (((uint32_t) p_meter->cf << R_ETHSW_P0_QMDESC0_CF_Pos) |
          ((uint32_t) p_meter->mm << R_ETHSW_P0_QMDESC0_MM_Pos) |
          ((uint32_t) p_meter->rfd << R_ETHSW_P0_QMDESC0_RFD_Pos)) &
@@ -2162,7 +2154,7 @@ fsp_err_t R_ETHSW_EfpFlowMeteringSet (ether_switch_ctrl_t * const p_ctrl,
     volatile uint32_t * pn_qmec = &p_reg_switch->P0_QMEC;
     pn_qmec  += (ETHSW_QMEC_OFFSET * port);
     *pn_qmec &= ~((1U << p_meter->meid) << R_ETHSW_P0_QMEC_ME_Pos);
-    *pn_qmec |= ((uint32_t) p_meter->me << p_meter->meid) & R_ETHSW_P0_QMEC_ME_Msk;
+    *pn_qmec |= (uint32_t) (((uint32_t) p_meter->me << p_meter->meid) & R_ETHSW_P0_QMEC_ME_Msk);
 
     return err;
 }                                      /* End of function R_ETHSW_EfpFlowMeteringSet()*/
@@ -2199,24 +2191,24 @@ fsp_err_t R_ETHSW_EfpInterruptEnable (ether_switch_ctrl_t * const p_ctrl,
     volatile uint32_t * pn_qseid = &p_reg_switch->P0_QSEID;
     pn_qseie  += (ETHSW_QSEIE_OFFSET * port);
     pn_qseid  += (ETHSW_QSEID_OFFSET * port);
-    *pn_qseie |= ((uint32_t) p_conf->qsmoi & R_ETHSW_P0_QSEIE_QSMOIE_Msk);
-    *pn_qseid |= ((uint32_t) (p_conf->qsmoi ^ ETHSW_QSMOI_MASK) & R_ETHSW_P0_QSEID_QSMOID_Msk);
+    *pn_qseie |= (uint32_t) ((uint32_t) p_conf->qsmoi & R_ETHSW_P0_QSEIE_QSMOIE_Msk);
+    *pn_qseid |= (uint32_t) ((uint32_t) (p_conf->qsmoi ^ ETHSW_QSMOI_MASK) & R_ETHSW_P0_QSEID_QSMOID_Msk);
 
     /* Qci stream gate error interrupt (gating error drop) */
     volatile uint32_t * pn_qgeie = &p_reg_switch->P0_QGEIE;
     volatile uint32_t * pn_qgeid = &p_reg_switch->P0_QGEID;
     pn_qgeie  += (ETHSW_QGEIE_OFFSET * port);
     pn_qgeid  += (ETHSW_QGEID_OFFSET * port);
-    *pn_qgeie |= ((uint32_t) p_conf->qgmoi & R_ETHSW_P0_QGEIE_QGMOIE_Msk);
-    *pn_qgeid |= ((uint32_t) (p_conf->qgmoi ^ ETHSW_QGMOI_MASK) & R_ETHSW_P0_QGEID_QGMOID_Msk);
+    *pn_qgeie |= (uint32_t) ((uint32_t) p_conf->qgmoi & R_ETHSW_P0_QGEIE_QGMOIE_Msk);
+    *pn_qgeid |= (uint32_t) ((uint32_t) (p_conf->qgmoi ^ ETHSW_QGMOI_MASK) & R_ETHSW_P0_QGEID_QGMOID_Msk);
 
     /* Qci meter error interrupt (flow meter drop) */
     volatile uint32_t * pn_qmeie = &p_reg_switch->P0_QMEIE;
     volatile uint32_t * pn_qmeid = &p_reg_switch->P0_QMEID;
     pn_qmeie  += (ETHSW_QMEIE_OFFSET * port);
     pn_qmeid  += (ETHSW_QMEID_OFFSET * port);
-    *pn_qmeie |= ((uint32_t) p_conf->qrfi & R_ETHSW_P0_QMEIE_QRFIE_Msk);
-    *pn_qmeid |= ((uint32_t) (p_conf->qrfi ^ ETHSW_QRFI_MASK) & R_ETHSW_P0_QMEID_QRFID_Msk);
+    *pn_qmeie |= (uint32_t) ((uint32_t) p_conf->qrfi & R_ETHSW_P0_QMEIE_QRFIE_Msk);
+    *pn_qmeid |= (uint32_t) ((uint32_t) (p_conf->qrfi ^ ETHSW_QRFI_MASK) & R_ETHSW_P0_QMEID_QRFID_Msk);
 
     /* Frame parser error interrupt (runtime error) */
     volatile uint32_t * pn_error_mask = &p_reg_switch->P0_ERROR_MASK;
@@ -2313,7 +2305,7 @@ fsp_err_t R_ETHSW_EfpChannelEnable (ether_switch_ctrl_t * const p_ctrl, uint32_t
     p_reg_switch = p_instance_ctrl->p_reg_switch;
     if (enable)
     {
-        p_reg_switch->CHANNEL_ENABLE |= (1U << port) & ETHSW_CHANNEL_ENABLE_MASK;
+        p_reg_switch->CHANNEL_ENABLE |= (uint32_t) ((1U << port) & ETHSW_CHANNEL_ENABLE_MASK);
         while (((p_reg_switch->CHANNEL_STATE >> port) & 0x1U) != 1U)
         {
             ;
@@ -2321,7 +2313,7 @@ fsp_err_t R_ETHSW_EfpChannelEnable (ether_switch_ctrl_t * const p_ctrl, uint32_t
     }
     else
     {
-        p_reg_switch->CHANNEL_DISABLE |= (1U << port) & ETHSW_CHANNEL_DISABLE_MASK;
+        p_reg_switch->CHANNEL_DISABLE |= (uint32_t) ((1U << port) & ETHSW_CHANNEL_DISABLE_MASK);
         while (((p_reg_switch->CHANNEL_STATE >> port) & 0x1U) != 0U)
         {
             ;
@@ -2383,70 +2375,72 @@ fsp_err_t R_ETHSW_RxPatternMatcherSet (ether_switch_ctrl_t * const  p_ctrl,
     {
         // Set Rx patter mattcher control
         pattern_ctrl  = 0;
-        pattern_ctrl |=
+        pattern_ctrl |= (uint32_t) (
             (uint32_t) (p_rx_pattern_matcher->p_pattern_ctrl->match_not << R_ETHSW_PATTERN_CTRL_MATCH_NOT_Pos) &
-            R_ETHSW_PATTERN_CTRL_MATCH_NOT_Msk;
-        pattern_ctrl |=
+            R_ETHSW_PATTERN_CTRL_MATCH_NOT_Msk);
+        pattern_ctrl |= (uint32_t) (
             (uint32_t) (p_rx_pattern_matcher->p_pattern_ctrl->mgmt_fwd << R_ETHSW_PATTERN_CTRL_MGMTFWD_Pos) &
-            R_ETHSW_PATTERN_CTRL_MGMTFWD_Msk;
-        pattern_ctrl |=
+            R_ETHSW_PATTERN_CTRL_MGMTFWD_Msk);
+        pattern_ctrl |= (uint32_t) (
             (uint32_t) (p_rx_pattern_matcher->p_pattern_ctrl->discard << R_ETHSW_PATTERN_CTRL_DISCARD_Pos) &
-            R_ETHSW_PATTERN_CTRL_DISCARD_Msk;
-        pattern_ctrl |=
+            R_ETHSW_PATTERN_CTRL_DISCARD_Msk);
+        pattern_ctrl |= (uint32_t) (
             (uint32_t) (p_rx_pattern_matcher->p_pattern_ctrl->set_prio << R_ETHSW_PATTERN_CTRL_SET_PRIO_Pos) &
-            R_ETHSW_PATTERN_CTRL_SET_PRIO_Msk;
-        pattern_ctrl |= (uint32_t) (p_rx_pattern_matcher->p_pattern_ctrl->mode << R_ETHSW_PATTERN_CTRL_MODE_Pos) &
-                        R_ETHSW_PATTERN_CTRL_MODE_Msk;
+            R_ETHSW_PATTERN_CTRL_SET_PRIO_Msk);
         pattern_ctrl |=
+            (uint32_t) ((uint32_t) (p_rx_pattern_matcher->p_pattern_ctrl->mode << R_ETHSW_PATTERN_CTRL_MODE_Pos) &
+                        R_ETHSW_PATTERN_CTRL_MODE_Msk);
+        pattern_ctrl |= (uint32_t) (
             (uint32_t) (p_rx_pattern_matcher->p_pattern_ctrl->timer_sel_ovr <<
                         R_ETHSW_PATTERN_CTRL_TIMER_SEL_OVR_Pos) &
-            R_ETHSW_PATTERN_CTRL_TIMER_SEL_OVR_Msk;
-        pattern_ctrl |=
+            R_ETHSW_PATTERN_CTRL_TIMER_SEL_OVR_Msk);
+        pattern_ctrl |= (uint32_t) (
             (uint32_t) (p_rx_pattern_matcher->p_pattern_ctrl->force_forward <<
                         R_ETHSW_PATTERN_CTRL_FORCE_FORWARD_Pos) &
-            R_ETHSW_PATTERN_CTRL_FORCE_FORWARD_Msk;
-        pattern_ctrl |=
+            R_ETHSW_PATTERN_CTRL_FORCE_FORWARD_Msk);
+        pattern_ctrl |= (uint32_t) (
             (uint32_t) (p_rx_pattern_matcher->p_pattern_ctrl->hub_trigger << R_ETHSW_PATTERN_CTRL_HUBTRIGGER_Pos) &
-            R_ETHSW_PATTERN_CTRL_HUBTRIGGER_Msk;
-        pattern_ctrl |=
+            R_ETHSW_PATTERN_CTRL_HUBTRIGGER_Msk);
+        pattern_ctrl |= (uint32_t) (
             (uint32_t) (p_rx_pattern_matcher->p_pattern_ctrl->match_red << R_ETHSW_PATTERN_CTRL_MATCH_RED_Pos) &
-            R_ETHSW_PATTERN_CTRL_MATCH_RED_Msk;
-        pattern_ctrl |=
+            R_ETHSW_PATTERN_CTRL_MATCH_RED_Msk);
+        pattern_ctrl |= (uint32_t) (
             (uint32_t) (p_rx_pattern_matcher->p_pattern_ctrl->match_not_red <<
                         R_ETHSW_PATTERN_CTRL_MATCH_NOT_RED_Pos) &
-            R_ETHSW_PATTERN_CTRL_MATCH_NOT_RED_Msk;
-        pattern_ctrl |=
+            R_ETHSW_PATTERN_CTRL_MATCH_NOT_RED_Msk);
+        pattern_ctrl |= (uint32_t) (
             (uint32_t) (p_rx_pattern_matcher->p_pattern_ctrl->vlan_skip << R_ETHSW_PATTERN_CTRL_VLAN_SKIP_Pos) &
-            R_ETHSW_PATTERN_CTRL_VLAN_SKIP_Msk;
-        pattern_ctrl |=
+            R_ETHSW_PATTERN_CTRL_VLAN_SKIP_Msk);
+        pattern_ctrl |= (uint32_t) (
             (uint32_t) (p_rx_pattern_matcher->p_pattern_ctrl->priority << R_ETHSW_PATTERN_CTRL_PRIORITY_Pos) &
-            R_ETHSW_PATTERN_CTRL_PRIORITY_Msk;
-        pattern_ctrl |=
+            R_ETHSW_PATTERN_CTRL_PRIORITY_Msk);
+        pattern_ctrl |= (uint32_t) (
             (uint32_t) (p_rx_pattern_matcher->p_pattern_ctrl->learning_dis << R_ETHSW_PATTERN_CTRL_LEARNING_DIS_Pos) &
-            R_ETHSW_PATTERN_CTRL_LEARNING_DIS_Msk;
+            R_ETHSW_PATTERN_CTRL_LEARNING_DIS_Msk);
 
         port_mask = p_rx_pattern_matcher->p_pattern_ctrl->port_mask.mask;
 
-        pattern_ctrl |= (port_mask << R_ETHSW_PATTERN_CTRL_PORTMASK_Pos) & R_ETHSW_PATTERN_CTRL_PORTMASK_Msk;
+        pattern_ctrl |=
+            (uint32_t) ((port_mask << R_ETHSW_PATTERN_CTRL_PORTMASK_Pos) & R_ETHSW_PATTERN_CTRL_PORTMASK_Msk);
 
-        pattern_ctrl |=
+        pattern_ctrl |= (uint32_t) (
             (uint32_t) (p_rx_pattern_matcher->p_pattern_ctrl->imc_trigger << R_ETHSW_PATTERN_CTRL_IMC_TRIGGER_Pos) &
-            R_ETHSW_PATTERN_CTRL_IMC_TRIGGER_Msk;
-        pattern_ctrl |=
+            R_ETHSW_PATTERN_CTRL_IMC_TRIGGER_Msk);
+        pattern_ctrl |= (uint32_t) (
             (uint32_t) (p_rx_pattern_matcher->p_pattern_ctrl->imc_trigger_dely <<
-                        R_ETHSW_PATTERN_CTRL_IMC_TRIGGER_DLY_Pos) & R_ETHSW_PATTERN_CTRL_IMC_TRIGGER_DLY_Msk;
-        pattern_ctrl |=
+                        R_ETHSW_PATTERN_CTRL_IMC_TRIGGER_DLY_Pos) & R_ETHSW_PATTERN_CTRL_IMC_TRIGGER_DLY_Msk);
+        pattern_ctrl |= (uint32_t) (
             (uint32_t) (p_rx_pattern_matcher->p_pattern_ctrl->swap_bytes << R_ETHSW_PATTERN_CTRL_SWAP_BYTES_Pos) &
-            R_ETHSW_PATTERN_CTRL_SWAP_BYTES_Msk;
-        pattern_ctrl |=
+            R_ETHSW_PATTERN_CTRL_SWAP_BYTES_Msk);
+        pattern_ctrl |= (uint32_t) (
             (uint32_t) (p_rx_pattern_matcher->p_pattern_ctrl->match_lt << R_ETHSW_PATTERN_CTRL_MATCH_LT_Pos) &
-            R_ETHSW_PATTERN_CTRL_MATCH_LT_Msk;
-        pattern_ctrl |=
+            R_ETHSW_PATTERN_CTRL_MATCH_LT_Msk);
+        pattern_ctrl |= (uint32_t) (
             (uint32_t) (p_rx_pattern_matcher->p_pattern_ctrl->timer_sel << R_ETHSW_PATTERN_CTRL_TIMER_SEL_Pos) &
-            R_ETHSW_PATTERN_CTRL_TIMER_SEL_Msk;
-        pattern_ctrl |=
+            R_ETHSW_PATTERN_CTRL_TIMER_SEL_Msk);
+        pattern_ctrl |= (uint32_t) (
             (uint32_t) (p_rx_pattern_matcher->p_pattern_ctrl->queue_sel << R_ETHSW_PATTERN_CTRL_QUEUESEL_Pos) &
-            R_ETHSW_PATTERN_CTRL_QUEUESEL_Msk;
+            R_ETHSW_PATTERN_CTRL_QUEUESEL_Msk);
 
         p_reg_switch->PATTERN_CTRL[p_rx_pattern_matcher->pattern_sel] = pattern_ctrl;
 
@@ -2807,7 +2801,7 @@ fsp_err_t R_ETHSW_MmctlQgateSet (ether_switch_ctrl_t * const p_ctrl, ethsw_mmclt
     }
 
     mmctl_qgate  = (port_mask << R_ETHSW_MMCTL_QGATE_PORT_MASK_Pos) & R_ETHSW_MMCTL_QGATE_PORT_MASK_Msk;
-    mmctl_qgate |= (queue_gate << R_ETHSW_MMCTL_QGATE_QUEUE_GATE_Pos) & R_ETHSW_MMCTL_QGATE_QUEUE_GATE_Msk;
+    mmctl_qgate |= (uint32_t) ((queue_gate << R_ETHSW_MMCTL_QGATE_QUEUE_GATE_Pos) & R_ETHSW_MMCTL_QGATE_QUEUE_GATE_Msk);
 
     p_switch_reg->MMCTL_QGATE = mmctl_qgate;
 
@@ -2916,15 +2910,16 @@ fsp_err_t R_ETHSW_MmctlQueueAssignSet (ether_switch_ctrl_t * const p_ctrl, ethsw
     p_reg_switch = p_instance_ctrl->p_reg_switch;
 
     qmap  = p_reg_switch->MMCTL_POOL_QMAP;
-    qmap &=
-        ~((R_ETHSW_MMCTL_POOL_QMAP_Q0_MAP_Msk | R_ETHSW_MMCTL_POOL_QMAP_Q0_ENA_Msk) << (p_queue_assign->queue_num * 4));
+    qmap &= (uint32_t)
+            ~((R_ETHSW_MMCTL_POOL_QMAP_Q0_MAP_Msk | R_ETHSW_MMCTL_POOL_QMAP_Q0_ENA_Msk) <<
+              (p_queue_assign->queue_num * 4));
 
     if (ETHSW_MMCTL_POOL_ID_GLOBAL != p_queue_assign->pool_id)
     {
         qmap |= (1U << R_ETHSW_MMCTL_POOL_QMAP_Q0_ENA_Pos) << (p_queue_assign->queue_num * 4);
-        qmap |=
-            ((uint32_t) (p_queue_assign->pool_id << R_ETHSW_MMCTL_POOL_QMAP_Q0_MAP_Pos) &
-             R_ETHSW_MMCTL_POOL_QMAP_Q0_MAP_Msk) << (p_queue_assign->queue_num * 4);
+        qmap |= (uint32_t)
+                ((uint32_t) (p_queue_assign->pool_id << R_ETHSW_MMCTL_POOL_QMAP_Q0_MAP_Pos) &
+                 R_ETHSW_MMCTL_POOL_QMAP_Q0_MAP_Msk) << (p_queue_assign->queue_num * 4);
     }
 
     p_reg_switch->MMCTL_POOL_QMAP = qmap;
@@ -2960,11 +2955,11 @@ fsp_err_t R_ETHSW_MmctlYellowLengthSet (ether_switch_ctrl_t * const p_ctrl,
 #endif
 
     mmctl_yellow_byte_length =
-        (uint32_t) (p_yellow_length->enable << R_ETHSW_MMCTL_YELLOW_BYTE_LENGTH_P_YLEN_EN_Pos) &
-        R_ETHSW_MMCTL_YELLOW_BYTE_LENGTH_P_YLEN_EN_Msk;
+        (uint32_t) ((uint32_t) (p_yellow_length->enable << R_ETHSW_MMCTL_YELLOW_BYTE_LENGTH_P_YLEN_EN_Pos) &
+                    R_ETHSW_MMCTL_YELLOW_BYTE_LENGTH_P_YLEN_EN_Msk);
     mmctl_yellow_byte_length |=
-        (uint32_t) (p_yellow_length->length << R_ETHSW_MMCTL_YELLOW_BYTE_LENGTH_P_YELLOW_LEN_Pos) &
-        R_ETHSW_MMCTL_YELLOW_BYTE_LENGTH_P_YELLOW_LEN_Msk;
+        (uint32_t) ((uint32_t) (p_yellow_length->length << R_ETHSW_MMCTL_YELLOW_BYTE_LENGTH_P_YELLOW_LEN_Pos) &
+                    R_ETHSW_MMCTL_YELLOW_BYTE_LENGTH_P_YELLOW_LEN_Msk);
 
     p_reg_switch = p_instance_ctrl->p_reg_switch;
 
@@ -3002,10 +2997,10 @@ fsp_err_t R_ETHSW_QueueFlushEventSet (ether_switch_ctrl_t * const p_ctrl,
 
     mmctl_qflush = (port_mask << R_ETHSW_MMCTL_QFLUSH_PORT_MASK_Pos) & R_ETHSW_MMCTL_QFLUSH_PORT_MASK_Msk;
 
-    mmctl_qflush |= ((uint32_t) p_queue_flush_event->queue_mask << R_ETHSW_MMCTL_QFLUSH_QUEUE_MASK_Pos) &
-                    R_ETHSW_MMCTL_QFLUSH_QUEUE_MASK_Msk;
-    mmctl_qflush |= (uint32_t) (p_queue_flush_event->action << R_ETHSW_MMCTL_QFLUSH_ACTION_Pos) &
-                    R_ETHSW_MMCTL_QFLUSH_ACTION_Msk;
+    mmctl_qflush |= (uint32_t) (((uint32_t) p_queue_flush_event->queue_mask << R_ETHSW_MMCTL_QFLUSH_QUEUE_MASK_Pos) &
+                                R_ETHSW_MMCTL_QFLUSH_QUEUE_MASK_Msk);
+    mmctl_qflush |= (uint32_t) ((uint32_t) (p_queue_flush_event->action << R_ETHSW_MMCTL_QFLUSH_ACTION_Pos) &
+                                R_ETHSW_MMCTL_QFLUSH_ACTION_Msk);
 
     p_reg_switch = p_instance_ctrl->p_reg_switch;
 
@@ -3655,7 +3650,7 @@ fsp_err_t R_ETHSW_SnoopParserSet (ether_switch_ctrl_t * const p_ctrl, ethsw_snoo
     }
 
     /* Disable parser */
-    *p_gparser &= ~R_ETHSW_GPARSER0_VALID_Msk;
+    *p_gparser &= (uint32_t) ~R_ETHSW_GPARSER0_VALID_Msk;
     *p_garith  &= ~((1U << p_parser_cnf->parser_id) << R_ETHSW_GARITH0_SEL_MATCH_Pos);
 
     if (true == p_parser_cnf->enable)
@@ -3733,13 +3728,15 @@ fsp_err_t R_ETHSW_SnoopParserSet (ether_switch_ctrl_t * const p_ctrl, ethsw_snoo
 
         if (ETHSW_SNOOP_OFFS_IPPROT != p_parser_cnf->offs_type)
         {
-            gparser |= ((uint32_t) p_parser_cnf->offset << R_ETHSW_GPARSER0_OFFSET_Pos) & R_ETHSW_GPARSER0_OFFSET_Msk;
+            gparser |=
+                (uint32_t) (((uint32_t) p_parser_cnf->offset << R_ETHSW_GPARSER0_OFFSET_Pos) &
+                            R_ETHSW_GPARSER0_OFFSET_Msk);
         }
 
-        gparser |= ((uint32_t) p_parser_cnf->comp_value << R_ETHSW_GPARSER0_COMPARE_VAL_Pos) &
-                   R_ETHSW_GPARSER0_COMPARE_VAL_Msk;
-        gparser |= ((uint32_t) p_parser_cnf->mask_value2 << R_ETHSW_GPARSER3_MASK_VAL2_Pos) &
-                   R_ETHSW_GPARSER3_MASK_VAL2_Msk;
+        gparser |= (uint32_t) (((uint32_t) p_parser_cnf->comp_value << R_ETHSW_GPARSER0_COMPARE_VAL_Pos) &
+                               R_ETHSW_GPARSER0_COMPARE_VAL_Msk);
+        gparser |= (uint32_t) (((uint32_t) p_parser_cnf->mask_value2 << R_ETHSW_GPARSER3_MASK_VAL2_Pos) &
+                               R_ETHSW_GPARSER3_MASK_VAL2_Msk);
 
         gparser |= R_ETHSW_GPARSER0_VALID_Msk;
 
@@ -3791,15 +3788,15 @@ fsp_err_t R_ETHSW_SnoopArithSet (ether_switch_ctrl_t * const p_ctrl, ethsw_snoop
     garith = *p_garith;
 
     /* Set AND/OR operation*/
-    garith &= ~R_ETHSW_GARITH0_OP_Msk;
+    garith &= (uint32_t) ~R_ETHSW_GARITH0_OP_Msk;
     if (ETHSW_SNOOP_OPERAT_OR == p_arith_cnf->operat)
     {
         garith |= R_ETHSW_GARITH0_OP_Msk;
     }
 
     /* Set Snoop Mode*/
-    garith &= ~R_ETHSW_GARITH0_SNP_MD_Msk;
-    garith |= ((uint32_t) p_arith_cnf->action << R_ETHSW_GARITH0_SNP_MD_Pos) & R_ETHSW_GARITH0_SNP_MD_Msk;
+    garith &= (uint32_t) ~R_ETHSW_GARITH0_SNP_MD_Msk;
+    garith |= (uint32_t) (((uint32_t) p_arith_cnf->action << R_ETHSW_GARITH0_SNP_MD_Pos) & R_ETHSW_GARITH0_SNP_MD_Msk);
 
     /* Write Snoop Configuration for Arithmetic Register */
     *p_garith = garith;
@@ -4080,10 +4077,10 @@ fsp_err_t R_ETHSW_QosPrioIpSet (ether_switch_ctrl_t * const p_ctrl, uint32_t por
 
     p_switch_reg = p_instance_ctrl->p_reg_switch;
 
-    p_switch_reg->IP_PRIORITY[port] =
+    p_switch_reg->IP_PRIORITY[port] = (uint32_t) (
         (((uint32_t) p_qos_prio_ip->priority << R_ETHSW_IP_PRIORITY_PRIORITY_Pos) & R_ETHSW_IP_PRIORITY_PRIORITY_Msk) |
         (((uint32_t) p_qos_prio_ip->diffserv << R_ETHSW_IP_PRIORITY_ADDRESS_Pos) &
-         R_ETHSW_IP_PRIORITY_ADDRESS_Msk);
+         R_ETHSW_IP_PRIORITY_ADDRESS_Msk));
 
     return FSP_SUCCESS;
 }                                      /* End of function R_ETHSW_QosPrioIpSet() */
@@ -4353,7 +4350,11 @@ fsp_err_t R_ETHSW_PulseGeneratorInit (ether_switch_ctrl_t * const p_ctrl, uint32
 
     p_reg_ethss->PTPMCTRL_b.PTP_PLS_RSTn = 0;
 
+#if defined(BSP_MCU_GROUP_RZN2H)
+    p_reg_ethss->PTPMCTRL_b.PTP_MODE0 = time_num & (R_ETHSS_PTPMCTRL_PTP_MODE0_Msk >> R_ETHSS_PTPMCTRL_PTP_MODE0_Pos);
+#else
     p_reg_ethss->PTPMCTRL_b.PTP_MODE = time_num & (R_ETHSS_PTPMCTRL_PTP_MODE_Msk >> R_ETHSS_PTPMCTRL_PTP_MODE_Pos);
+#endif
 
     p_reg_ethss->PTPMCTRL_b.PTP_PLS_RSTn = 1;
 
@@ -5032,7 +5033,7 @@ fsp_err_t R_ETHSW_TdmaEnableSet (ether_switch_ctrl_t * const p_ctrl, ethsw_tdma_
 
         p_switch_reg->TDMA_CONFIG_b.TIMER_SEL = p_tdma_enable->time_num &
                                                 (R_ETHSW_TDMA_CONFIG_TIMER_SEL_Msk >>
-                                                 R_ETHSW_TDMA_CONFIG_RED_PERIOD_Pos);
+                                                 R_ETHSW_TDMA_CONFIG_TIMER_SEL_Pos);
 
         p_switch_reg->TDMA_IRQ_CONTROL_b.TCV_INT_EN = 1;
         p_switch_reg->INT_CONFIG_b.TDMA_INT         = 1;
@@ -5093,9 +5094,10 @@ fsp_err_t R_ETHSW_TdmaScheduleSet (ether_switch_ctrl_t * const   p_ctrl,
             tcv_seq_ctrl |= R_ETHSW_TCV_SEQ_CTRL_INT_Msk;
         }
 
-        tcv_seq_ctrl |= (index << R_ETHSW_TCV_SEQ_CTRL_TCV_D_IDX_Pos) & R_ETHSW_TCV_SEQ_CTRL_TCV_D_IDX_Msk;
-        tcv_seq_ctrl |= ((uint32_t) p_tdma_schedule_entry[index].gpio_mask << R_ETHSW_TCV_SEQ_CTRL_GPIO_Pos) &
-                        R_ETHSW_TCV_SEQ_CTRL_GPIO_Msk;
+        tcv_seq_ctrl |= (uint32_t) ((index << R_ETHSW_TCV_SEQ_CTRL_TCV_D_IDX_Pos) & R_ETHSW_TCV_SEQ_CTRL_TCV_D_IDX_Msk);
+        tcv_seq_ctrl |=
+            (uint32_t) (((uint32_t) p_tdma_schedule_entry[index].gpio_mask << R_ETHSW_TCV_SEQ_CTRL_GPIO_Pos) &
+                        R_ETHSW_TCV_SEQ_CTRL_GPIO_Msk);
 
         p_switch_reg->TCV_SEQ_ADDR = (index << R_ETHSW_TCV_SEQ_ADDR_TCV_S_ADDR_Pos) &
                                      R_ETHSW_TCV_SEQ_ADDR_TCV_S_ADDR_Msk;
@@ -5250,13 +5252,14 @@ fsp_err_t R_ETHSW_TdmaCounter1Set (ether_switch_ctrl_t * const p_ctrl, ethsw_tdm
     if (true == p_tdma_counter1->write_value)
     {
         counter1  = (uint32_t) (p_tdma_counter1->value << R_ETHSW_TDMA_CTR1_VALUE_Pos) & R_ETHSW_TDMA_CTR1_VALUE_Msk;
-        counter1 |= (uint32_t) (p_tdma_counter1->write_value << R_ETHSW_TDMA_CTR1_WRITE_ENA_Pos) &
-                    R_ETHSW_TDMA_CTR1_WRITE_ENA_Msk;
+        counter1 |= (uint32_t) ((uint32_t) (p_tdma_counter1->write_value << R_ETHSW_TDMA_CTR1_WRITE_ENA_Pos) &
+                                R_ETHSW_TDMA_CTR1_WRITE_ENA_Msk);
     }
 
-    counter1 |= (uint32_t) (p_tdma_counter1->max_value << R_ETHSW_TDMA_CTR1_MAX_Pos) & R_ETHSW_TDMA_CTR1_MAX_Msk;
-    counter1 |= (uint32_t) (p_tdma_counter1->int_value << R_ETHSW_TDMA_CTR1_INT_VALUE_Pos) &
-                R_ETHSW_TDMA_CTR1_INT_VALUE_Msk;
+    counter1 |=
+        (uint32_t) ((uint32_t) (p_tdma_counter1->max_value << R_ETHSW_TDMA_CTR1_MAX_Pos) & R_ETHSW_TDMA_CTR1_MAX_Msk);
+    counter1 |= (uint32_t) ((uint32_t) (p_tdma_counter1->int_value << R_ETHSW_TDMA_CTR1_INT_VALUE_Pos) &
+                            R_ETHSW_TDMA_CTR1_INT_VALUE_Msk);
 
     p_reg_switch->TDMA_CTR1 = counter1;
 
@@ -5362,14 +5365,14 @@ fsp_err_t R_ETHSW_TimeEnableSet (ether_switch_ctrl_t * const p_ctrl, ethsw_time_
         /* enable operation */
         *p_atime_ctrl |= R_ETHSW_ATIME_CTRL1_ENABLE_Msk << R_ETHSW_ATIME_CTRL1_ENABLE_Pos;
 
-        *p_atime_inc &= (~R_ETHSW_ATIME_INC1_CLK_PERIOD_Msk);
-        *p_atime_inc |= (uint32_t) (p_time_enable->clock_period << R_ETHSW_ATIME_INC1_CLK_PERIOD_Pos) &
-                        R_ETHSW_ATIME_INC1_CLK_PERIOD_Msk;
+        *p_atime_inc &= (uint32_t) (~R_ETHSW_ATIME_INC1_CLK_PERIOD_Msk);
+        *p_atime_inc |= (uint32_t) ((uint32_t) (p_time_enable->clock_period << R_ETHSW_ATIME_INC1_CLK_PERIOD_Pos) &
+                                    R_ETHSW_ATIME_INC1_CLK_PERIOD_Msk);
     }
     else
     {
         /* disable operation */
-        *p_atime_ctrl &= ~(R_ETHSW_ATIME_CTRL1_ENABLE_Msk << R_ETHSW_ATIME_CTRL1_ENABLE_Pos);
+        *p_atime_ctrl &= (uint32_t) ~(R_ETHSW_ATIME_CTRL1_ENABLE_Msk << R_ETHSW_ATIME_CTRL1_ENABLE_Pos);
     }
 
     return FSP_SUCCESS;
@@ -5406,9 +5409,9 @@ fsp_err_t R_ETHSW_TimeTransmitTimestampSet (ether_switch_ctrl_t * const p_ctrl, 
     if (0 != p_time_transmit->port_mask.mask)
     {
         /* enable options */
-        reg_config &= ~R_ETHSW_TSM_CONFIG_IRQ_TX_EN_Msk;
-        reg_config |= (uint32_t) (p_time_transmit->port_mask.mask << R_ETHSW_TSM_CONFIG_IRQ_TX_EN_Pos) &
-                      R_ETHSW_TSM_CONFIG_IRQ_TX_EN_Msk;
+        reg_config &= (uint32_t) ~R_ETHSW_TSM_CONFIG_IRQ_TX_EN_Msk;
+        reg_config |= (uint32_t) ((uint32_t) (p_time_transmit->port_mask.mask << R_ETHSW_TSM_CONFIG_IRQ_TX_EN_Pos) &
+                                  R_ETHSW_TSM_CONFIG_IRQ_TX_EN_Msk);
         reg_config |= R_ETHSW_TSM_CONFIG_IRQ_EN_Msk;
 
         p_switch_reg->TSM_CONFIG = reg_config;
@@ -5423,11 +5426,11 @@ fsp_err_t R_ETHSW_TimeTransmitTimestampSet (ether_switch_ctrl_t * const p_ctrl, 
     else
     {
         /* disable options */
-        reg_config &= ~R_ETHSW_TSM_CONFIG_IRQ_TX_EN_Msk;
+        reg_config &= (uint32_t) ~R_ETHSW_TSM_CONFIG_IRQ_TX_EN_Msk;
 
         p_switch_reg->TSM_CONFIG = reg_config;
 
-        reg_int_config &= ~R_ETHSW_INT_CONFIG_TSM_INT_Msk;
+        reg_int_config &= (uint32_t) ~R_ETHSW_INT_CONFIG_TSM_INT_Msk;
 
         p_switch_reg->INT_CONFIG = reg_int_config;
 
@@ -5494,6 +5497,7 @@ fsp_err_t R_ETHSW_TimeValueGet (ether_switch_ctrl_t * const p_ctrl, ethsw_timest
     volatile uint32_t * p_atime;       /* nanoseconds time value */
     volatile uint32_t * p_atime_sec;   /* seconds time value */
     uint64_t            timeout;       /* timeout */
+    int32_t             sign_time_nano;
 
     ethsw_instance_ctrl_t * p_instance_ctrl = (ethsw_instance_ctrl_t *) p_ctrl;
     R_ETHSW_Type volatile * p_switch_reg;
@@ -5530,13 +5534,120 @@ fsp_err_t R_ETHSW_TimeValueGet (ether_switch_ctrl_t * const p_ctrl, ethsw_timest
         timeout--;
     }
 
-    p_timestamp->time_sec  = *p_atime_sec;
-    p_timestamp->time_nsec = *p_atime;
+    p_timestamp->time_sec = *p_atime_sec;
+    sign_time_nano        = (int32_t) *p_atime;
 
+    if (sign_time_nano < 0)
+    {
+        p_timestamp->time_sec -= 1;
+        sign_time_nano        += NANO_COUNT_FOR_1SEC;
+    }
+    else if (sign_time_nano >= NANO_COUNT_FOR_1SEC)
+    {
+        p_timestamp->time_sec += 1;
+        sign_time_nano        -= NANO_COUNT_FOR_1SEC;
+    }
+    else
+    {
+        ;
+    }
+
+    p_timestamp->time_nsec    = (uint32_t) sign_time_nano;
     p_timestamp->timestamp_id = 0;
 
     return FSP_SUCCESS;
 }                                      /* End of R_ETHSW_TimeValueGet() */
+
+/*******************************************************************************************************************//**
+ * Gets the current time value to all timer (timer number 0 and 1).
+ *
+ * @retval  FSP_SUCCESS                 Command successfully.
+ * @retval  FSP_ERR_ASSERTION           Pointer to ETHER control block is NULL.
+ * @retval  FSP_ERR_NOT_OPEN            The control block has not been opened.
+ * @retval  FSP_ERR_INVALID_POINTER     Pointer to arguments are NULL.
+ * @retval  FSP_ERR_TIMEOUT             Timeout error
+ **********************************************************************************************************************/
+fsp_err_t R_ETHSW_TimeValueGetAll (ether_switch_ctrl_t * const p_ctrl,
+                                   ethsw_timestamp_t         * p_timer0,
+                                   ethsw_timestamp_t         * p_timer1)
+{
+    uint64_t timeout;                  /* timeout */
+    uint8_t  corr_inc0;
+    uint8_t  corr_inc1;
+    uint8_t  clk_period0;
+    uint8_t  clk_period1;
+    uint8_t  set_clk_period0 = 0;
+    uint8_t  set_clk_period1 = 0;
+
+    R_ETHSW_Type volatile * p_switch_reg;
+    ethsw_instance_ctrl_t * p_instance_ctrl = (ethsw_instance_ctrl_t *) p_ctrl;
+
+#if (ETHSW_CFG_PARAM_CHECKING_ENABLE)
+    FSP_ASSERT(p_instance_ctrl);
+    ETHSW_ERROR_RETURN(ETHSW_OPEN == p_instance_ctrl->open, FSP_ERR_NOT_OPEN);
+
+    ETHSW_ERROR_RETURN((NULL != p_timer0), FSP_ERR_INVALID_POINTER);
+    ETHSW_ERROR_RETURN((NULL != p_timer1), FSP_ERR_INVALID_POINTER);
+#endif
+
+    p_switch_reg = p_instance_ctrl->p_reg_switch;
+
+    corr_inc0   = p_switch_reg->ATIME_INC0_b.CORR_INC;
+    clk_period0 = p_switch_reg->ATIME_INC0_b.CLK_PERIOD;
+
+    if (clk_period0 != corr_inc0)
+    {
+        p_switch_reg->ATIME_INC0_b.CORR_INC = clk_period0 &
+                                              (R_ETHSW_ATIME_INC0_CORR_INC_Msk >> R_ETHSW_ATIME_INC0_CORR_INC_Pos);
+        set_clk_period0 = 1;
+    }
+
+    corr_inc1   = p_switch_reg->ATIME_INC1_b.CORR_INC;
+    clk_period1 = p_switch_reg->ATIME_INC1_b.CLK_PERIOD;
+
+    if (clk_period1 != corr_inc1)
+    {
+        p_switch_reg->ATIME_INC1_b.CORR_INC = clk_period1 &
+                                              (R_ETHSW_ATIME_INC0_CORR_INC_Msk >> R_ETHSW_ATIME_INC0_CORR_INC_Pos);
+        set_clk_period1 = 1;
+    }
+
+    p_switch_reg->ATIME_CTRL0_b.CAPTURE_ALL = 1;
+
+    timeout = ETHSW_TIMEOUT_COUNT;
+
+    while (0 != p_switch_reg->ATIME_CTRL0_b.CAPTURE_ALL)
+    {
+        ETHSW_ERROR_RETURN((0 != timeout), FSP_ERR_TIMEOUT);
+        timeout--;
+    }
+
+    p_timer0->time_sec  = p_switch_reg->ATIME_SEC0;
+    p_timer0->time_nsec = p_switch_reg->ATIME0;
+
+    p_timer1->time_sec  = p_switch_reg->ATIME_SEC1;
+    p_timer1->time_nsec = p_switch_reg->ATIME1;
+
+    p_timer0->timestamp_id = 0;
+    p_timer1->timestamp_id = 0;
+
+    p_timer0->time_num = 0;
+    p_timer1->time_num = 1;
+
+    if (set_clk_period0)
+    {
+        p_switch_reg->ATIME_INC0_b.CORR_INC = corr_inc0 &
+                                              (R_ETHSW_ATIME_INC0_CORR_INC_Msk >> R_ETHSW_ATIME_INC0_CORR_INC_Pos);
+    }
+
+    if (set_clk_period1)
+    {
+        p_switch_reg->ATIME_INC1_b.CORR_INC = corr_inc1 &
+                                              (R_ETHSW_ATIME_INC1_CORR_INC_Msk >> R_ETHSW_ATIME_INC1_CORR_INC_Pos);
+    }
+
+    return FSP_SUCCESS;
+}                                      /* End of function R_ETHSW_TimeValueGetAll() */
 
 /*******************************************************************************************************************//**
  * Sets the peer delay value for the specified timer number of the specified port number.
@@ -5644,7 +5755,7 @@ fsp_err_t R_ETHSW_TimeRateSet (ether_switch_ctrl_t * const p_ctrl, ethsw_time_ra
     uint32_t clock_period;
     uint32_t atime_increment;
     uint32_t atime_correct;
-    uint16_t abs_ppb;
+    uint32_t abs_ppb;
 
 #define TS_CLK              125 * 1000 * 1000 /* 125MHz */
 #define CLOCK_CORRECTION    1                 /* Number of clocks increasing or decreasing */
@@ -5655,6 +5766,8 @@ fsp_err_t R_ETHSW_TimeRateSet (ether_switch_ctrl_t * const p_ctrl, ethsw_time_ra
 
     ETHSW_ERROR_RETURN((NULL != p_rate), FSP_ERR_INVALID_POINTER);
     ETHSW_ERROR_RETURN(ETHSW_TIME_COUNT > p_rate->time_num, FSP_ERR_INVALID_ARGUMENT);
+    ETHSW_ERROR_RETURN((+TS_CLK / 10) >= p_rate->rate, FSP_ERR_INVALID_ARGUMENT);
+    ETHSW_ERROR_RETURN((-TS_CLK / 10) <= p_rate->rate, FSP_ERR_INVALID_ARGUMENT);
 #endif
 
     p_reg_switch = p_instance_ctrl->p_reg_switch;
@@ -5679,16 +5792,16 @@ fsp_err_t R_ETHSW_TimeRateSet (ether_switch_ctrl_t * const p_ctrl, ethsw_time_ra
         {
             atime_increment = clock_period - CLOCK_CORRECTION;
 
-            abs_ppb = (uint16_t) (p_rate->rate * -1);
+            abs_ppb = (uint32_t) (p_rate->rate * -1);
         }
         else
         {
             atime_increment = clock_period + CLOCK_CORRECTION;
 
-            abs_ppb = (uint16_t) p_rate->rate;
+            abs_ppb = (uint32_t) p_rate->rate;
         }
 
-        atime_correct = (uint32_t) ((TS_CLK / CLOCK_CORRECTION) / abs_ppb) - 1;
+        atime_correct = (uint32_t) ((TS_CLK * CLOCK_CORRECTION) / abs_ppb) - 1;
     }
 
     if (0 == p_rate->time_num)         // timer 0
@@ -6118,6 +6231,7 @@ static void ethsw_isr_tsm (ethsw_instance_ctrl_t * p_instance_ctrl)
     uint32_t          irq_stat_ack;
     R_ETHSW_Type    * p_switch_reg;
     uint32_t          ts_fifo_read_ctrl;
+    int32_t           sign_time_nano;
 
     p_switch_reg = p_instance_ctrl->p_reg_switch;
 
@@ -6151,7 +6265,22 @@ static void ethsw_isr_tsm (ethsw_instance_ctrl_t * p_instance_ctrl)
                 timestamp.timestamp_id = ((ts_fifo_read_ctrl & R_ETHSW_TS_FIFO_READ_CTRL_TS_ID_Msk) >>
                                           R_ETHSW_TS_FIFO_READ_CTRL_TS_ID_Pos);
 
-                timestamp.time_nsec = p_switch_reg->TS_FIFO_READ_TIMESTAMP;
+                sign_time_nano = (int32_t) p_switch_reg->TS_FIFO_READ_TIMESTAMP;
+
+                if (sign_time_nano < 0)
+                {
+                    sign_time_nano += NANO_COUNT_FOR_1SEC;
+                }
+                else if (sign_time_nano >= NANO_COUNT_FOR_1SEC)
+                {
+                    sign_time_nano -= NANO_COUNT_FOR_1SEC;
+                }
+                else
+                {
+                    ;
+                }
+
+                timestamp.time_nsec = (uint32_t) sign_time_nano;
 
                 if (gp_ethsw_time_callback)
                 {

@@ -5,10 +5,14 @@ gpt_instance_ctrl_t g_timer5_ctrl;
 #if 0
 const gpt_extended_pwm_cfg_t g_timer5_pwm_extend =
 {
-    .trough_ipl          = (BSP_IRQ_DISABLED),
 #if defined(VECTOR_NUMBER_GPT5_UDF)
+    .trough_ipl          = (BSP_IRQ_DISABLED),
     .trough_irq          = VECTOR_NUMBER_GPT5_UDF,
+#elif defined(VECTOR_NUMBER_GPT00_5_INT)
+    .trough_ipl          = FSP_NOT_DEFINED,
+    .trough_irq          = VECTOR_NUMBER_GPT00_5_INT,
 #else
+    .trough_ipl          = (BSP_IRQ_DISABLED),
     .trough_irq          = FSP_INVALID_VECTOR,
 #endif
     .poeg_link           = GPT_POEG_LINK_POEG0,
@@ -53,17 +57,31 @@ const gpt_extended_cfg_t g_timer5_extend =
 #endif
     .capture_a_source    = (gpt_source_t) ( GPT_SOURCE_NONE),
     .capture_b_source    = (gpt_source_t) ( GPT_SOURCE_NONE),
-    .capture_a_ipl       = (BSP_IRQ_DISABLED),
-    .capture_b_ipl       = (BSP_IRQ_DISABLED),
 #if defined(VECTOR_NUMBER_GPT5_CCMPA)
+    .capture_a_ipl       = (BSP_IRQ_DISABLED),
     .capture_a_irq       = VECTOR_NUMBER_GPT5_CCMPA,
+    .capture_a_source_select = BSP_IRQ_DISABLED,
+#elif defined(VECTOR_NUMBER_GPT00_5_INT)
+    .capture_a_ipl       = FSP_NOT_DEFINED,
+    .capture_a_irq       = VECTOR_NUMBER_GPT00_5_INT,
+    .capture_a_source_select = ,
 #else
+    .capture_a_ipl       = (BSP_IRQ_DISABLED),
     .capture_a_irq       = FSP_INVALID_VECTOR,
+    .capture_a_source_select = BSP_IRQ_DISABLED,
 #endif
 #if defined(VECTOR_NUMBER_GPT5_CCMPB)
     .capture_b_irq       = VECTOR_NUMBER_GPT5_CCMPB,
+    .capture_b_ipl       = (BSP_IRQ_DISABLED),
+    .capture_b_source_select = BSP_IRQ_DISABLED,
+#elif defined(VECTOR_NUMBER_GPT00_5_INT)
+    .capture_b_irq       = VECTOR_NUMBER_GPT00_5_INT,
+    .capture_b_ipl       = FSP_NOT_DEFINED,
+    .capture_b_source_select = ,
 #else
+    .capture_b_ipl       = (BSP_IRQ_DISABLED),
     .capture_b_irq       = FSP_INVALID_VECTOR,
+    .capture_b_source_select = BSP_IRQ_DISABLED,
 #endif
     .capture_filter_gtioca       = GPT_CAPTURE_FILTER_NONE,
     .capture_filter_gtiocb       = GPT_CAPTURE_FILTER_NONE,
@@ -72,26 +90,60 @@ const gpt_extended_cfg_t g_timer5_extend =
 #else
     .p_pwm_cfg                   = NULL,
 #endif
-    .dead_time_ipl       = (BSP_IRQ_DISABLED),
 #if defined(VECTOR_NUMBER_GPT5_DTE)
+    .dead_time_ipl       = (BSP_IRQ_DISABLED),
     .dead_time_irq       = VECTOR_NUMBER_GPT5_DTE,
+    .dead_time_error_source_select = BSP_IRQ_DISABLED,
+#elif defined(VECTOR_NUMBER_GPT00_5_INT)
+    .dead_time_ipl       = FSP_NOT_DEFINED,
+    .dead_time_irq       = VECTOR_NUMBER_GPT00_5_INT,
+    .dead_time_error_source_select = ,
 #else
+    .dead_time_ipl       = (BSP_IRQ_DISABLED),
     .dead_time_irq       = FSP_INVALID_VECTOR,
+    .dead_time_error_source_select = BSP_IRQ_DISABLED,
 #endif
     .icds                = 0,
+#if (2U == BSP_FEATURE_GPT_REGISTER_MASK_TYPE)
+ #if (1U == BSP_FEATURE_GPT_INPUT_CAPTURE_SIGNAL_SELECTABLE)
+    .gtioc_isel          = 0,
+ #endif
+#endif
+#if defined(VECTOR_NUMBER_GPT5_OVF)
+    .cycle_end_source_select = BSP_IRQ_DISABLED,
+#elif defined(VECTOR_NUMBER_GPT00_5_INT)
+    .cycle_end_source_select = ,
+#else
+    .cycle_end_source_select = BSP_IRQ_DISABLED,
+#endif
+#if defined(VECTOR_NUMBER_GPT5_UDF)
+    .trough_source_select = BSP_IRQ_DISABLED,
+#elif defined(VECTOR_NUMBER_GPT00_5_INT)
+    .trough_source_select = ,
+#else
+    .trough_source_select  = BSP_IRQ_DISABLED,
+#endif
 };
 const timer_cfg_t g_timer5_cfg =
 {
     .mode                = TIMER_MODE_PWM,
     /* Actual period: 0.00005 seconds. Actual duty: 50%. */ .period_counts = (uint32_t) 0x4e20, .duty_cycle_counts = 0x2710, .source_div = (timer_source_div_t)0,
     .channel             = GPT_CHANNEL_UNIT0_5,
+#if (1 == BSP_FEATURE_BSP_IRQ_GPT_SEL_SUPPORTED)
     .p_callback          = NULL,
+#else
+    .p_callback          = NULL,
+#endif
     .p_context           = NULL,
     .p_extend            = &g_timer5_extend,
-    .cycle_end_ipl       = (BSP_IRQ_DISABLED),
 #if defined(VECTOR_NUMBER_GPT5_OVF)
+    .cycle_end_ipl       = (BSP_IRQ_DISABLED),
     .cycle_end_irq       = VECTOR_NUMBER_GPT5_OVF,
+#elif defined(VECTOR_NUMBER_GPT00_5_INT)
+    .cycle_end_ipl       = FSP_NOT_DEFINED,
+    .cycle_end_irq       = VECTOR_NUMBER_GPT00_5_INT,
 #else
+    .cycle_end_ipl       = (BSP_IRQ_DISABLED),
     .cycle_end_irq       = FSP_INVALID_VECTOR,
 #endif
 };
@@ -106,10 +158,14 @@ gpt_instance_ctrl_t g_timer0_ctrl;
 #if 0
 const gpt_extended_pwm_cfg_t g_timer0_pwm_extend =
 {
-    .trough_ipl          = (BSP_IRQ_DISABLED),
 #if defined(VECTOR_NUMBER_GPT0_UDF)
+    .trough_ipl          = (BSP_IRQ_DISABLED),
     .trough_irq          = VECTOR_NUMBER_GPT0_UDF,
+#elif defined(VECTOR_NUMBER_GPT00_0_INT)
+    .trough_ipl          = FSP_NOT_DEFINED,
+    .trough_irq          = VECTOR_NUMBER_GPT00_0_INT,
 #else
+    .trough_ipl          = (BSP_IRQ_DISABLED),
     .trough_irq          = FSP_INVALID_VECTOR,
 #endif
     .poeg_link           = GPT_POEG_LINK_POEG0,
@@ -154,17 +210,31 @@ const gpt_extended_cfg_t g_timer0_extend =
 #endif
     .capture_a_source    = (gpt_source_t) ( GPT_SOURCE_NONE),
     .capture_b_source    = (gpt_source_t) ( GPT_SOURCE_NONE),
-    .capture_a_ipl       = (BSP_IRQ_DISABLED),
-    .capture_b_ipl       = (BSP_IRQ_DISABLED),
 #if defined(VECTOR_NUMBER_GPT0_CCMPA)
+    .capture_a_ipl       = (BSP_IRQ_DISABLED),
     .capture_a_irq       = VECTOR_NUMBER_GPT0_CCMPA,
+    .capture_a_source_select = BSP_IRQ_DISABLED,
+#elif defined(VECTOR_NUMBER_GPT00_0_INT)
+    .capture_a_ipl       = FSP_NOT_DEFINED,
+    .capture_a_irq       = VECTOR_NUMBER_GPT00_0_INT,
+    .capture_a_source_select = ,
 #else
+    .capture_a_ipl       = (BSP_IRQ_DISABLED),
     .capture_a_irq       = FSP_INVALID_VECTOR,
+    .capture_a_source_select = BSP_IRQ_DISABLED,
 #endif
 #if defined(VECTOR_NUMBER_GPT0_CCMPB)
     .capture_b_irq       = VECTOR_NUMBER_GPT0_CCMPB,
+    .capture_b_ipl       = (BSP_IRQ_DISABLED),
+    .capture_b_source_select = BSP_IRQ_DISABLED,
+#elif defined(VECTOR_NUMBER_GPT00_0_INT)
+    .capture_b_irq       = VECTOR_NUMBER_GPT00_0_INT,
+    .capture_b_ipl       = FSP_NOT_DEFINED,
+    .capture_b_source_select = ,
 #else
+    .capture_b_ipl       = (BSP_IRQ_DISABLED),
     .capture_b_irq       = FSP_INVALID_VECTOR,
+    .capture_b_source_select = BSP_IRQ_DISABLED,
 #endif
     .capture_filter_gtioca       = GPT_CAPTURE_FILTER_NONE,
     .capture_filter_gtiocb       = GPT_CAPTURE_FILTER_NONE,
@@ -173,26 +243,60 @@ const gpt_extended_cfg_t g_timer0_extend =
 #else
     .p_pwm_cfg                   = NULL,
 #endif
-    .dead_time_ipl       = (BSP_IRQ_DISABLED),
 #if defined(VECTOR_NUMBER_GPT0_DTE)
+    .dead_time_ipl       = (BSP_IRQ_DISABLED),
     .dead_time_irq       = VECTOR_NUMBER_GPT0_DTE,
+    .dead_time_error_source_select = BSP_IRQ_DISABLED,
+#elif defined(VECTOR_NUMBER_GPT00_0_INT)
+    .dead_time_ipl       = FSP_NOT_DEFINED,
+    .dead_time_irq       = VECTOR_NUMBER_GPT00_0_INT,
+    .dead_time_error_source_select = ,
 #else
+    .dead_time_ipl       = (BSP_IRQ_DISABLED),
     .dead_time_irq       = FSP_INVALID_VECTOR,
+    .dead_time_error_source_select = BSP_IRQ_DISABLED,
 #endif
     .icds                = 0,
+#if (2U == BSP_FEATURE_GPT_REGISTER_MASK_TYPE)
+ #if (1U == BSP_FEATURE_GPT_INPUT_CAPTURE_SIGNAL_SELECTABLE)
+    .gtioc_isel          = 0,
+ #endif
+#endif
+#if defined(VECTOR_NUMBER_GPT0_OVF)
+    .cycle_end_source_select = BSP_IRQ_DISABLED,
+#elif defined(VECTOR_NUMBER_GPT00_0_INT)
+    .cycle_end_source_select = ,
+#else
+    .cycle_end_source_select = BSP_IRQ_DISABLED,
+#endif
+#if defined(VECTOR_NUMBER_GPT0_UDF)
+    .trough_source_select = BSP_IRQ_DISABLED,
+#elif defined(VECTOR_NUMBER_GPT00_0_INT)
+    .trough_source_select = ,
+#else
+    .trough_source_select  = BSP_IRQ_DISABLED,
+#endif
 };
 const timer_cfg_t g_timer0_cfg =
 {
     .mode                = TIMER_MODE_PERIODIC,
     /* Actual period: 10.73741824 seconds. Actual duty: 50%. */ .period_counts = (uint32_t) 0x100000000, .duty_cycle_counts = 0x80000000, .source_div = (timer_source_div_t)0,
     .channel             = GPT_CHANNEL_UNIT0_0,
+#if (1 == BSP_FEATURE_BSP_IRQ_GPT_SEL_SUPPORTED)
+    .p_callback          = NULL,
+#else
     .p_callback          = timer0_callback,
+#endif
     .p_context           = NULL,
     .p_extend            = &g_timer0_extend,
-    .cycle_end_ipl       = (12),
 #if defined(VECTOR_NUMBER_GPT0_OVF)
+    .cycle_end_ipl       = (12),
     .cycle_end_irq       = VECTOR_NUMBER_GPT0_OVF,
+#elif defined(VECTOR_NUMBER_GPT00_0_INT)
+    .cycle_end_ipl       = FSP_NOT_DEFINED,
+    .cycle_end_irq       = VECTOR_NUMBER_GPT00_0_INT,
 #else
+    .cycle_end_ipl       = (12),
     .cycle_end_irq       = FSP_INVALID_VECTOR,
 #endif
 };

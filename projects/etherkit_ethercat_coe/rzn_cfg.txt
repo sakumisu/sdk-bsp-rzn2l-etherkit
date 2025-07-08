@@ -1,5 +1,5 @@
 FSP Configuration
-  Board "RSK+RZN2L (xSPI0 x1 boot mode)"
+  Board "RSK+RZN2L|RSK+RZN2L (xSPI0 x1 boot mode)"
     Parameter information for the loader: CACHE_FLG: 0x00000000
     Parameter information for the loader: WRAPCFG_V: 0x00000000
     Parameter information for the loader: COMCFG_V: 0x00000000
@@ -12,6 +12,7 @@ FSP Configuration
     Parameter information for the loader: LIOCFGCS0_V: 0x00070000
     Parameter information for the loader: ACCESS_SPEED: 0x00000006
     Parameter information for the loader: CHECK_SUM: Auto Calculate.
+    Use loader parameter: Used
     
   R9A07G084M04GBG
     part_number: R9A07G084M04GBG
@@ -595,7 +596,7 @@ FSP Configuration
     SPI1ASYNCCLK: 96MHz
     SPI2ASYNCCLK: 96MHz
     SPI3ASYNCCLK: 96MHz
-    PCLKCAN 40MHz
+    CANFDCLK Src: PCLKCAN 40MHz
     XSPI_CLK0 133.3MHz
     XSPI_CLK1 12.5MHz
     
@@ -1099,7 +1100,6 @@ FSP Configuration
     Global Error Interrupt: Callback Channel: Channel 1
     Transmission Priority: Buffer Number
     DLC Check: Disabled
-    Clock Source: PCLKCAN
     Flexible Data (FD): Protocol Exceptions: Enabled (ISO 11898-1)
     Flexible Data (FD): Payload Overflow: Reject
     Reception: Message Buffers: Number of Buffers: 0
@@ -1145,6 +1145,79 @@ FSP Configuration
     Reception: FIFOs: FIFO 7: Interrupt Threshold: 1/2 full
     Reception: FIFOs: FIFO 7: Payload Size: 64 bytes
     Reception: FIFOs: FIFO 7: Depth: 16 stages
+    Common FIFOs: Interval Timer Reference Clock Prescaler: 0
+    Common FIFOs: FIFO 0: Enable: Disabled
+    Common FIFOs: FIFO 0: Mode: Receive
+    Common FIFOs: FIFO 0: RX Interrupt Enable: Disabled
+    Common FIFOs: FIFO 0: TX Interrupt Enable: Disabled
+    Common FIFOs: FIFO 0: Interrupt Mode: At Threshold Value
+    Common FIFOs: FIFO 0: Interrupt Threshold: 1/2 full
+    Common FIFOs: FIFO 0: Payload Size: 64 bytes
+    Common FIFOs: FIFO 0: Depth: 16 stages
+    Common FIFOs: FIFO 0: TX Message Buffer: TX Message Buffer 32
+    Common FIFOs: FIFO 0: Interval TX Delay: 0
+    Common FIFOs: FIFO 0: Interval Timer: Reference clock
+    Common FIFOs: FIFO 0: Interval Timer Reference Clock Resolution: x1
+    Common FIFOs: FIFO 1: Enable: Disabled
+    Common FIFOs: FIFO 1: Mode: Receive
+    Common FIFOs: FIFO 1: RX Interrupt Enable: Disabled
+    Common FIFOs: FIFO 1: TX Interrupt Enable: Disabled
+    Common FIFOs: FIFO 1: Interrupt Mode: At Threshold Value
+    Common FIFOs: FIFO 1: Interrupt Threshold: 1/2 full
+    Common FIFOs: FIFO 1: Payload Size: 64 bytes
+    Common FIFOs: FIFO 1: Depth: 16 stages
+    Common FIFOs: FIFO 1: TX Message Buffer: TX Message Buffer 32
+    Common FIFOs: FIFO 1: Interval TX Delay: 0
+    Common FIFOs: FIFO 1: Interval Timer: Reference clock
+    Common FIFOs: FIFO 1: Interval Timer Reference Clock Resolution: x1
+    Common FIFOs: FIFO 2: Enable: Disabled
+    Common FIFOs: FIFO 2: Mode: Receive
+    Common FIFOs: FIFO 2: RX Interrupt Enable: Disabled
+    Common FIFOs: FIFO 2: TX Interrupt Enable: Disabled
+    Common FIFOs: FIFO 2: Interrupt Mode: At Threshold Value
+    Common FIFOs: FIFO 2: Interrupt Threshold: 1/2 full
+    Common FIFOs: FIFO 2: Payload Size: 64 bytes
+    Common FIFOs: FIFO 2: Depth: 16 stages
+    Common FIFOs: FIFO 2: TX Message Buffer: TX Message Buffer 32
+    Common FIFOs: FIFO 2: Interval TX Delay: 0
+    Common FIFOs: FIFO 2: Interval Timer: Reference clock
+    Common FIFOs: FIFO 2: Interval Timer Reference Clock Resolution: x1
+    Common FIFOs: FIFO 3: Enable: Disabled
+    Common FIFOs: FIFO 3: Mode: Receive
+    Common FIFOs: FIFO 3: RX Interrupt Enable: Disabled
+    Common FIFOs: FIFO 3: TX Interrupt Enable: Disabled
+    Common FIFOs: FIFO 3: Interrupt Mode: At Threshold Value
+    Common FIFOs: FIFO 3: Interrupt Threshold: 1/2 full
+    Common FIFOs: FIFO 3: Payload Size: 64 bytes
+    Common FIFOs: FIFO 3: Depth: 16 stages
+    Common FIFOs: FIFO 3: TX Message Buffer: TX Message Buffer 32
+    Common FIFOs: FIFO 3: Interval TX Delay: 0
+    Common FIFOs: FIFO 3: Interval Timer: Reference clock
+    Common FIFOs: FIFO 3: Interval Timer Reference Clock Resolution: x1
+    Common FIFOs: FIFO 4: Enable: Disabled
+    Common FIFOs: FIFO 4: Mode: Receive
+    Common FIFOs: FIFO 4: RX Interrupt Enable: Disabled
+    Common FIFOs: FIFO 4: TX Interrupt Enable: Disabled
+    Common FIFOs: FIFO 4: Interrupt Mode: At Threshold Value
+    Common FIFOs: FIFO 4: Interrupt Threshold: 1/2 full
+    Common FIFOs: FIFO 4: Payload Size: 64 bytes
+    Common FIFOs: FIFO 4: Depth: 16 stages
+    Common FIFOs: FIFO 4: TX Message Buffer: TX Message Buffer 32
+    Common FIFOs: FIFO 4: Interval TX Delay: 0
+    Common FIFOs: FIFO 4: Interval Timer: Reference clock
+    Common FIFOs: FIFO 4: Interval Timer Reference Clock Resolution: x1
+    Common FIFOs: FIFO 5: Enable: Disabled
+    Common FIFOs: FIFO 5: Mode: Receive
+    Common FIFOs: FIFO 5: RX Interrupt Enable: Disabled
+    Common FIFOs: FIFO 5: TX Interrupt Enable: Disabled
+    Common FIFOs: FIFO 5: Interrupt Mode: At Threshold Value
+    Common FIFOs: FIFO 5: Interrupt Threshold: 1/2 full
+    Common FIFOs: FIFO 5: Payload Size: 64 bytes
+    Common FIFOs: FIFO 5: Depth: 16 stages
+    Common FIFOs: FIFO 5: TX Message Buffer: TX Message Buffer 32
+    Common FIFOs: FIFO 5: Interval TX Delay: 0
+    Common FIFOs: FIFO 5: Interval Timer: Reference clock
+    Common FIFOs: FIFO 5: Interval Timer Reference Clock Resolution: x1
     Reception: Acceptance Filtering: Channel 0 Rule Count: 64
     Reception: Acceptance Filtering: Channel 1 Rule Count: 64
     
@@ -1168,25 +1241,27 @@ FSP Configuration
       ELC Input Port Group 1: Port Selection: 
       ELC Input Port Group 1: Edge Detection: Rising edge
       ELC Input Port Group 1: Buffer Overwrite: Disabled
-      ELC Input Port Group 1: Buffer Initial Value: P16_0: Low input
-      ELC Input Port Group 1: Buffer Initial Value: P16_1: Low input
-      ELC Input Port Group 1: Buffer Initial Value: P16_2: Low input
-      ELC Input Port Group 1: Buffer Initial Value: P16_3: Low input
-      ELC Input Port Group 1: Buffer Initial Value: P16_5: Low input
-      ELC Input Port Group 1: Buffer Initial Value: P16_6: Low input
-      ELC Input Port Group 1: Buffer Initial Value: P16_7: Low input
+      ELC Input Port Group 1: Buffer Initial Value: PIN0: Low Input (P16_0)
+      ELC Input Port Group 1: Buffer Initial Value: PIN1: Low Input (P16_1)
+      ELC Input Port Group 1: Buffer Initial Value: PIN2: Low Input (P16_2)
+      ELC Input Port Group 1: Buffer Initial Value: PIN3: Low Input (P16_3)
+      ELC Input Port Group 1: Buffer Initial Value: PIN4: Low Input (P16_4)
+      ELC Input Port Group 1: Buffer Initial Value: PIN5: Low Input (P16_5)
+      ELC Input Port Group 1: Buffer Initial Value: PIN6: Low Input (P16_6)
+      ELC Input Port Group 1: Buffer Initial Value: PIN7: Low Input (P16_7)
       ELC Input Port Group 2: Trigger Source: Disabled
       ELC Input Port Group 2: Event Link Control: Disabled
       ELC Input Port Group 2: Port Selection: 
       ELC Input Port Group 2: Edge Detection: Rising edge
       ELC Input Port Group 2: Buffer Overwrite: Disabled
-      ELC Input Port Group 2: Buffer Initial Value: P18_0: Low input
-      ELC Input Port Group 2: Buffer Initial Value: P18_1: Low input
-      ELC Input Port Group 2: Buffer Initial Value: P18_2: Low input
-      ELC Input Port Group 2: Buffer Initial Value: P18_3: Low input
-      ELC Input Port Group 2: Buffer Initial Value: P18_4: Low input
-      ELC Input Port Group 2: Buffer Initial Value: P18_5: Low input
-      ELC Input Port Group 2: Buffer Initial Value: P18_6: Low input
+      ELC Input Port Group 2: Buffer Initial Value: PIN0: Low Input (P18_0)
+      ELC Input Port Group 2: Buffer Initial Value: PIN1: Low Input (P18_1)
+      ELC Input Port Group 2: Buffer Initial Value: PIN2: Low Input (P18_2)
+      ELC Input Port Group 2: Buffer Initial Value: PIN3: Low Input (P18_3)
+      ELC Input Port Group 2: Buffer Initial Value: PIN4: Low Input (P18_4)
+      ELC Input Port Group 2: Buffer Initial Value: PIN5: Low Input (P18_5)
+      ELC Input Port Group 2: Buffer Initial Value: PIN6: Low Input (P18_6)
+      ELC Input Port Group 2: Buffer Initial Value: PIN7: Low Input (P18_7)
       ELC Single Port 0: Common: Event Link Control: Disabled
       ELC Single Port 0: Common: Event Direction: Output direction
       ELC Single Port 0: Common: Port selection: P16_0
@@ -1387,6 +1462,17 @@ FSP Configuration
       Interrupts: Capture A Interrupt Priority: Disabled
       Interrupts: Capture B Interrupt Priority: Disabled
       Interrupts: Trough Interrupt Priority: Disabled
+      Interrupts (GPT_SEL): Callback: NULL
+      Interrupts (GPT_SEL): Overflow/Crest Interrupt Source: 
+      Interrupts (GPT_SEL): Capture A Interrupt Source: 
+      Interrupts (GPT_SEL): Capture B Interrupt Source: 
+      Interrupts (GPT_SEL): Trough Interrupt Source: 
+      Interrupts (GPT_SEL): Dead Time Error Interrupt Source: 
+      Interrupts (GPT_SEL): INT0 Interrupt Priority: Disabled
+      Interrupts (GPT_SEL): INT1 Interrupt Priority: Disabled
+      Interrupts (GPT_SEL): INT2 Interrupt Priority: Disabled
+      Interrupts (GPT_SEL): INT3 Interrupt Priority: Disabled
+      Interrupts (GPT_SEL): INT4 Interrupt Priority: Disabled
       Extra Features: Extra Features: Disabled
       Extra Features: Output Disable: POEG Link: POEG Channel 0
       Extra Features: Output Disable: Output Disable POEG Trigger: 
@@ -1410,6 +1496,7 @@ FSP Configuration
       Extra Features: Input Capture Interrupt Extended Skipping Function: GTADTRB A/D Converter Start Request: None
       Interrupts: Dead Time Error Interrupt Priority: Disabled
       Extra Features: Input Capture at Count Stop: Enabled
+      Extra Features: Input Capture Signal: Not Supported
       ELC: LLPP GPT event A: Trigger Source: Disabled
       ELC: LLPP GPT event B: Trigger Source: Disabled
       ELC: LLPP GPT event C: Trigger Source: Disabled
