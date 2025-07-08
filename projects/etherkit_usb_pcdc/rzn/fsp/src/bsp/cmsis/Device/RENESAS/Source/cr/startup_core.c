@@ -1,22 +1,8 @@
-/***********************************************************************************************************************
- * Copyright [2020-2024] Renesas Electronics Corporation and/or its affiliates.  All Rights Reserved.
- *
- * This software and documentation are supplied by Renesas Electronics Corporation and/or its affiliates and may only
- * be used with products of Renesas Electronics Corp. and its affiliates ("Renesas").  No other uses are authorized.
- * Renesas products are sold pursuant to Renesas terms and conditions of sale.  Purchasers are solely responsible for
- * the selection and use of Renesas products and Renesas assumes no liability.  No license, express or implied, to any
- * intellectual property right is granted by Renesas.  This software is protected under all applicable laws, including
- * copyright laws. Renesas reserves the right to change or discontinue this software and/or this documentation.
- * THE SOFTWARE AND DOCUMENTATION IS DELIVERED TO YOU "AS IS," AND RENESAS MAKES NO REPRESENTATIONS OR WARRANTIES, AND
- * TO THE FULLEST EXTENT PERMISSIBLE UNDER APPLICABLE LAW, DISCLAIMS ALL WARRANTIES, WHETHER EXPLICITLY OR IMPLICITLY,
- * INCLUDING WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT, WITH RESPECT TO THE
- * SOFTWARE OR DOCUMENTATION.  RENESAS SHALL HAVE NO LIABILITY ARISING OUT OF ANY SECURITY VULNERABILITY OR BREACH.
- * TO THE MAXIMUM EXTENT PERMITTED BY LAW, IN NO EVENT WILL RENESAS BE LIABLE TO YOU IN CONNECTION WITH THE SOFTWARE OR
- * DOCUMENTATION (OR ANY PERSON OR ENTITY CLAIMING RIGHTS DERIVED FROM YOU) FOR ANY LOSS, DAMAGES, OR CLAIMS WHATSOEVER,
- * INCLUDING, WITHOUT LIMITATION, ANY DIRECT, CONSEQUENTIAL, SPECIAL, INDIRECT, PUNITIVE, OR INCIDENTAL DAMAGES; ANY
- * LOST PROFITS, OTHER ECONOMIC DAMAGE, PROPERTY DAMAGE, OR PERSONAL INJURY; AND EVEN IF RENESAS HAS BEEN ADVISED OF THE
- * POSSIBILITY OF SUCH LOSS, DAMAGES, CLAIMS OR COSTS.
- **********************************************************************************************************************/
+/*
+* Copyright (c) 2020 - 2025 Renesas Electronics Corporation and/or its affiliates
+*
+* SPDX-License-Identifier: BSD-3-Clause
+*/
 
 /***********************************************************************************************************************
  * Includes   <System Includes> , "Project Includes"
@@ -49,9 +35,14 @@
 
 #endif
 
-#define BSP_IMP_BTCMREGIONR_MASK_L          (0x1FFC) /* Masked out BASEADDRESS and ENABLEELx bits(L) */
-#define BSP_IMP_BTCMREGIONR_ENABLEEL_L      (0x0003) /* Set base address and enable EL2, EL1, EL0 access(L) */
-#define BSP_IMP_BTCMREGIONR_ENABLEEL_H      (0x0010) /* Set base address and enable EL2, EL1, EL0 access(H) */
+#if (0 == BSP_CFG_CORE_CR52)
+ #define BSP_IMP_BTCMREGIONR_MASK_L         (0x1FFC) /* Masked out BASEADDRESS and ENABLEELx bits(L) */
+ #define BSP_IMP_BTCMREGIONR_ENABLEEL_L     (0x0003) /* Set base address and enable EL2, EL1, EL0 access(L) */
+ #define BSP_IMP_BTCMREGIONR_ENABLEEL_H     (0x0010) /* Set base address and enable EL2, EL1, EL0 access(H) */
+
+/* Cortex-A55 Core0 access permission control. */
+ #define BSP_CA550_CTRL_ENABLE              (0x00000100)
+#endif
 
 /***********************************************************************************************************************
  * Typedef definitions
@@ -86,7 +77,10 @@ extern void bsp_fpu_advancedsimd_init(void);
 
 #endif
 
+#if (0 == BSP_CFG_CORE_CR52)
 extern void bsp_slavetcm_enable(void);
+
+#endif
 
 /***********************************************************************************************************************
  * Private global variables and functions
@@ -94,7 +88,7 @@ extern void bsp_slavetcm_enable(void);
 int32_t main(void);
 
 BSP_TARGET_ARM BSP_ATTRIBUTE_STACKLESS void system_init(void) BSP_PLACE_IN_SECTION(".loader_text");
-BSP_TARGET_ARM BSP_ATTRIBUTE_STACKLESS void stack_init(void) ;
+BSP_TARGET_ARM BSP_ATTRIBUTE_STACKLESS void stack_init(void);
 BSP_TARGET_ARM void                         fpu_slavetcm_init(void);
 
 BSP_TARGET_ARM BSP_ATTRIBUTE_STACKLESS void        __Vectors(void) BSP_PLACE_IN_SECTION(".intvec");
@@ -122,15 +116,6 @@ BSP_PLACE_IN_SECTION(BSP_SECTION_SVC_STACK);
 
 BSP_DONT_REMOVE static uint8_t g_heap[BSP_CFG_HEAP_BYTES] BSP_ALIGN_VARIABLE(BSP_STACK_ALIGNMENT) \
     BSP_PLACE_IN_SECTION(BSP_SECTION_HEAP);
-#endif
-
-#if defined(__GNUC__)
-BSP_DONT_REMOVE static const void * g_bsp_dummy BSP_PLACE_IN_SECTION(".dummy");
-
- #if BSP_CFG_RAM_EXECUTION
-BSP_DONT_REMOVE static const void * g_bsp_loader_dummy BSP_PLACE_IN_SECTION(".loader_dummy");
-
- #endif
 #endif
 
 BSP_TARGET_ARM BSP_ATTRIBUTE_STACKLESS void __Vectors (void)
@@ -200,6 +185,7 @@ BSP_TARGET_ARM BSP_ATTRIBUTE_STACKLESS void system_init (void)
         "    MCR   p15, #0, r0, c12, c0, #0       \n" /* Write r0 to VBAR */
         ::: "memory");
 
+#if (0 == BSP_CFG_CORE_CR52) || (1 == BSP_FEATURE_BSP_HAS_CR52_CPU1_LLPP)
     __asm volatile (
         "LLPP_access_enable:                      \n"
 
@@ -211,6 +197,7 @@ BSP_TARGET_ARM BSP_ATTRIBUTE_STACKLESS void system_init (void)
         "    MCR   p15, #0, r1, c15, c0,#0        \n" /* PERIPHREGIONR */
         "    ISB                                  \n" /* Ensuring Context-changing */
         ::: "memory");
+#endif
 
     __asm volatile (
         "cpsr_save:                               \n"
@@ -276,6 +263,7 @@ BSP_TARGET_ARM BSP_ATTRIBUTE_STACKLESS void stack_init (void)
         "    MOV  sp, %[bsp_system_stack_end_address]    \n"
         "    CPS  #19                                    \n" /* SVC mode */
         "    MOV  sp, %[bsp_svc_stack_end_address]       \n"
+
         "    B    fpu_slavetcm_init                      \n" /* Branch to fpu_slavetcm_init */
         ::[bsp_fiq_stack_end_address] "r" (BSP_FIQ_STACK_END_ADDRESS),
         [bsp_irq_stack_end_address] "r" (BSP_IRQ_STACK_END_ADDRESS),
@@ -295,8 +283,20 @@ BSP_TARGET_ARM void fpu_slavetcm_init (void)
     /* Initialize FPU and Advanced SIMD setting */
     bsp_fpu_advancedsimd_init();
 #endif
+
+#if (0 == BSP_CFG_CORE_CR52)
+
     /* Enable SLAVEPCTLR TCM access lvl slaves */
     bsp_slavetcm_enable();
+#endif
+
+#if defined(BSP_MCU_GROUP_RZN2H)
+ #if (0 == BSP_CFG_CORE_CR52)
+
+    /* Permit access to the Master-MPU related registers of Cortex-A55 Core0. */
+    R_MPU_AC->CPU_CTRL |= BSP_CA550_CTRL_ENABLE;
+ #endif
+#endif
 
     BSP_SYSTEMINIT_B_INSTRUCTION
 }
@@ -350,6 +350,8 @@ __WEAK BSP_TARGET_ARM BSP_ATTRIBUTE_STACKLESS void IRQ_Handler (void)
 
 __WEAK BSP_TARGET_ARM BSP_ATTRIBUTE_STACKLESS void Reset_Handler (void)
 {
+#if (0 == BSP_CFG_CORE_CR52)
+
     /* Enable access to BTCM */
     __asm volatile (
         "set_IMP_BTCMREGIONR:                            \n"
@@ -367,6 +369,7 @@ __WEAK BSP_TARGET_ARM BSP_ATTRIBUTE_STACKLESS void Reset_Handler (void)
         ::[bsp_imp_btcmregionr_mask_l] "i" (BSP_IMP_BTCMREGIONR_MASK_L),
         [bsp_imp_btcmregionr_enableel_l] "i" (BSP_IMP_BTCMREGIONR_ENABLEEL_L),
         [bsp_imp_btcmregionr_enableel_h] "i" (BSP_IMP_BTCMREGIONR_ENABLEEL_H) : "memory");
+#endif
 
     /* Branch to system_init */
     __asm volatile ("B system_init");

@@ -5,6 +5,8 @@
 #define ADC_TRIGGER_ADC0_B      ADC_TRIGGER_SYNC_ELC
 #define ADC_TRIGGER_ADC1_A      ADC_TRIGGER_SYNC_ELC
 #define ADC_TRIGGER_ADC1_B      ADC_TRIGGER_SYNC_ELC
+#define ADC_TRIGGER_ADC2_A      ADC_TRIGGER_SYNC_ELC
+#define ADC_TRIGGER_ADC2_B      ADC_TRIGGER_SYNC_ELC
 adc_instance_ctrl_t g_adc0_ctrl;
 const adc_extended_cfg_t g_adc0_cfg_extend =
 {
@@ -17,6 +19,35 @@ const adc_extended_cfg_t g_adc0_cfg_extend =
     .adc_start_trigger_c_enabled = 0,
     .adc_start_trigger_c  = ADC_ACTIVE_TRIGGER_DISABLED,
     .adc_elc_ctrl        = ADC_ELC_SINGLE_SCAN,
+
+#if (1U == BSP_FEATURE_ADC_REGISTER_MASK_TYPE)
+#if defined(VECTOR_NUMBER_ADC0_CMPAI)
+    .window_a_irq        = VECTOR_NUMBER_ADC0_CMPAI,
+#else
+    .window_a_irq        = FSP_INVALID_VECTOR,
+#endif
+    .window_a_ipl        = (BSP_IRQ_DISABLED),
+#if defined(VECTOR_NUMBER_ADC0_CMPBI)
+    .window_b_irq      = VECTOR_NUMBER_ADC0_CMPBI,
+#else
+    .window_b_irq      = FSP_INVALID_VECTOR,
+#endif
+    .window_b_ipl      = (BSP_IRQ_DISABLED),
+#endif
+#if (3U == BSP_FEATURE_ADC_REGISTER_MASK_TYPE)
+#if defined(VECTOR_NUMBER_ADC120_CMPAI)
+    .window_a_irq        = VECTOR_NUMBER_ADC120_CMPAI,
+#else
+    .window_a_irq        = FSP_INVALID_VECTOR,
+#endif
+    .window_a_ipl        = (BSP_IRQ_DISABLED),
+#if defined(VECTOR_NUMBER_ADC120_CMPBI)
+    .window_b_irq      = VECTOR_NUMBER_ADC120_CMPBI,
+#else
+    .window_b_irq      = FSP_INVALID_VECTOR,
+#endif
+    .window_b_ipl      = (BSP_IRQ_DISABLED),
+#endif
 };
 const adc_cfg_t g_adc0_cfg =
 {
@@ -28,7 +59,7 @@ const adc_cfg_t g_adc0_cfg =
     .p_callback          = NULL,
     .p_context           = NULL,
     .p_extend            = &g_adc0_cfg_extend,
-#if (1 == BSP_FEATURE_ADC_REGISTER_MASK_TYPE)
+#if (1U == BSP_FEATURE_ADC_REGISTER_MASK_TYPE)
 #if defined(VECTOR_NUMBER_ADC0_ADI)
     .scan_end_irq        = VECTOR_NUMBER_ADC0_ADI,
 #else
@@ -48,7 +79,7 @@ const adc_cfg_t g_adc0_cfg =
 #endif
     .scan_end_c_ipl      = (BSP_IRQ_DISABLED),
 #endif
-#if (3 == BSP_FEATURE_ADC_REGISTER_MASK_TYPE)
+#if (3U == BSP_FEATURE_ADC_REGISTER_MASK_TYPE)
 #if defined(VECTOR_NUMBER_ADC120_ADI)
     .scan_end_irq        = VECTOR_NUMBER_ADC120_ADI,
 #else
@@ -69,6 +100,21 @@ const adc_cfg_t g_adc0_cfg =
     .scan_end_c_ipl      = (BSP_IRQ_DISABLED),
 #endif
 };
+
+#if ((0) | (0))
+const adc_window_cfg_t g_adc0_window_cfg =
+{
+    .compare_mask        =  0,
+    .compare_mode_mask   =  0,
+    .compare_cfg         = (0) | (0) | (0),
+    .compare_ref_low     = 0,
+    .compare_ref_high    = 0,
+    .compare_b_channel   = (ADC_WINDOW_B_CHANNEL_0),
+    .compare_b_mode      = (ADC_WINDOW_B_MODE_LESS_THAN_OR_OUTSIDE),
+    .compare_b_ref_low   = 0,
+    .compare_b_ref_high  = 0,
+};
+#endif
 const adc_channel_cfg_t g_adc0_channel_cfg =
 {
     .scan_mask           = ADC_MASK_CHANNEL_0 |  0,
@@ -78,6 +124,11 @@ const adc_channel_cfg_t g_adc0_channel_cfg =
     .sample_hold_mask    =  0,
     .sample_hold_states  = 24,
     .scan_mask_group_c   =  0,
+#if ((0) | (0))
+    .p_window_cfg        = (adc_window_cfg_t *) &g_adc0_window_cfg,
+#else
+    .p_window_cfg        = NULL,
+#endif
 };
 /* Instance structure to use this module. */
 const adc_instance_t g_adc0 =

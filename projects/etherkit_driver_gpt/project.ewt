@@ -3010,9 +3010,6 @@
             <name>$PROJ_DIR$\rt-thread\components\drivers\core\device.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\rt-thread\components\drivers\hwtimer\hwtimer.c</name>
-        </file>
-        <file>
             <name>$PROJ_DIR$\rt-thread\components\drivers\pin\pin.c</name>
         </file>
         <file>
@@ -3023,9 +3020,6 @@
         </file>
         <file>
             <name>$PROJ_DIR$\rt-thread\components\drivers\ipc\ringbuffer.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\drivers\misc\rt_drv_pwm.c</name>
         </file>
         <file>
             <name>$PROJ_DIR$\rt-thread\components\drivers\serial\serial_v2.c</name>
@@ -3044,12 +3038,6 @@
         </file>
         <file>
             <name>$PROJ_DIR$\libraries\HAL_Drivers\drv_gpio.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\libraries\HAL_Drivers\drv_hwtimer.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\libraries\HAL_Drivers\drv_pwm.c</name>
         </file>
         <file>
             <name>$PROJ_DIR$\libraries\HAL_Drivers\drv_usart_v2.c</name>
@@ -3097,9 +3085,6 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\rzn_cfg\fsp_cfg\bsp\bsp_pin_cfg.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn_cfg\fsp_cfg\r_gpt_cfg.h</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\rzn_cfg\fsp_cfg\r_ioport_cfg.h</name>
@@ -3270,12 +3255,6 @@
                 <name>$PROJ_DIR$\rzn\fsp\src\bsp\cmsis\Device\RENESAS\Include\R9A07G084.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_gpt\r_gpt.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\inc\instances\r_gpt.h</name>
-            </file>
-            <file>
                 <name>$PROJ_DIR$\rzn\fsp\src\r_ioport\r_ioport.c</name>
             </file>
             <file>
@@ -3289,9 +3268,6 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\rzn\fsp\inc\instances\r_sci_uart.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\inc\api\r_timer_api.h</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\rzn\fsp\inc\api\r_transfer_api.h</name>

@@ -8,7 +8,7 @@ menu "Hardware Drivers Config"
         default y
 
     menu "Onboard Peripheral Drivers"
-
+    
 		config BSP_USING_FILESYSTEM
 			bool "Enable filesystem (flash)"
 			default n

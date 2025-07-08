@@ -2918,21 +2918,6 @@
         </settings>
     </configuration>
     <group>
-        <name>agile_modbus</name>
-        <file>
-            <name>$PROJ_DIR$\packages\agile_modbus-v1.1.2\src\agile_modbus.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\packages\agile_modbus-v1.1.2\src\agile_modbus_rtu.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\packages\agile_modbus-v1.1.2\util\agile_modbus_slave_util.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\packages\agile_modbus-v1.1.2\src\agile_modbus_tcp.c</name>
-        </file>
-    </group>
-    <group>
         <name>Compiler</name>
         <file>
             <name>$PROJ_DIR$\rt-thread\components\libc\compilers\common\cctype.c</name>
@@ -3410,33 +3395,6 @@
         </file>
         <file>
             <name>$PROJ_DIR$\rt-thread\libcpu\arm\common\showmem.c</name>
-        </file>
-    </group>
-    <group>
-        <name>modbus_define</name>
-        <file>
-            <name>$PROJ_DIR$\board\ports\modbus\modbus_define\bits.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\board\ports\modbus\modbus_define\input_bits.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\board\ports\modbus\modbus_define\input_registers.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\board\ports\modbus\modbus_define\registers.c</name>
-        </file>
-    </group>
-    <group>
-        <name>modbus_uart</name>
-        <file>
-            <name>$PROJ_DIR$\board\ports\modbus\uart_master\modbus_master.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\board\ports\modbus\uart_slave\modbus_slave.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\board\ports\modbus\uart_master\rs485.c</name>
         </file>
     </group>
     <group>

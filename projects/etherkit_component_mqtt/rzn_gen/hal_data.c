@@ -172,7 +172,18 @@ const ether_phy_instance_t *g_ether0_phy_instance[BSP_FEATURE_GMAC_MAX_PORTS] =
 
             gmac_instance_ctrl_t g_ether0_ctrl;
 
+#define ETHER_MAC_ADDRESS_INVALID (0)
+#define ETHER_MAC_ADDRESS_VALID   (1)
+
             uint8_t g_ether0_mac_address[6] = { 0x00,0x11,0x22,0x33,0x44,0x55 };
+
+#if ETHER_MAC_ADDRESS_INVALID == ETHER_MAC_ADDRESS_VALID
+            uint8_t g_ether0_mac_address_1[6] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
+#endif
+
+#if ETHER_MAC_ADDRESS_INVALID == ETHER_MAC_ADDRESS_VALID
+            uint8_t g_ether0_mac_address_2[6] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
+#endif
 
             __attribute__((__aligned__(16))) gmac_instance_descriptor_t g_ether0_tx_descriptors[8] ETHER_BUFFER_PLACE_IN_SECTION;
             __attribute__((__aligned__(16))) gmac_instance_descriptor_t g_ether0_rx_descriptors[8] ETHER_BUFFER_PLACE_IN_SECTION;
@@ -232,8 +243,19 @@ uint8_t *pp_g_ether0_ether_buffers[( 8 + 8 )] = {
                 .pp_phy_instance         = (ether_phy_instance_t const *(*)[BSP_FEATURE_GMAC_MAX_PORTS]) g_ether0_phy_instance,
 
 #if defined(GMAC_IMPLEMENT_ETHSW)
-                .p_ethsw_instance        = &g_ethsw0
+                .p_ethsw_instance        = &g_ethsw0,
 #endif // GMAC_IMPLEMENT_ETHSW
+
+#if ETHER_MAC_ADDRESS_INVALID == ETHER_MAC_ADDRESS_VALID
+                .p_mac_address1          = g_ether0_mac_address_1,
+#else
+                .p_mac_address1          = NULL,
+#endif
+#if ETHER_MAC_ADDRESS_INVALID == ETHER_MAC_ADDRESS_VALID
+                .p_mac_address2          = g_ether0_mac_address_2
+#else
+                .p_mac_address2          = NULL,
+#endif
             };
 
             const ether_cfg_t g_ether0_cfg =

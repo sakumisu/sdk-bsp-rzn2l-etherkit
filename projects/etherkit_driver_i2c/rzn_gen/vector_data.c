@@ -13,4 +13,17 @@
             [310] = iic_master_txi_isr, /* IIC0_TXI (IIC0 Transmit data empty) */
             [311] = iic_master_tei_isr, /* IIC0_TEI (IIC0 Transmit end) */
         };
+        #if (1 == BSP_FEATURE_BSP_IRQ_CR52_SEL_SUPPORTED)
+        const bsp_interrupt_event_t g_interrupt_event_link_select[BSP_ICU_VECTOR_MAX_ENTRIES] =
+        {
+            [288] = BSP_PRV_CR52_SEL_ENUM(EVENT_SCI0_ERI), /* SCI0_ERI (SCI0 Receive error) */
+            [289] = BSP_PRV_CR52_SEL_ENUM(EVENT_SCI0_RXI), /* SCI0_RXI (SCI0 Receive data full) */
+            [290] = BSP_PRV_CR52_SEL_ENUM(EVENT_SCI0_TXI), /* SCI0_TXI (SCI0 Transmit data empty) */
+            [291] = BSP_PRV_CR52_SEL_ENUM(EVENT_SCI0_TEI), /* SCI0_TEI (SCI0 Transmit end) */
+            [308] = BSP_PRV_CR52_SEL_ENUM(EVENT_IIC0_EEI), /* IIC0_EEI (IIC0 Transfer error or event generation) */
+            [309] = BSP_PRV_CR52_SEL_ENUM(EVENT_IIC0_RXI), /* IIC0_RXI (IIC0 Receive data full) */
+            [310] = BSP_PRV_CR52_SEL_ENUM(EVENT_IIC0_TXI), /* IIC0_TXI (IIC0 Transmit data empty) */
+            [311] = BSP_PRV_CR52_SEL_ENUM(EVENT_IIC0_TEI), /* IIC0_TEI (IIC0 Transmit end) */
+        };
+        #endif
         #endif

@@ -1,22 +1,8 @@
-/***********************************************************************************************************************
- * Copyright [2020-2024] Renesas Electronics Corporation and/or its affiliates.  All Rights Reserved.
- *
- * This software and documentation are supplied by Renesas Electronics Corporation and/or its affiliates and may only
- * be used with products of Renesas Electronics Corp. and its affiliates ("Renesas").  No other uses are authorized.
- * Renesas products are sold pursuant to Renesas terms and conditions of sale.  Purchasers are solely responsible for
- * the selection and use of Renesas products and Renesas assumes no liability.  No license, express or implied, to any
- * intellectual property right is granted by Renesas.  This software is protected under all applicable laws, including
- * copyright laws. Renesas reserves the right to change or discontinue this software and/or this documentation.
- * THE SOFTWARE AND DOCUMENTATION IS DELIVERED TO YOU "AS IS," AND RENESAS MAKES NO REPRESENTATIONS OR WARRANTIES, AND
- * TO THE FULLEST EXTENT PERMISSIBLE UNDER APPLICABLE LAW, DISCLAIMS ALL WARRANTIES, WHETHER EXPLICITLY OR IMPLICITLY,
- * INCLUDING WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT, WITH RESPECT TO THE
- * SOFTWARE OR DOCUMENTATION.  RENESAS SHALL HAVE NO LIABILITY ARISING OUT OF ANY SECURITY VULNERABILITY OR BREACH.
- * TO THE MAXIMUM EXTENT PERMITTED BY LAW, IN NO EVENT WILL RENESAS BE LIABLE TO YOU IN CONNECTION WITH THE SOFTWARE OR
- * DOCUMENTATION (OR ANY PERSON OR ENTITY CLAIMING RIGHTS DERIVED FROM YOU) FOR ANY LOSS, DAMAGES, OR CLAIMS WHATSOEVER,
- * INCLUDING, WITHOUT LIMITATION, ANY DIRECT, CONSEQUENTIAL, SPECIAL, INDIRECT, PUNITIVE, OR INCIDENTAL DAMAGES; ANY
- * LOST PROFITS, OTHER ECONOMIC DAMAGE, PROPERTY DAMAGE, OR PERSONAL INJURY; AND EVEN IF RENESAS HAS BEEN ADVISED OF THE
- * POSSIBILITY OF SUCH LOSS, DAMAGES, CLAIMS OR COSTS.
- **********************************************************************************************************************/
+/*
+* Copyright (c) 2020 - 2025 Renesas Electronics Corporation and/or its affiliates
+*
+* SPDX-License-Identifier: BSD-3-Clause
+*/
 #ifndef R_USB_BASIC_DEFINE_H
 #define R_USB_BASIC_DEFINE_H
 #include "r_usb_basic_cfg.h"
@@ -44,12 +30,16 @@
 #define USB_VERSION_MINOR              (0)
 
 #define CLSDATASIZE                    (512U) /* Transfer data size for Standard Request */
+
+#define USB_CFG_HOST                   (1)
+#define USB_CFG_PERI                   (2)
+
 #if (BSP_CFG_RTOS == 2)
 
 /* The buffer size of interrupt info is increased to avoid overlapping interrupt events. */
- #define USB_INT_BUFSIZE               (32U)  /* Size of Interrupt info buffer */
+ #define USB_INT_BUFSIZE               (32U) /* Size of Interrupt info buffer */
 #else /* #if (BSP_CFG_RTOS == 2) */
- #define USB_INT_BUFSIZE               (32U)  /* Size of Interrupt info buffer */
+ #define USB_INT_BUFSIZE               (32U) /* Size of Interrupt info buffer */
 #endif /* #if (BSP_CFG_RTOS == 2) */
 #define USB_EVENT_MAX                  (32)
 
@@ -89,15 +79,9 @@
 #define USB_HCD_MPL                    (USB_HCD_TSK) /* Memory pool ID */
 
 /* Host Manager Task */
-#if defined(BSP_MCU_GROUP_RZN2L)
- #define USB_MGR_TSK                   (USB_TID_1)   /* Task ID */
- #define USB_MGR_MBX                   (USB_MGR_TSK) /* Mailbox ID */
- #define USB_MGR_MPL                   (USB_MGR_TSK) /* Memory pool ID */
-#else
- #define USB_MGR_TSK                   (USB_TID_2)   /* Task ID */
- #define USB_MGR_MBX                   (USB_MGR_TSK) /* Mailbox ID */
- #define USB_MGR_MPL                   (USB_MGR_TSK) /* Memory pool ID */
-#endif /* defined(BSP_MCU_GROUP_RZN2L) */
+#define USB_MGR_TSK                    (USB_TID_1)   /* Task ID */
+#define USB_MGR_MBX                    (USB_MGR_TSK) /* Mailbox ID */
+#define USB_MGR_MPL                    (USB_MGR_TSK) /* Memory pool ID */
 
 /* Hub Task */
 #define USB_HUB_TSK                    (USB_TID_3)   /* Task ID */
@@ -108,45 +92,45 @@
 #if (BSP_CFG_RTOS == 2)
 
 /* Class Request for Internal Communication  */
- #define USB_CLS_TSK                   (USB_TID_4)   /* Task ID */
- #define USB_CLS_MBX                   (USB_CLS_TSK) /* Mailbox ID */
- #define USB_CLS_MPL                   (USB_CLS_TSK) /* Memory pool ID */
+ #if ((USB_CFG_MODE & USB_CFG_PERI) == USB_CFG_PERI)
+  #define USB_CLS_TSK                          (USB_TID_4)   /* Task ID */
+  #define USB_CLS_MBX                          (USB_CLS_TSK) /* Mailbox ID */
+  #define USB_CLS_MPL                          (USB_CLS_TSK) /* Memory pool ID */
+ #else
+  #define USB_CLS_TSK                          (USB_TID_5)   /* Task ID */
+  #define USB_CLS_MBX                          (USB_CLS_TSK) /* Mailbox ID */
+  #define USB_CLS_MPL                          (USB_CLS_TSK) /* Memory pool ID */
+ #endif
 
 /* Peripheral Control Driver Task */
- #define USB_PCD_TSK                   (USB_TID_5)   /* Task ID */
- #define USB_PCD_MBX                   (USB_PCD_TSK) /* Mailbox ID */
+ #define USB_PCD_TSK                           (USB_TID_5)   /* Task ID */
+ #define USB_PCD_MBX                           (USB_PCD_TSK) /* Mailbox ID */
 #endif /* #if (BSP_CFG_RTOS == 2) */
 
 /* Error discrimination */
-#define USB_DEBUG_HOOK_HWR             (0x0100)
-#define USB_DEBUG_HOOK_HOST            (0x0200)
-#define USB_DEBUG_HOOK_PERI            (0x0400)
-#define USB_DEBUG_HOOK_STD             (0x0800)
-#define USB_DEBUG_HOOK_CLASS           (0x1000)
-#define USB_DEBUG_HOOK_APL             (0x2000)
+#define USB_DEBUG_HOOK_HWR                     (0x0100)
+#define USB_DEBUG_HOOK_HOST                    (0x0200)
+#define USB_DEBUG_HOOK_PERI                    (0x0400)
+#define USB_DEBUG_HOOK_STD                     (0x0800)
+#define USB_DEBUG_HOOK_CLASS                   (0x1000)
+#define USB_DEBUG_HOOK_APL                     (0x2000)
 
 /* Error Code */
-#define USB_DEBUG_HOOK_CODE1           (0x0001)
-#define USB_DEBUG_HOOK_CODE2           (0x0002)
-#define USB_DEBUG_HOOK_CODE3           (0x0003)
-#define USB_DEBUG_HOOK_CODE4           (0x0004)
-#define USB_DEBUG_HOOK_CODE5           (0x0005)
-#define USB_DEBUG_HOOK_CODE6           (0x0006)
-#define USB_DEBUG_HOOK_CODE7           (0x0007)
-#define USB_DEBUG_HOOK_CODE8           (0x0008)
-#define USB_DEBUG_HOOK_CODE9           (0x0009)
-#define USB_DEBUG_HOOK_CODE10          (0x000A)
-#define USB_DEBUG_HOOK_CODE11          (0x000B)
-#define USB_DEBUG_HOOK_CODE12          (0x000C)
-#define USB_DEBUG_HOOK_CODE13          (0x000D)
-#define USB_DEBUG_HOOK_CODE14          (0x000E)
-#define USB_DEBUG_HOOK_CODE15          (0x000F)
-
-#ifdef USB_DEBUG_HOOK_USE
- #define USB_DEBUG_HOOK(x)    (usb_cstd_debug_hook(x))
-#else
- #define USB_DEBUG_HOOK(x)
-#endif
+#define USB_DEBUG_HOOK_CODE1                   (0x0001)
+#define USB_DEBUG_HOOK_CODE2                   (0x0002)
+#define USB_DEBUG_HOOK_CODE3                   (0x0003)
+#define USB_DEBUG_HOOK_CODE4                   (0x0004)
+#define USB_DEBUG_HOOK_CODE5                   (0x0005)
+#define USB_DEBUG_HOOK_CODE6                   (0x0006)
+#define USB_DEBUG_HOOK_CODE7                   (0x0007)
+#define USB_DEBUG_HOOK_CODE8                   (0x0008)
+#define USB_DEBUG_HOOK_CODE9                   (0x0009)
+#define USB_DEBUG_HOOK_CODE10                  (0x000A)
+#define USB_DEBUG_HOOK_CODE11                  (0x000B)
+#define USB_DEBUG_HOOK_CODE12                  (0x000C)
+#define USB_DEBUG_HOOK_CODE13                  (0x000D)
+#define USB_DEBUG_HOOK_CODE14                  (0x000E)
+#define USB_DEBUG_HOOK_CODE15                  (0x000F)
 
 /* H/W function type */
 #define USB_BIT0                               ((uint16_t) 0x0001)
@@ -221,20 +205,7 @@
 /* USB module definition */
 #define USB_M0                                 (R_USBF)
 #define USB_M1                                 (R_USBF)
-#if defined(BSP_MCU_GROUP_RZN2L)
- #define USB00                                 (R_USBHC)
-#endif                                 /* defined(BSP_MCU_GROUP_RZN2L) */
-
-#if defined(BSP_MCU_GROUP_RA6M3)       /* High-speed module */
- #define USB_M1                                (R_USB_HS0)
-#elif defined(BSP_MCU_GROUP_RA6M5)     /* defined(BSP_MCU_GROUP_RA6M3) */  /* Full-speed module*/
- #define R_USB_HS0_BASE                        0x40060000
- #define R_USB_HS0                             ((R_USB_HS0_Type *) R_USB_HS0_BASE)
- #define USB_M1                                (R_USB_HS0)
-#else
- #define USB_M0                                (R_USBF)
- #define USB_M1                                (R_USBF)
-#endif                                 /* defined(BSP_MCU_GROUP_RA6M3) */
+#define USB00                                  (R_USBHC)
 
 /* FIFO port register default access size */
 #define USB0_CFIFO_MBW                         (USB_MBW_32)
@@ -285,10 +256,7 @@
 #define USB_CFG_IP1                            (1)
 #define USB_CFG_MULTI                          (2)
 
-#define USB_CFG_HOST                           (1)
-#define USB_CFG_PERI                           (2)
-
-#if (BSP_MCU_GROUP_RZN2L == 1)
+#if (BSP_MCU_GROUP_RZN2L == 1) || (BSP_MCU_GROUP_RZN2H == 1)
  #if ((USB_CFG_MODE & USB_CFG_HOST) == USB_CFG_HOST)
   #define USB_IP_EHCI_OHCI                     (1)
  #else
@@ -621,10 +589,10 @@
 #define USB_NOPORT                             (0xFFFFU) /* Not connect */
 
 /* Condition compilation by the difference of IP */
-#if defined(BSP_MCU_GROUP_RZN2L)
- #define USB_MAXDEVADDR                        (1U)
-#else
+#if USB_CFG_HUB == USB_CFG_ENABLE
  #define USB_MAXDEVADDR                        (10U)
+#else
+ #define USB_MAXDEVADDR                        (1U)
 #endif
 
 #define USB_DEVICE_0                           (0x0000U) /* Device address 0 */

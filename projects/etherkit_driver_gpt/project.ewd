@@ -756,7 +756,7 @@
                 </option>
                 <option>
                     <name>OCProbeConfig</name>
-                    <state>$TOOLKIT_DIR$/config/debugger/Renesas/RZN2L.ProbeConfig</state>
+                    <state></state>
                 </option>
                 <option>
                     <name>IjetProbeConfigRadio</name>

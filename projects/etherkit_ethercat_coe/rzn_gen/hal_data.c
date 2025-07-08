@@ -5,10 +5,14 @@ gpt_instance_ctrl_t g_timer1_ctrl;
 #if 0
 const gpt_extended_pwm_cfg_t g_timer1_pwm_extend =
 {
-    .trough_ipl          = (BSP_IRQ_DISABLED),
 #if defined(VECTOR_NUMBER_GPT8_UDF)
+    .trough_ipl          = (BSP_IRQ_DISABLED),
     .trough_irq          = VECTOR_NUMBER_GPT8_UDF,
+#elif defined(VECTOR_NUMBER_GPT01_1_INT)
+    .trough_ipl          = FSP_NOT_DEFINED,
+    .trough_irq          = VECTOR_NUMBER_GPT01_1_INT,
 #else
+    .trough_ipl          = (BSP_IRQ_DISABLED),
     .trough_irq          = FSP_INVALID_VECTOR,
 #endif
     .poeg_link           = GPT_POEG_LINK_POEG0,
@@ -53,17 +57,31 @@ const gpt_extended_cfg_t g_timer1_extend =
 #endif
     .capture_a_source    = (gpt_source_t) ( GPT_SOURCE_NONE),
     .capture_b_source    = (gpt_source_t) ( GPT_SOURCE_NONE),
-    .capture_a_ipl       = (BSP_IRQ_DISABLED),
-    .capture_b_ipl       = (BSP_IRQ_DISABLED),
 #if defined(VECTOR_NUMBER_GPT8_CCMPA)
+    .capture_a_ipl       = (BSP_IRQ_DISABLED),
     .capture_a_irq       = VECTOR_NUMBER_GPT8_CCMPA,
+    .capture_a_source_select = BSP_IRQ_DISABLED,
+#elif defined(VECTOR_NUMBER_GPT01_1_INT)
+    .capture_a_ipl       = FSP_NOT_DEFINED,
+    .capture_a_irq       = VECTOR_NUMBER_GPT01_1_INT,
+    .capture_a_source_select = ,
 #else
+    .capture_a_ipl       = (BSP_IRQ_DISABLED),
     .capture_a_irq       = FSP_INVALID_VECTOR,
+    .capture_a_source_select = BSP_IRQ_DISABLED,
 #endif
 #if defined(VECTOR_NUMBER_GPT8_CCMPB)
     .capture_b_irq       = VECTOR_NUMBER_GPT8_CCMPB,
+    .capture_b_ipl       = (BSP_IRQ_DISABLED),
+    .capture_b_source_select = BSP_IRQ_DISABLED,
+#elif defined(VECTOR_NUMBER_GPT01_1_INT)
+    .capture_b_irq       = VECTOR_NUMBER_GPT01_1_INT,
+    .capture_b_ipl       = FSP_NOT_DEFINED,
+    .capture_b_source_select = ,
 #else
+    .capture_b_ipl       = (BSP_IRQ_DISABLED),
     .capture_b_irq       = FSP_INVALID_VECTOR,
+    .capture_b_source_select = BSP_IRQ_DISABLED,
 #endif
     .capture_filter_gtioca       = GPT_CAPTURE_FILTER_NONE,
     .capture_filter_gtiocb       = GPT_CAPTURE_FILTER_NONE,
@@ -72,26 +90,60 @@ const gpt_extended_cfg_t g_timer1_extend =
 #else
     .p_pwm_cfg                   = NULL,
 #endif
-    .dead_time_ipl       = (BSP_IRQ_DISABLED),
 #if defined(VECTOR_NUMBER_GPT8_DTE)
+    .dead_time_ipl       = (BSP_IRQ_DISABLED),
     .dead_time_irq       = VECTOR_NUMBER_GPT8_DTE,
+    .dead_time_error_source_select = BSP_IRQ_DISABLED,
+#elif defined(VECTOR_NUMBER_GPT01_1_INT)
+    .dead_time_ipl       = FSP_NOT_DEFINED,
+    .dead_time_irq       = VECTOR_NUMBER_GPT01_1_INT,
+    .dead_time_error_source_select = ,
 #else
+    .dead_time_ipl       = (BSP_IRQ_DISABLED),
     .dead_time_irq       = FSP_INVALID_VECTOR,
+    .dead_time_error_source_select = BSP_IRQ_DISABLED,
 #endif
     .icds                = 0,
+#if (2U == BSP_FEATURE_GPT_REGISTER_MASK_TYPE)
+ #if (1U == BSP_FEATURE_GPT_INPUT_CAPTURE_SIGNAL_SELECTABLE)
+    .gtioc_isel          = 0,
+ #endif
+#endif
+#if defined(VECTOR_NUMBER_GPT8_OVF)
+    .cycle_end_source_select = BSP_IRQ_DISABLED,
+#elif defined(VECTOR_NUMBER_GPT01_1_INT)
+    .cycle_end_source_select = ,
+#else
+    .cycle_end_source_select = BSP_IRQ_DISABLED,
+#endif
+#if defined(VECTOR_NUMBER_GPT8_UDF)
+    .trough_source_select = BSP_IRQ_DISABLED,
+#elif defined(VECTOR_NUMBER_GPT01_1_INT)
+    .trough_source_select = ,
+#else
+    .trough_source_select  = BSP_IRQ_DISABLED,
+#endif
 };
 const timer_cfg_t g_timer1_cfg =
 {
     .mode                = TIMER_MODE_PERIODIC,
     /* Actual period: 42.94967296 seconds. Actual duty: 50%. */ .period_counts = (uint32_t) 0x100000000, .duty_cycle_counts = 0x80000000, .source_div = (timer_source_div_t)0,
     .channel             = GPT_CHANNEL_UNIT1_1,
+#if (1 == BSP_FEATURE_BSP_IRQ_GPT_SEL_SUPPORTED)
+    .p_callback          = NULL,
+#else
     .p_callback          = timer1_callback,
+#endif
     .p_context           = NULL,
     .p_extend            = &g_timer1_extend,
-    .cycle_end_ipl       = (12),
 #if defined(VECTOR_NUMBER_GPT8_OVF)
+    .cycle_end_ipl       = (12),
     .cycle_end_irq       = VECTOR_NUMBER_GPT8_OVF,
+#elif defined(VECTOR_NUMBER_GPT01_1_INT)
+    .cycle_end_ipl       = FSP_NOT_DEFINED,
+    .cycle_end_irq       = VECTOR_NUMBER_GPT01_1_INT,
 #else
+    .cycle_end_ipl       = (12),
     .cycle_end_irq       = FSP_INVALID_VECTOR,
 #endif
 };
@@ -130,7 +182,7 @@ extern const canfd_afl_entry_t p_canfd1_afl[CANFD_CFG_AFL_CH1_RULE_NUM];
 canfd_global_cfg_t g_canfd_global_cfg =
 {
     .global_interrupts = CANFD_CFG_GLOBAL_ERR_SOURCES,
-    .global_config     = (CANFD_CFG_TX_PRIORITY | CANFD_CFG_DLC_CHECK | CANFD_CFD_CLOCK_SOURCE | CANFD_CFG_FD_OVERFLOW),
+    .global_config     = (CANFD_CFG_TX_PRIORITY | CANFD_CFG_DLC_CHECK | CANFD_CFD_CLOCK_SOURCE | CANFD_CFG_FD_OVERFLOW | (uint32_t) (CANFD_CFG_TIMER_PRESCALER << R_CANFD_CFDGCFG_ITRCP_Pos)),
     .rx_mb_config      = (CANFD_CFG_RXMB_NUMBER | (CANFD_CFG_RXMB_SIZE << R_CANFD_CFDRMNB_RMPLS_Pos)),
     .global_err_ipl = CANFD_CFG_GLOBAL_ERR_IPL,
     .rx_fifo_ipl    = CANFD_CFG_RX_FIFO_IPL,
@@ -145,6 +197,15 @@ canfd_global_cfg_t g_canfd_global_cfg =
         ((CANFD_CFG_RXFIFO6_INT_THRESHOLD << R_CANFD_CFDRFCC_RFIGCV_Pos) | (CANFD_CFG_RXFIFO6_DEPTH << R_CANFD_CFDRFCC_RFDC_Pos) | (CANFD_CFG_RXFIFO6_PAYLOAD << R_CANFD_CFDRFCC_RFPLS_Pos) | (CANFD_CFG_RXFIFO6_INT_MODE) | (CANFD_CFG_RXFIFO6_ENABLE)),
         ((CANFD_CFG_RXFIFO7_INT_THRESHOLD << R_CANFD_CFDRFCC_RFIGCV_Pos) | (CANFD_CFG_RXFIFO7_DEPTH << R_CANFD_CFDRFCC_RFDC_Pos) | (CANFD_CFG_RXFIFO7_PAYLOAD << R_CANFD_CFDRFCC_RFPLS_Pos) | (CANFD_CFG_RXFIFO7_INT_MODE) | (CANFD_CFG_RXFIFO7_ENABLE)),
     },
+    .common_fifo_config =
+    {
+        CANFD_CFG_COMMONFIFO0,
+        CANFD_CFG_COMMONFIFO1,
+        CANFD_CFG_COMMONFIFO2,
+        CANFD_CFG_COMMONFIFO3,
+        CANFD_CFG_COMMONFIFO4,
+        CANFD_CFG_COMMONFIFO5,
+    }
 };
 #endif
 
@@ -167,6 +228,11 @@ const can_cfg_t g_canfd1_cfg =
     .p_extend               = &g_canfd1_extended_cfg,
     .p_context              = NULL,
     .ipl                    = (12),
+#if defined(VECTOR_NUMBER_CAN1_COMFRX)
+    .rx_irq             = VECTOR_NUMBER_CAN1_COMFRX,
+#else
+    .rx_irq             = FSP_INVALID_VECTOR,
+#endif
 #if defined(VECTOR_NUMBER_CAN1_TX)
     .tx_irq             = VECTOR_NUMBER_CAN1_TX,
 #else
@@ -213,7 +279,7 @@ extern const canfd_afl_entry_t p_canfd0_afl[CANFD_CFG_AFL_CH0_RULE_NUM];
 canfd_global_cfg_t g_canfd_global_cfg =
 {
     .global_interrupts = CANFD_CFG_GLOBAL_ERR_SOURCES,
-    .global_config     = (CANFD_CFG_TX_PRIORITY | CANFD_CFG_DLC_CHECK | CANFD_CFD_CLOCK_SOURCE | CANFD_CFG_FD_OVERFLOW),
+    .global_config     = (CANFD_CFG_TX_PRIORITY | CANFD_CFG_DLC_CHECK | CANFD_CFD_CLOCK_SOURCE | CANFD_CFG_FD_OVERFLOW | (uint32_t) (CANFD_CFG_TIMER_PRESCALER << R_CANFD_CFDGCFG_ITRCP_Pos)),
     .rx_mb_config      = (CANFD_CFG_RXMB_NUMBER | (CANFD_CFG_RXMB_SIZE << R_CANFD_CFDRMNB_RMPLS_Pos)),
     .global_err_ipl = CANFD_CFG_GLOBAL_ERR_IPL,
     .rx_fifo_ipl    = CANFD_CFG_RX_FIFO_IPL,
@@ -228,6 +294,15 @@ canfd_global_cfg_t g_canfd_global_cfg =
         ((CANFD_CFG_RXFIFO6_INT_THRESHOLD << R_CANFD_CFDRFCC_RFIGCV_Pos) | (CANFD_CFG_RXFIFO6_DEPTH << R_CANFD_CFDRFCC_RFDC_Pos) | (CANFD_CFG_RXFIFO6_PAYLOAD << R_CANFD_CFDRFCC_RFPLS_Pos) | (CANFD_CFG_RXFIFO6_INT_MODE) | (CANFD_CFG_RXFIFO6_ENABLE)),
         ((CANFD_CFG_RXFIFO7_INT_THRESHOLD << R_CANFD_CFDRFCC_RFIGCV_Pos) | (CANFD_CFG_RXFIFO7_DEPTH << R_CANFD_CFDRFCC_RFDC_Pos) | (CANFD_CFG_RXFIFO7_PAYLOAD << R_CANFD_CFDRFCC_RFPLS_Pos) | (CANFD_CFG_RXFIFO7_INT_MODE) | (CANFD_CFG_RXFIFO7_ENABLE)),
     },
+    .common_fifo_config =
+    {
+        CANFD_CFG_COMMONFIFO0,
+        CANFD_CFG_COMMONFIFO1,
+        CANFD_CFG_COMMONFIFO2,
+        CANFD_CFG_COMMONFIFO3,
+        CANFD_CFG_COMMONFIFO4,
+        CANFD_CFG_COMMONFIFO5,
+    }
 };
 #endif
 
@@ -250,6 +325,11 @@ const can_cfg_t g_canfd0_cfg =
     .p_extend               = &g_canfd0_extended_cfg,
     .p_context              = NULL,
     .ipl                    = (12),
+#if defined(VECTOR_NUMBER_CAN0_COMFRX)
+    .rx_irq             = VECTOR_NUMBER_CAN0_COMFRX,
+#else
+    .rx_irq             = FSP_INVALID_VECTOR,
+#endif
 #if defined(VECTOR_NUMBER_CAN0_TX)
     .tx_irq             = VECTOR_NUMBER_CAN0_TX,
 #else

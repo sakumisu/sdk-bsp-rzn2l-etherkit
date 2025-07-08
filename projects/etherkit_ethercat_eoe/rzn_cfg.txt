@@ -1,5 +1,5 @@
 FSP Configuration
-  Board "RSK+RZN2L (xSPI0 x1 boot mode)"
+  Board "RSK+RZN2L|RSK+RZN2L (xSPI0 x1 boot mode)"
     Parameter information for the loader: CACHE_FLG: 0x00000000
     Parameter information for the loader: WRAPCFG_V: 0x00000000
     Parameter information for the loader: COMCFG_V: 0x00000000
@@ -12,6 +12,7 @@ FSP Configuration
     Parameter information for the loader: LIOCFGCS0_V: 0x00070000
     Parameter information for the loader: ACCESS_SPEED: 0x00000006
     Parameter information for the loader: CHECK_SUM: Auto Calculate.
+    Use loader parameter: Used
     
   R9A07G084M04GBG
     part_number: R9A07G084M04GBG
@@ -595,7 +596,7 @@ FSP Configuration
     SPI1ASYNCCLK: 96MHz
     SPI2ASYNCCLK: 96MHz
     SPI3ASYNCCLK: 96MHz
-    PCLKCAN 40MHz
+    CANFDCLK Src: PCLKCAN 40MHz
     XSPI_CLK0 133.3MHz
     XSPI_CLK1 12.5MHz
     
@@ -1111,25 +1112,27 @@ FSP Configuration
       ELC Input Port Group 1: Port Selection: 
       ELC Input Port Group 1: Edge Detection: Rising edge
       ELC Input Port Group 1: Buffer Overwrite: Disabled
-      ELC Input Port Group 1: Buffer Initial Value: P16_0: Low input
-      ELC Input Port Group 1: Buffer Initial Value: P16_1: Low input
-      ELC Input Port Group 1: Buffer Initial Value: P16_2: Low input
-      ELC Input Port Group 1: Buffer Initial Value: P16_3: Low input
-      ELC Input Port Group 1: Buffer Initial Value: P16_5: Low input
-      ELC Input Port Group 1: Buffer Initial Value: P16_6: Low input
-      ELC Input Port Group 1: Buffer Initial Value: P16_7: Low input
+      ELC Input Port Group 1: Buffer Initial Value: PIN0: Low Input (P16_0)
+      ELC Input Port Group 1: Buffer Initial Value: PIN1: Low Input (P16_1)
+      ELC Input Port Group 1: Buffer Initial Value: PIN2: Low Input (P16_2)
+      ELC Input Port Group 1: Buffer Initial Value: PIN3: Low Input (P16_3)
+      ELC Input Port Group 1: Buffer Initial Value: PIN4: Low Input (P16_4)
+      ELC Input Port Group 1: Buffer Initial Value: PIN5: Low Input (P16_5)
+      ELC Input Port Group 1: Buffer Initial Value: PIN6: Low Input (P16_6)
+      ELC Input Port Group 1: Buffer Initial Value: PIN7: Low Input (P16_7)
       ELC Input Port Group 2: Trigger Source: Disabled
       ELC Input Port Group 2: Event Link Control: Disabled
       ELC Input Port Group 2: Port Selection: 
       ELC Input Port Group 2: Edge Detection: Rising edge
       ELC Input Port Group 2: Buffer Overwrite: Disabled
-      ELC Input Port Group 2: Buffer Initial Value: P18_0: Low input
-      ELC Input Port Group 2: Buffer Initial Value: P18_1: Low input
-      ELC Input Port Group 2: Buffer Initial Value: P18_2: Low input
-      ELC Input Port Group 2: Buffer Initial Value: P18_3: Low input
-      ELC Input Port Group 2: Buffer Initial Value: P18_4: Low input
-      ELC Input Port Group 2: Buffer Initial Value: P18_5: Low input
-      ELC Input Port Group 2: Buffer Initial Value: P18_6: Low input
+      ELC Input Port Group 2: Buffer Initial Value: PIN0: Low Input (P18_0)
+      ELC Input Port Group 2: Buffer Initial Value: PIN1: Low Input (P18_1)
+      ELC Input Port Group 2: Buffer Initial Value: PIN2: Low Input (P18_2)
+      ELC Input Port Group 2: Buffer Initial Value: PIN3: Low Input (P18_3)
+      ELC Input Port Group 2: Buffer Initial Value: PIN4: Low Input (P18_4)
+      ELC Input Port Group 2: Buffer Initial Value: PIN5: Low Input (P18_5)
+      ELC Input Port Group 2: Buffer Initial Value: PIN6: Low Input (P18_6)
+      ELC Input Port Group 2: Buffer Initial Value: PIN7: Low Input (P18_7)
       ELC Single Port 0: Common: Event Link Control: Disabled
       ELC Single Port 0: Common: Event Direction: Output direction
       ELC Single Port 0: Common: Port selection: P16_0
@@ -1261,7 +1264,9 @@ FSP Configuration
     Instance "g_ether0 Ethernet (r_gmac)"
       General: Name: g_ether0
       General: Channel: 0
-      General: MAC address: 00:11:22:33:44:55
+      General: MAC address 0: 00:11:22:33:44:55
+      General: MAC address 1: NULL
+      General: MAC address 2: NULL
       General: Zero-copy Mode: Disable
       General: Flow control functionality: Disable
       Filters: Promiscuous Mode: Enable

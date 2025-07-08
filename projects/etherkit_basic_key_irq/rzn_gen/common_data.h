@@ -9,21 +9,21 @@
 #include "bsp_pin_cfg.h"
 FSP_HEADER
 /** External IRQ on ICU Instance. */
-extern const external_irq_instance_t g_external_irq6;
-
-/** Access the ICU instance using these structures when calling API functions directly (::p_api is not used). */
-extern icu_instance_ctrl_t g_external_irq6_ctrl;
-extern const external_irq_cfg_t g_external_irq6_cfg;
-
-#ifndef irq_callback
-void irq_callback(external_irq_callback_args_t * p_args);
-#endif
-/** External IRQ on ICU Instance. */
 extern const external_irq_instance_t g_external_irq7;
 
 /** Access the ICU instance using these structures when calling API functions directly (::p_api is not used). */
 extern icu_instance_ctrl_t g_external_irq7_ctrl;
 extern const external_irq_cfg_t g_external_irq7_cfg;
+
+#ifndef irq_callback
+void irq_callback(external_irq_callback_args_t * p_args);
+#endif
+/** External IRQ on ICU Instance. */
+extern const external_irq_instance_t g_external_irq6;
+
+/** Access the ICU instance using these structures when calling API functions directly (::p_api is not used). */
+extern icu_instance_ctrl_t g_external_irq6_ctrl;
+extern const external_irq_cfg_t g_external_irq6_cfg;
 
 #ifndef irq_callback
 void irq_callback(external_irq_callback_args_t * p_args);

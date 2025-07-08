@@ -20,7 +20,7 @@
 #include <string.h>
 #include "tftp.h"
 
-rt_weak void *tftp_file_open(const char *fname, const char *mode, int is_write)
+RT_WEAK void *tftp_file_open(const char *fname, const char *mode, int is_write)
 {
     int fd = 0;
 
@@ -43,21 +43,21 @@ rt_weak void *tftp_file_open(const char *fname, const char *mode, int is_write)
     return (void *)fd;
 }
 
-rt_weak int tftp_file_write(void *handle, int pos, void *buff, int len)
+RT_WEAK int tftp_file_write(void *handle, int pos, void *buff, int len)
 {
     int fd = (int)handle;
 
     return write(fd, buff, len);
 }
 
-rt_weak int tftp_file_read(void *handle, int pos, void *buff, int len)
+RT_WEAK int tftp_file_read(void *handle, int pos, void *buff, int len)
 {
     int fd = (int)handle;
 
     return read(fd, buff, len);
 }
 
-rt_weak void tftp_file_close(void *handle)
+RT_WEAK void tftp_file_close(void *handle)
 {
     close((int)handle);
 }

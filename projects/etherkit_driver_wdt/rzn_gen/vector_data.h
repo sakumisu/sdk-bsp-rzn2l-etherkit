@@ -2,6 +2,10 @@
         #ifndef VECTOR_DATA_H
         #define VECTOR_DATA_H
         #include "bsp_api.h"
+
+        /** Common macro for FSP header files. There is also a corresponding FSP_FOOTER macro at the end of this file. */
+        FSP_HEADER
+
                 /* Number of interrupts allocated */
         #ifndef VECTOR_DATA_IRQ_COUNT
         #define VECTOR_DATA_IRQ_COUNT    (4)
@@ -47,4 +51,8 @@
             SCI0_TEI_IRQn = 291, /* SCI0_TEI (SCI0 Transmit end) */
             SHARED_PERIPHERAL_INTERRUPTS_MAX_ENTRIES = BSP_VECTOR_TABLE_MAX_ENTRIES
         } IRQn_Type;
+
+        /** Common macro for FSP header files. There is also a corresponding FSP_HEADER macro at the top of this file. */
+        FSP_FOOTER
+
         #endif /* VECTOR_DATA_H */

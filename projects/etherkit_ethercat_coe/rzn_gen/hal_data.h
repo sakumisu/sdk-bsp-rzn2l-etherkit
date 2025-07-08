@@ -21,6 +21,41 @@ extern const timer_cfg_t g_timer1_cfg;
 #ifndef timer1_callback
 void timer1_callback(timer_callback_args_t * p_args);
 #endif
+#ifndef NULL
+void NULL(timer_callback_args_t * p_args);
+#endif
+
+/** Error check the duplicated channel number, same GPT_INT number between MTU3 and GPT */
+#if (1 == BSP_FEATURE_BSP_IRQ_GPT_SEL_SUPPORTED)
+ #ifndef TIMER_GPT01_1_INT0_DISABLE
+  #define TIMER_GPT01_1_INT0_DISABLE
+ #else
+  #ifdef TIMER_GPT01_1_INT0_ENABLE
+   #error "GPT_INT0 of GPT_SEL cannot be duplicated"
+  #endif
+ #endif
+ #ifndef TIMER_GPT01_1_INT1_DISABLE
+  #define TIMER_GPT01_1_INT1_DISABLE
+ #else
+  #ifdef TIMER_GPT01_1_INT1_ENABLE
+   #error "GPT_INT1 of GPT_SEL cannot be duplicated"
+  #endif
+ #endif
+ #ifndef TIMER_GPT01_1_INT2_DISABLE
+  #define TIMER_GPT01_1_INT2_DISABLE
+ #else
+  #ifdef TIMER_GPT01_1_INT2_ENABLE
+   #error "GPT_INT2 of GPT_SEL cannot be duplicated"
+  #endif
+ #endif
+ #ifndef TIMER_GPT01_1_INT3_DISABLE
+  #define TIMER_GPT01_1_INT3_DISABLE
+ #else
+  #ifdef TIMER_GPT01_1_INT3_ENABLE
+   #error "GPT_INT3 of GPT_SEL cannot be duplicated"
+  #endif
+ #endif
+#endif
 /** CANFD on CANFD Instance. */
 extern const can_instance_t g_canfd1;
 /** Access the CANFD instance using these structures when calling API functions directly (::p_api is not used). */

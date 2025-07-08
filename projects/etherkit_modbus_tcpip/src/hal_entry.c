@@ -21,7 +21,7 @@ void hal_entry(void)
 {
     rt_kprintf("\nHello RT-Thread!\n");
     rt_kprintf("==================================================\n");
-    rt_kprintf("This example project is an modbus-tcpip routine!\n");
+    rt_kprintf("This is a iar project which mode is xspi0 execution!\n");
     rt_kprintf("==================================================\n");
 
     while (1)

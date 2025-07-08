@@ -3087,9 +3087,6 @@
                 <name>$PROJ_DIR$\rzn_cfg\fsp_cfg\bsp\bsp_pin_cfg.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\rzn_cfg\fsp_cfg\r_icu_cfg.h</name>
-            </file>
-            <file>
                 <name>$PROJ_DIR$\rzn_cfg\fsp_cfg\r_ioport_cfg.h</name>
             </file>
             <file>
@@ -3256,15 +3253,6 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\rzn\fsp\src\bsp\cmsis\Device\RENESAS\Include\R9A07G084.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\inc\api\r_external_irq_api.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_icu\r_icu.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\inc\instances\r_icu.h</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\rzn\fsp\src\r_ioport\r_ioport.c</name>

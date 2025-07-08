@@ -3,6 +3,7 @@
 #define BOARD_CFG_H_
 #include "../../../rzn/board/rzn2l_rsk/board.h"
             #define BSP_CFG_XSPI0_X1_BOOT (1)
+            #define BSP_CFG_USE_LOADER_PARAMETER (1)
             #define BSP_CFG_CACHE_FLG (0x00000000)
             #define BSP_CFG_CS0BCR_V_WRAPCFG_V (0x00000000)
             #define BSP_CFG_CS0WCR_V_COMCFG_V (0x00000000)

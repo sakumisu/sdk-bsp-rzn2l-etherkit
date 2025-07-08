@@ -1,7 +1,7 @@
 [
  {
-  "name": "PNET",
-  "path": "/packages/iot/p-net",
-  "ver": "latest"
+  "path": "/packages/iot/p-net-rtt", 
+  "ver": "latest", 
+  "name": "PNET"
  }
 ]

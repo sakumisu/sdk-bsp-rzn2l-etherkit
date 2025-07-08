@@ -1,22 +1,8 @@
-/***********************************************************************************************************************
- * Copyright [2020-2024] Renesas Electronics Corporation and/or its affiliates.  All Rights Reserved.
- *
- * This software and documentation are supplied by Renesas Electronics Corporation and/or its affiliates and may only
- * be used with products of Renesas Electronics Corp. and its affiliates ("Renesas").  No other uses are authorized.
- * Renesas products are sold pursuant to Renesas terms and conditions of sale.  Purchasers are solely responsible for
- * the selection and use of Renesas products and Renesas assumes no liability.  No license, express or implied, to any
- * intellectual property right is granted by Renesas.  This software is protected under all applicable laws, including
- * copyright laws. Renesas reserves the right to change or discontinue this software and/or this documentation.
- * THE SOFTWARE AND DOCUMENTATION IS DELIVERED TO YOU "AS IS," AND RENESAS MAKES NO REPRESENTATIONS OR WARRANTIES, AND
- * TO THE FULLEST EXTENT PERMISSIBLE UNDER APPLICABLE LAW, DISCLAIMS ALL WARRANTIES, WHETHER EXPLICITLY OR IMPLICITLY,
- * INCLUDING WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT, WITH RESPECT TO THE
- * SOFTWARE OR DOCUMENTATION.  RENESAS SHALL HAVE NO LIABILITY ARISING OUT OF ANY SECURITY VULNERABILITY OR BREACH.
- * TO THE MAXIMUM EXTENT PERMITTED BY LAW, IN NO EVENT WILL RENESAS BE LIABLE TO YOU IN CONNECTION WITH THE SOFTWARE OR
- * DOCUMENTATION (OR ANY PERSON OR ENTITY CLAIMING RIGHTS DERIVED FROM YOU) FOR ANY LOSS, DAMAGES, OR CLAIMS WHATSOEVER,
- * INCLUDING, WITHOUT LIMITATION, ANY DIRECT, CONSEQUENTIAL, SPECIAL, INDIRECT, PUNITIVE, OR INCIDENTAL DAMAGES; ANY
- * LOST PROFITS, OTHER ECONOMIC DAMAGE, PROPERTY DAMAGE, OR PERSONAL INJURY; AND EVEN IF RENESAS HAS BEEN ADVISED OF THE
- * POSSIBILITY OF SUCH LOSS, DAMAGES, CLAIMS OR COSTS.
- **********************************************************************************************************************/
+/*
+* Copyright (c) 2020 - 2025 Renesas Electronics Corporation and/or its affiliates
+*
+* SPDX-License-Identifier: BSD-3-Clause
+*/
 #ifndef R_USB_TYPEDEF_H
 #define R_USB_TYPEDEF_H
 
@@ -50,60 +36,46 @@ typedef TMO     usb_tm_t;
 typedef VP      usb_mh_t;
 typedef VP_INT  usb_vp_int_t;
 
-#if defined(BSP_MCU_GROUP_RA6M3)
-typedef volatile R_USB_HS0_Type * usb_regadr1_t; // @@
-typedef volatile R_USB_FS0_Type * usb_regadr_t;
-#elif defined(BSP_MCU_GROUP_RA6M5)               /* defined(BSP_MCU_GROUP_RA6M3) */
-typedef volatile R_USB_FS0_Type * usb_regadr1_t;
-typedef volatile R_USB_FS0_Type * usb_regadr_t;
-#else /* defined(BSP_MCU_GROUP_RZN2L) */
- #if ((USB_CFG_MODE & USB_CFG_PERI) == USB_CFG_PERI)
+#if ((USB_CFG_MODE & USB_CFG_PERI) == USB_CFG_PERI)
 typedef volatile R_USBF_Type * usb_regadr1_t;
 typedef volatile R_USBF_Type * usb_regadr_t;
- #else                                 /* ((USB_CFG_MODE & USB_CFG_PERI) == USB_CFG_PERI) */
+#else                                  /* ((USB_CFG_MODE & USB_CFG_PERI) == USB_CFG_PERI) */
 typedef volatile R_USBHC_Type * usb_regadr1_t;
 typedef volatile R_USBHC_Type * usb_regadr_t;
- #endif
-#endif /* defined(BSP_MCU_GROUP_RA6M3) */
-
-// typedef volatile R_USB_FS0_Type * usb_regadr_t;
+#endif
 
 typedef struct usb_utr usb_utr_t;
 typedef void        (* usb_cb_t)(struct usb_utr *, uint16_t, uint16_t);
 
 typedef struct usb_utr
 {
-    usb_mh_t     msghead;                      /* Message header (for SH-solution) */
-    usb_cb_t     complete;                     /* Call Back Function Info */
-    void const * p_tranadr;                    /* Transfer data Start address */
-    uint32_t     read_req_len;                 /* Read Request Length */
-    uint32_t     tranlen;                      /* Transfer data length */
-    uint16_t   * p_setup;                      /* Setup packet(for control only) */
+    usb_mh_t     msghead;              /* Message header (for SH-solution) */
+    usb_cb_t     complete;             /* Call Back Function Info */
+    void const * p_tranadr;            /* Transfer data Start address */
+    uint32_t     read_req_len;         /* Read Request Length */
+    uint32_t     tranlen;              /* Transfer data length */
+    uint16_t   * p_setup;              /* Setup packet(for control only) */
     void       * p_usr_data;
 #if (BSP_CFG_RTOS == 2)
-    usb_hdl_t cur_task_hdl;                    /* Task Handle */
+    usb_hdl_t cur_task_hdl;            /* Task Handle */
 #endif /* #if (BSP_CFG_RTOS == 2) */
-    uint16_t msginfo;                          /* Message Info for F/W */
-    uint16_t keyword;                          /* Root port / Device address / Pipe number */
-    uint8_t  ip;                               /* USB module number(0 or 1) */
-    uint16_t result;                           /* Result */
-    uint16_t status;                           /* Status */
-    uint16_t pipectr;                          /* Pipe control register */
+    uint16_t msginfo;                  /* Message Info for F/W */
+    uint16_t keyword;                  /* Root port / Device address / Pipe number */
+    uint8_t  ip;                       /* USB module number(0 or 1) */
+    uint16_t result;                   /* Result */
+    uint16_t status;                   /* Status */
+    uint16_t pipectr;                  /* Pipe control register */
 #if (BSP_CFG_RTOS == 2)
-    uint16_t setup_data[5];                    /* Save setup for Request */
+    uint16_t setup_data[5];            /* Save setup for Request */
 #endif /* #if (BSP_CFG_RTOS == 2) */
-    uint8_t errcnt;                            /* Error count */
-    uint8_t segment;                           /* Last flag */
-#if !defined(BSP_MCU_GROUP_RZN2L)
-    const transfer_instance_t * p_transfer_tx; ///< Send context
-    const transfer_instance_t * p_transfer_rx; ///< Receive context
-#endif
+    uint8_t errcnt;                    /* Error count */
+    uint8_t segment;                   /* Last flag */
     union
     {
-        usb_regadr_t ipp;                      /* USB module startAddress(USB0/USB1)*/
+        usb_regadr_t ipp;              /* USB module startAddress(USB0/USB1)*/
 #if USB_NUM_USBIP == 2
-        usb_regadr1_t ipp1;                    /* USB module start address(USBA) */
-#endif                                         /* USB_NUM_USBIP == 2 */
+        usb_regadr1_t ipp1;            /* USB module start address(USBA) */
+#endif                                 /* USB_NUM_USBIP == 2 */
     };
 } usb_message_t;
 

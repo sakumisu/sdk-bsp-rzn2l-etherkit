@@ -2,9 +2,13 @@
         #ifndef VECTOR_DATA_H
         #define VECTOR_DATA_H
         #include "bsp_api.h"
+
+        /** Common macro for FSP header files. There is also a corresponding FSP_FOOTER macro at the end of this file. */
+        FSP_HEADER
+
                 /* Number of interrupts allocated */
         #ifndef VECTOR_DATA_IRQ_COUNT
-        #define VECTOR_DATA_IRQ_COUNT    (38)
+        #define VECTOR_DATA_IRQ_COUNT    (40)
         #endif
         /* ISR prototypes */
         void r_icu_isr(void);
@@ -25,6 +29,7 @@
         void canfd_rx_fifo_isr(void);
         void canfd_error_isr(void);
         void canfd_channel_tx_isr(void);
+        void canfd_common_fifo_rx_isr(void);
         void rtc_alarm_periodic_isr(void);
 
         /* Vector table allocations */
@@ -58,8 +63,10 @@
         #define VECTOR_NUMBER_CAN_GLERR ((IRQn_Type) 317) /* CAN_GLERR (CANFD Global error interrupt) */
         #define VECTOR_NUMBER_CAN0_TX ((IRQn_Type) 318) /* CAN0_TX (CANFD0 Channel TX interrupt) */
         #define VECTOR_NUMBER_CAN0_CHERR ((IRQn_Type) 319) /* CAN0_CHERR (CANFD0 Channel CAN error interrupt) */
+        #define VECTOR_NUMBER_CAN0_COMFRX ((IRQn_Type) 320) /* CAN0_COMFRX (CANFD0 Common RX FIFO or TXQ interrupt) */
         #define VECTOR_NUMBER_CAN1_TX ((IRQn_Type) 321) /* CAN1_TX (CANFD1 Channel TX interrupt) */
         #define VECTOR_NUMBER_CAN1_CHERR ((IRQn_Type) 322) /* CAN1_CHERR (CANFD1 Channel CAN error interrupt) */
+        #define VECTOR_NUMBER_CAN1_COMFRX ((IRQn_Type) 323) /* CAN1_COMFRX (CANFD1 Common RX FIFO or TXQ interrupt) */
         #define VECTOR_NUMBER_RTC_ALM ((IRQn_Type) 432) /* RTC_ALM (Alarm interrupt) */
         #define VECTOR_NUMBER_RTC_PRD ((IRQn_Type) 434) /* RTC_PRD (Fixed interval interrupt) */
         #define VECTOR_NUMBER_SCI5_ERI ((IRQn_Type) 435) /* SCI5_ERI (SCI5 Receive error) */
@@ -120,8 +127,10 @@
             CAN_GLERR_IRQn = 317, /* CAN_GLERR (CANFD Global error interrupt) */
             CAN0_TX_IRQn = 318, /* CAN0_TX (CANFD0 Channel TX interrupt) */
             CAN0_CHERR_IRQn = 319, /* CAN0_CHERR (CANFD0 Channel CAN error interrupt) */
+            CAN0_COMFRX_IRQn = 320, /* CAN0_COMFRX (CANFD0 Common RX FIFO or TXQ interrupt) */
             CAN1_TX_IRQn = 321, /* CAN1_TX (CANFD1 Channel TX interrupt) */
             CAN1_CHERR_IRQn = 322, /* CAN1_CHERR (CANFD1 Channel CAN error interrupt) */
+            CAN1_COMFRX_IRQn = 323, /* CAN1_COMFRX (CANFD1 Common RX FIFO or TXQ interrupt) */
             RTC_ALM_IRQn = 432, /* RTC_ALM (Alarm interrupt) */
             RTC_PRD_IRQn = 434, /* RTC_PRD (Fixed interval interrupt) */
             SCI5_ERI_IRQn = 435, /* SCI5_ERI (SCI5 Receive error) */
@@ -130,4 +139,8 @@
             SCI5_TEI_IRQn = 438, /* SCI5_TEI (SCI5 Transmit end) */
             SHARED_PERIPHERAL_INTERRUPTS_MAX_ENTRIES = BSP_VECTOR_TABLE_MAX_ENTRIES
         } IRQn_Type;
+
+        /** Common macro for FSP header files. There is also a corresponding FSP_HEADER macro at the top of this file. */
+        FSP_FOOTER
+
         #endif /* VECTOR_DATA_H */

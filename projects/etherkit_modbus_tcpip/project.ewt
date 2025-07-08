@@ -2918,21 +2918,6 @@
         </settings>
     </configuration>
     <group>
-        <name>agile_modbus</name>
-        <file>
-            <name>$PROJ_DIR$\packages\agile_modbus-v1.1.2\src\agile_modbus.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\packages\agile_modbus-v1.1.2\src\agile_modbus_rtu.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\packages\agile_modbus-v1.1.2\util\agile_modbus_slave_util.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\packages\agile_modbus-v1.1.2\src\agile_modbus_tcp.c</name>
-        </file>
-    </group>
-    <group>
         <name>Compiler</name>
         <file>
             <name>$PROJ_DIR$\rt-thread\components\libc\compilers\common\cctype.c</name>
@@ -3052,31 +3037,10 @@
             <name>$PROJ_DIR$\libraries\HAL_Drivers\drv_common.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\libraries\HAL_Drivers\drv_eth.c</name>
-        </file>
-        <file>
             <name>$PROJ_DIR$\libraries\HAL_Drivers\drv_gpio.c</name>
         </file>
         <file>
             <name>$PROJ_DIR$\libraries\HAL_Drivers\drv_usart_v2.c</name>
-        </file>
-    </group>
-    <group>
-        <name>Filesystem</name>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\dfs\dfs_v1\filesystems\devfs\devfs.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\dfs\dfs_v1\src\dfs.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\dfs\dfs_v1\src\dfs_file.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\dfs\dfs_v1\src\dfs_fs.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\dfs\dfs_v1\src\dfs_posix.c</name>
         </file>
     </group>
     <group>
@@ -3086,9 +3050,6 @@
         </file>
         <file>
             <name>$PROJ_DIR$\rt-thread\components\finsh\msh.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\finsh\msh_file.c</name>
         </file>
         <file>
             <name>$PROJ_DIR$\rt-thread\components\finsh\msh_parse.c</name>
@@ -3124,18 +3085,6 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\rzn_cfg\fsp_cfg\bsp\bsp_pin_cfg.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn_cfg\fsp_cfg\r_ether_cfg.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn_cfg\fsp_cfg\r_ether_phy_cfg.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn_cfg\fsp_cfg\r_ether_selector_cfg.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn_cfg\fsp_cfg\r_ether_switch_cfg.h</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\rzn_cfg\fsp_cfg\r_ioport_cfg.h</name>
@@ -3306,42 +3255,6 @@
                 <name>$PROJ_DIR$\rzn\fsp\src\bsp\cmsis\Device\RENESAS\Include\R9A07G084.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\rzn\fsp\inc\api\r_ether_api.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_ether_phy\r_ether_phy.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\inc\instances\r_ether_phy.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\inc\api\r_ether_phy_api.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_ether_selector\r_ether_selector.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\inc\instances\r_ether_selector.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\inc\api\r_ether_selector_api.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\inc\api\r_ether_switch_api.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_ethsw\r_ethsw.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\inc\instances\r_ethsw.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\src\r_gmac\r_gmac.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\rzn\fsp\inc\instances\r_gmac.h</name>
-            </file>
-            <file>
                 <name>$PROJ_DIR$\rzn\fsp\src\r_ioport\r_ioport.c</name>
             </file>
             <file>
@@ -3485,172 +3398,7 @@
         </file>
     </group>
     <group>
-        <name>lwIP</name>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\api\api_lib.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\api\api_msg.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\core\ipv4\autoip.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\core\def.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\core\ipv4\dhcp.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\core\dns.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\api\err.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\core\ipv4\etharp.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\netif\ethernet.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\net\lwip\port\ethernetif.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\core\ipv4\icmp.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\core\ipv4\igmp.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\core\inet_chksum.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\core\init.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\core\ip.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\core\ipv4\ip4.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\core\ipv4\ip4_addr.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\core\ipv4\ip4_frag.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\netif\lowpan6.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\core\memp.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\api\netbuf.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\api\netdb.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\core\netif.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\api\netifapi.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\core\pbuf.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\apps\ping\ping.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\core\raw.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\api\sockets.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\core\stats.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\core\sys.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\net\lwip\port\sys_arch.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\core\tcp.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\core\tcp_in.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\core\tcp_out.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\api\tcpip.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\core\timeouts.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\core\udp.c</name>
-        </file>
-    </group>
-    <group>
-        <name>modbus_src</name>
-        <file>
-            <name>$PROJ_DIR$\board\ports\modbus\modbus_define\bits.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\board\ports\modbus\modbus_define\input_bits.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\board\ports\modbus\modbus_define\input_registers.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\board\ports\modbus\modbus_define\registers.c</name>
-        </file>
-    </group>
-    <group>
-        <name>modbus_tcp</name>
-        <file>
-            <name>$PROJ_DIR$\board\ports\modbus\tcp_modbus\mb_tcp.c</name>
-        </file>
-    </group>
-    <group>
         <name>POSIX</name>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\libc\posix\io\poll\poll.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\libc\posix\io\poll\select.c</name>
-        </file>
-    </group>
-    <group>
-        <name>SAL</name>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\net\sal\impl\af_inet_lwip.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\net\sal\dfs_net\dfs_net.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\net\sal\socket\net_netdb.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\net\sal\socket\net_sockets.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\net\netdev\src\netdev.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\net\netdev\src\netdev_ipaddr.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\rt-thread\components\net\sal\src\sal_socket.c</name>
-        </file>
     </group>
     <file>
         <name>$PROJ_DIR$\buildinfo.ipcf</name>

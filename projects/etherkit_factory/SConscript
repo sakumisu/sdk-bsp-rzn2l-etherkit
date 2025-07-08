@@ -11,14 +11,18 @@ CPPPATH = [cwd]
 group = []
 list = os.listdir(cwd)
 
+CPPDEFINES = ['_RZN_ORDINAL=1']
+
 if rtconfig.PLATFORM in ['iccarm']:
-    group = DefineGroup('', src, depend = [''], CPPPATH = CPPPATH)
+    group = DefineGroup('', src, depend = [''], CPPPATH = CPPPATH, CPPDEFINES=CPPDEFINES)
 elif rtconfig.PLATFORM in GetGCCLikePLATFORM():
     if GetOption('target') != 'mdk5':
-        CPPPATH = [cwd]
+        CPPPATH = [
+          cwd,
+          cwd + '/src/'
+        ]
         src = Glob('./src/*.c')
-        CPPPATH += [cwd + '/src']
-        group = DefineGroup('Applications', src, depend = [''], CPPPATH = CPPPATH)
+        group = DefineGroup('Applications', src, depend = [''], CPPPATH = CPPPATH, CPPDEFINES=CPPDEFINES)
 
 for d in list:
     path = os.path.join(cwd, d)

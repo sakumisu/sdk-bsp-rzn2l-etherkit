@@ -1,22 +1,8 @@
-/***********************************************************************************************************************
- * Copyright [2020-2024] Renesas Electronics Corporation and/or its affiliates.  All Rights Reserved.
- *
- * This software and documentation are supplied by Renesas Electronics Corporation and/or its affiliates and may only
- * be used with products of Renesas Electronics Corp. and its affiliates ("Renesas").  No other uses are authorized.
- * Renesas products are sold pursuant to Renesas terms and conditions of sale.  Purchasers are solely responsible for
- * the selection and use of Renesas products and Renesas assumes no liability.  No license, express or implied, to any
- * intellectual property right is granted by Renesas.  This software is protected under all applicable laws, including
- * copyright laws. Renesas reserves the right to change or discontinue this software and/or this documentation.
- * THE SOFTWARE AND DOCUMENTATION IS DELIVERED TO YOU "AS IS," AND RENESAS MAKES NO REPRESENTATIONS OR WARRANTIES, AND
- * TO THE FULLEST EXTENT PERMISSIBLE UNDER APPLICABLE LAW, DISCLAIMS ALL WARRANTIES, WHETHER EXPLICITLY OR IMPLICITLY,
- * INCLUDING WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT, WITH RESPECT TO THE
- * SOFTWARE OR DOCUMENTATION.  RENESAS SHALL HAVE NO LIABILITY ARISING OUT OF ANY SECURITY VULNERABILITY OR BREACH.
- * TO THE MAXIMUM EXTENT PERMITTED BY LAW, IN NO EVENT WILL RENESAS BE LIABLE TO YOU IN CONNECTION WITH THE SOFTWARE OR
- * DOCUMENTATION (OR ANY PERSON OR ENTITY CLAIMING RIGHTS DERIVED FROM YOU) FOR ANY LOSS, DAMAGES, OR CLAIMS WHATSOEVER,
- * INCLUDING, WITHOUT LIMITATION, ANY DIRECT, CONSEQUENTIAL, SPECIAL, INDIRECT, PUNITIVE, OR INCIDENTAL DAMAGES; ANY
- * LOST PROFITS, OTHER ECONOMIC DAMAGE, PROPERTY DAMAGE, OR PERSONAL INJURY; AND EVEN IF RENESAS HAS BEEN ADVISED OF THE
- * POSSIBILITY OF SUCH LOSS, DAMAGES, CLAIMS OR COSTS.
- **********************************************************************************************************************/
+/*
+* Copyright (c) 2020 - 2025 Renesas Electronics Corporation and/or its affiliates
+*
+* SPDX-License-Identifier: BSD-3-Clause
+*/
 
 /******************************************************************************
  * Includes   <System Includes> , "Project Includes"
@@ -84,8 +70,6 @@ uint16_t usb_cstd_get_buf_size (usb_utr_t * ptr, uint16_t pipe)
         /* Pipe select */
         hw_usb_write_pipesel(ptr, pipe);
 
- #if defined(BSP_MCU_GROUP_RA6M3) || defined(BSP_MCU_GROUP_RZN2L)
-
         /* Read CNTMD */
         buffer = hw_usb_read_pipecfg(ptr);
         if (USB_CFG_CNTMDON == (buffer & USB_CNTMDFIELD))
@@ -97,14 +81,11 @@ uint16_t usb_cstd_get_buf_size (usb_utr_t * ptr, uint16_t pipe)
         }
         else
         {
- #endif                                /* defined(BSP_MCU_GROUP_RA6M3) || defined(BSP_MCU_GROUP_RZN2L)*/
-        buffer = hw_usb_read_pipemaxp(ptr);
+            buffer = hw_usb_read_pipemaxp(ptr);
 
-        /* Max Packet Size */
-        size = (uint16_t) (buffer & USB_MXPS);
- #if defined(BSP_MCU_GROUP_RA6M3) || defined(BSP_MCU_GROUP_RZN2L)
-    }
- #endif                                /* defined(BSP_MCU_GROUP_RA6M3) || defined(BSP_MCU_GROUP_RZN2L) */
+            /* Max Packet Size */
+            size = (uint16_t) (buffer & USB_MXPS);
+        }
     }
 
     return size;
@@ -193,14 +174,7 @@ void usb_cstd_pipe_init (usb_utr_t * ptr, uint16_t pipe)
 
     hw_usb_write_pipecfg(ptr, g_usb_pipe_table[ip_no][pipe].pipe_cfg);
 
- #if defined(BSP_MCU_GROUP_RA6M3)
-    if (USB_IP1 == ip_no)
-    {
-        hw_usb_write_pipebuf(ptr, g_usb_pipe_table[ip_no][pipe].pipe_buf);
-    }
- #elif defined(BSP_MCU_GROUP_RZN2L)    /* defined(BSP_MCU_GROUP_RA6M3) */
     hw_usb_write_pipebuf(ptr, g_usb_pipe_table[ip_no][pipe].pipe_buf);
- #endif                                /* defined(BSP_MCU_GROUP_RA6M3) */
     hw_usb_write_pipemaxp(ptr, g_usb_pipe_table[ip_no][pipe].pipe_maxp);
     hw_usb_write_pipeperi(ptr, g_usb_pipe_table[ip_no][pipe].pipe_peri);
 
@@ -284,10 +258,7 @@ void usb_cstd_clr_pipe_cnfg (usb_utr_t * ptr, uint16_t pipe_no)
     usb_cstd_chg_curpipe(ptr, (uint16_t) USB_PIPE0, (uint16_t) USB_CUSE, USB_FALSE);
     hw_usb_write_pipesel(ptr, pipe_no);
     hw_usb_write_pipecfg(ptr, 0);
-
- #if defined(BSP_MCU_GROUP_RA6M3) || defined(BSP_MCU_GROUP_RZN2L)
     hw_usb_write_pipebuf(ptr, 0);
- #endif                                /* defined(BSP_MCU_GROUP_RA6M3) || defined(BSP_MCU_GROUP_RZN2L) */
     hw_usb_write_pipemaxp(ptr, 0);
     hw_usb_write_pipeperi(ptr, 0);
     hw_usb_write_pipesel(ptr, 0);

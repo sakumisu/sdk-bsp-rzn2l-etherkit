@@ -235,7 +235,6 @@
           <state>RT_USING_DLIBC</state>
           <state>RT_USING_LIBC</state>
           <state>_DLIB_ADD_EXTRA_SYMBOLS=0</state>
-          <state>_DLIB_FILE_DESCRIPTOR</state>
           <state>__RTTHREAD__</state>
           <state>__RT_IPC_SOURCE__</state>
           <state>__RT_KERNEL_SOURCE__</state>
@@ -382,37 +381,23 @@
           <state>$PROJ_DIR$\src\tcpip\renesas\oss_deps\lwip</state>
           <state>$PROJ_DIR$\src\tcpip\oss\amazon-freertos\libraries\3rdparty\lwip_osal\include</state>
           <state>$PROJ_DIR$\src\tcpip\oss\lwip\src\include</state>
-          <state>$PROJ_DIR$\rt-thread\include</state>
-          <state>$PROJ_DIR$\libraries\HAL_Drivers\config</state>
-          <state>$PROJ_DIR$\rt-thread\components\libc\posix\io\epoll</state>
-          <state>$PROJ_DIR$\rt-thread\components\libc\compilers\common\extension</state>
-          <state>$PROJ_DIR$\rt-thread\components\libc\posix\io\poll</state>
-          <state>$PROJ_DIR$\rt-thread\components\libc\posix\ipc</state>
-          <state>$PROJ_DIR$\board</state>
-          <state>$PROJ_DIR$\rt-thread\components\drivers\include</state>
-          <state>$PROJ_DIR$\board\ports\tftp</state>
-          <state>$PROJ_DIR$\rt-thread\components\libc\compilers\common\extension\fcntl\octal</state>
-          <state>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\include\netif</state>
-          <state>$PROJ_DIR$\rt-thread\components\net\sal\include</state>
-          <state>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\include</state>
           <state>$PROJ_DIR$\.</state>
-          <state>$PROJ_DIR$\rt-thread\components\net\sal\impl</state>
-          <state>$PROJ_DIR$\rt-thread\components\net\netdev\include</state>
-          <state>$PROJ_DIR$\rt-thread\components\finsh</state>
+          <state>$PROJ_DIR$\rt-thread\components\drivers\include</state>
+          <state>$PROJ_DIR$\libraries\HAL_Drivers</state>
+          <state>$PROJ_DIR$\rt-thread\include</state>
+          <state>$PROJ_DIR$\rt-thread\libcpu\arm\cortex-r52</state>
+          <state>$PROJ_DIR$\rt-thread\components\libc\compilers\common\extension\fcntl\octal</state>
+          <state>$PROJ_DIR$\rt-thread\components\libc\posix\ipc</state>
+          <state>$PROJ_DIR$\board\ports</state>
           <state>$PROJ_DIR$\rt-thread\components\libc\compilers\common\include</state>
           <state>$PROJ_DIR$\rt-thread\components\libc\posix\io\eventfd</state>
-          <state>$PROJ_DIR$\libraries\HAL_Drivers</state>
-          <state>$PROJ_DIR$\rt-thread\components\net\sal\include\dfs_net</state>
-          <state>$PROJ_DIR$\rt-thread\components\net\sal\include\socket\sys_socket</state>
-          <state>$PROJ_DIR$\rt-thread\components\net\lwip\port</state>
-          <state>$PROJ_DIR$\rt-thread\components\dfs\dfs_v1\filesystems\devfs</state>
-          <state>$PROJ_DIR$\rt-thread\components\dfs\dfs_v1\filesystems\elmfat</state>
-          <state>$PROJ_DIR$\rt-thread\components\net\sal\include\socket</state>
+          <state>$PROJ_DIR$\rt-thread\components\finsh</state>
+          <state>$PROJ_DIR$\libraries\HAL_Drivers\config</state>
+          <state>$PROJ_DIR$\rt-thread\components\libc\compilers\common\extension</state>
+          <state>$PROJ_DIR$\rt-thread\components\libc\posix\io\epoll</state>
+          <state>$PROJ_DIR$\rt-thread\components\libc\posix\io\poll</state>
           <state>$PROJ_DIR$\rt-thread\libcpu\arm\common</state>
-          <state>$PROJ_DIR$\rt-thread\libcpu\arm\cortex-r52</state>
-          <state>$PROJ_DIR$\rt-thread\components\dfs\dfs_v1\include</state>
-          <state>$PROJ_DIR$\board\ports</state>
-          <state>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\include\ipv4</state>
+          <state>$PROJ_DIR$\board</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -1398,7 +1383,6 @@
           <state>RT_USING_DLIBC</state>
           <state>RT_USING_LIBC</state>
           <state>_DLIB_ADD_EXTRA_SYMBOLS=0</state>
-          <state>_DLIB_FILE_DESCRIPTOR</state>
           <state>__RTTHREAD__</state>
           <state>__RT_IPC_SOURCE__</state>
           <state>__RT_KERNEL_SOURCE__</state>
@@ -1536,37 +1520,23 @@
           <state>$PROJ_DIR$/rzn_gen</state>
           <state>$PROJ_DIR$/src</state>
           <state>$PROJ_DIR$</state>
-          <state>$PROJ_DIR$\rt-thread\include</state>
-          <state>$PROJ_DIR$\libraries\HAL_Drivers\config</state>
-          <state>$PROJ_DIR$\rt-thread\components\libc\posix\io\epoll</state>
-          <state>$PROJ_DIR$\rt-thread\components\libc\compilers\common\extension</state>
-          <state>$PROJ_DIR$\rt-thread\components\libc\posix\io\poll</state>
-          <state>$PROJ_DIR$\rt-thread\components\libc\posix\ipc</state>
-          <state>$PROJ_DIR$\board</state>
-          <state>$PROJ_DIR$\rt-thread\components\drivers\include</state>
-          <state>$PROJ_DIR$\board\ports\tftp</state>
-          <state>$PROJ_DIR$\rt-thread\components\libc\compilers\common\extension\fcntl\octal</state>
-          <state>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\include\netif</state>
-          <state>$PROJ_DIR$\rt-thread\components\net\sal\include</state>
-          <state>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\include</state>
           <state>$PROJ_DIR$\.</state>
-          <state>$PROJ_DIR$\rt-thread\components\net\sal\impl</state>
-          <state>$PROJ_DIR$\rt-thread\components\net\netdev\include</state>
-          <state>$PROJ_DIR$\rt-thread\components\finsh</state>
+          <state>$PROJ_DIR$\rt-thread\components\drivers\include</state>
+          <state>$PROJ_DIR$\libraries\HAL_Drivers</state>
+          <state>$PROJ_DIR$\rt-thread\include</state>
+          <state>$PROJ_DIR$\rt-thread\libcpu\arm\cortex-r52</state>
+          <state>$PROJ_DIR$\rt-thread\components\libc\compilers\common\extension\fcntl\octal</state>
+          <state>$PROJ_DIR$\rt-thread\components\libc\posix\ipc</state>
+          <state>$PROJ_DIR$\board\ports</state>
           <state>$PROJ_DIR$\rt-thread\components\libc\compilers\common\include</state>
           <state>$PROJ_DIR$\rt-thread\components\libc\posix\io\eventfd</state>
-          <state>$PROJ_DIR$\libraries\HAL_Drivers</state>
-          <state>$PROJ_DIR$\rt-thread\components\net\sal\include\dfs_net</state>
-          <state>$PROJ_DIR$\rt-thread\components\net\sal\include\socket\sys_socket</state>
-          <state>$PROJ_DIR$\rt-thread\components\net\lwip\port</state>
-          <state>$PROJ_DIR$\rt-thread\components\dfs\dfs_v1\filesystems\devfs</state>
-          <state>$PROJ_DIR$\rt-thread\components\dfs\dfs_v1\filesystems\elmfat</state>
-          <state>$PROJ_DIR$\rt-thread\components\net\sal\include\socket</state>
+          <state>$PROJ_DIR$\rt-thread\components\finsh</state>
+          <state>$PROJ_DIR$\libraries\HAL_Drivers\config</state>
+          <state>$PROJ_DIR$\rt-thread\components\libc\compilers\common\extension</state>
+          <state>$PROJ_DIR$\rt-thread\components\libc\posix\io\epoll</state>
+          <state>$PROJ_DIR$\rt-thread\components\libc\posix\io\poll</state>
           <state>$PROJ_DIR$\rt-thread\libcpu\arm\common</state>
-          <state>$PROJ_DIR$\rt-thread\libcpu\arm\cortex-r52</state>
-          <state>$PROJ_DIR$\rt-thread\components\dfs\dfs_v1\include</state>
-          <state>$PROJ_DIR$\board\ports</state>
-          <state>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\include\ipv4</state>
+          <state>$PROJ_DIR$\board</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -2744,31 +2714,31 @@
   <group>
     <name>CPU</name>
     <file>
-      <name>$PROJ_DIR$\rt-thread\libcpu\arm\cortex-r52\start_iar.S</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\libcpu\arm\cortex-r52\backtrace.c</name>
+      <name>$PROJ_DIR$\rt-thread\libcpu\arm\cortex-r52\gicv3.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\rt-thread\libcpu\arm\cortex-r52\vector_iar.S</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\rt-thread\libcpu\arm\cortex-r52\stack.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\libcpu\arm\cortex-r52\trap.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\libcpu\arm\cortex-r52\interrupt.c</name>
+      <name>$PROJ_DIR$\rt-thread\libcpu\arm\cortex-r52\context_iar.S</name>
     </file>
     <file>
       <name>$PROJ_DIR$\rt-thread\libcpu\arm\cortex-r52\cpuport.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\rt-thread\libcpu\arm\cortex-r52\gicv3.c</name>
+      <name>$PROJ_DIR$\rt-thread\libcpu\arm\cortex-r52\stack.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\rt-thread\libcpu\arm\cortex-r52\context_iar.S</name>
+      <name>$PROJ_DIR$\rt-thread\libcpu\arm\cortex-r52\interrupt.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\rt-thread\libcpu\arm\cortex-r52\backtrace.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\rt-thread\libcpu\arm\cortex-r52\trap.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\rt-thread\libcpu\arm\cortex-r52\start_iar.S</name>
     </file>
   </group>
   <group>
@@ -2804,12 +2774,6 @@
       <name>$PROJ_DIR$\rt-thread\components\drivers\pin\pin.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\rt-thread\components\drivers\rtc\rtc.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\drivers\rtc\soft_rtc.c</name>
-    </file>
-    <file>
       <name>$PROJ_DIR$\rt-thread\components\drivers\serial\serial_v2.c</name>
     </file>
   </group>
@@ -2819,9 +2783,6 @@
       <name>$PROJ_DIR$\libraries\HAL_Drivers\drv_common.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\libraries\HAL_Drivers\drv_eth.c</name>
-    </file>
-    <file>
       <name>$PROJ_DIR$\libraries\HAL_Drivers\drv_gpio.c</name>
     </file>
     <file>
@@ -2829,40 +2790,7 @@
     </file>
   </group>
   <group>
-    <name>Filesystem</name>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\dfs\dfs_v1\filesystems\devfs\devfs.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\dfs\dfs_v1\filesystems\elmfat\dfs_elm.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\dfs\dfs_v1\filesystems\elmfat\ff.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\dfs\dfs_v1\filesystems\elmfat\ffunicode.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\dfs\dfs_v1\src\dfs.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\dfs\dfs_v1\src\dfs_file.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\dfs\dfs_v1\src\dfs_fs.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\dfs\dfs_v1\src\dfs_posix.c</name>
-    </file>
-  </group>
-  <group>
     <name>Finsh</name>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\finsh\shell.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\finsh\msh_file.c</name>
-    </file>
     <file>
       <name>$PROJ_DIR$\rt-thread\components\finsh\cmd.c</name>
     </file>
@@ -2871,6 +2799,9 @@
     </file>
     <file>
       <name>$PROJ_DIR$\rt-thread\components\finsh\msh_parse.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\rt-thread\components\finsh\shell.c</name>
     </file>
   </group>
   <group>
@@ -2924,169 +2855,16 @@
   <group>
     <name>libcpu</name>
     <file>
-      <name>$PROJ_DIR$\rt-thread\libcpu\arm\common\showmem.c</name>
+      <name>$PROJ_DIR$\rt-thread\libcpu\arm\common\div0.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\rt-thread\libcpu\arm\common\atomic_arm.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\rt-thread\libcpu\arm\common\div0.c</name>
-    </file>
-  </group>
-  <group>
-    <name>lwIP</name>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\api\api_lib.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\api\api_msg.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\api\err.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\api\netbuf.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\api\netdb.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\api\netifapi.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\api\sockets.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\api\tcpip.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\apps\ping\ping.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\core\def.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\core\dns.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\core\inet_chksum.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\core\init.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\core\ip.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\core\ipv4\autoip.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\core\ipv4\dhcp.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\core\ipv4\etharp.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\core\ipv4\icmp.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\core\ipv4\igmp.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\core\ipv4\ip4.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\core\ipv4\ip4_addr.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\core\ipv4\ip4_frag.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\core\memp.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\core\netif.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\core\pbuf.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\core\raw.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\core\stats.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\core\sys.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\core\tcp.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\core\tcp_in.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\core\tcp_out.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\core\timeouts.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\core\udp.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\netif\ethernet.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\net\lwip\lwip-2.0.3\src\netif\lowpan6.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\net\lwip\port\ethernetif.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\net\lwip\port\sys_arch.c</name>
+      <name>$PROJ_DIR$\rt-thread\libcpu\arm\common\showmem.c</name>
     </file>
   </group>
   <group>
     <name>POSIX</name>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\libc\posix\io\poll\poll.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\libc\posix\io\poll\select.c</name>
-    </file>
-  </group>
-  <group>
-    <name>SAL</name>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\net\netdev\src\netdev.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\net\netdev\src\netdev_ipaddr.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\net\sal\dfs_net\dfs_net.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\net\sal\impl\af_inet_lwip.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\net\sal\socket\net_netdb.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\net\sal\socket\net_sockets.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rt-thread\components\net\sal\src\sal_socket.c</name>
-    </file>
-  </group>
-  <group>
-    <name>TFTP</name>
-    <file>
-      <name>$PROJ_DIR$\board\ports\tftp\tftp_port.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\board\ports\tftp\tftp_server.c</name>
-    </file>
   </group>
 </project>
