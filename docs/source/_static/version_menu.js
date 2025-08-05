@@ -2,61 +2,106 @@
 (function() {
     'use strict';
     
-    // 版本配置 - 将从 .github/versions.list 文件获取
+    // 版本配置 - 将从版本配置文件获取
     let VERSION_CONFIG = {
         current: 'master',
-        versions: {
-            'master': '最新版本',
-            'v1.0': 'v1.0'
-        }
+        versions: {}
     };
     
-    // 从 .github/versions.list 文件获取版本信息
+    // 从版本配置文件获取版本信息
     async function fetchVersionInfo() {
         try {
-            // 尝试读取版本配置文件（仅在本地开发时可用）
-            const response = await fetch('/.github/versions.list');
-            if (!response.ok) {
-                throw new Error('版本文件不可用');
+            // 智能检测当前版本
+            const detectedVersion = detectCurrentVersion();
+            console.log('检测到的当前版本:', detectedVersion);
+            
+            // 检查是否为本地文件系统
+            const isLocalFileSystem = window.location.protocol === 'file:';
+            console.log('是否为本地文件系统:', isLocalFileSystem);
+            
+            let config = null;
+            let configPath = '';
+            
+            if (isLocalFileSystem) {
+                // 本地文件系统：优先使用嵌入的版本配置
+                console.log('本地文件系统，使用嵌入的版本配置');
+                const embeddedConfig = getEmbeddedVersionConfig();
+                if (embeddedConfig) {
+                    config = embeddedConfig;
+                    configPath = 'embedded';
+                    console.log('使用嵌入的版本配置');
+                } else {
+                    console.log('嵌入配置不可用，尝试其他方法');
+                }
+            } else {
+                // 网络环境：尝试加载配置文件
+                const possiblePaths = [
+                    // 当前版本的配置文件（优先）
+                    './_static/version_config.json',
+                    '_static/version_config.json',
+                    '/_static/version_config.json',
+                    '../_static/version_config.json',
+                    '../../_static/version_config.json',
+                    
+                    // 根目录通用配置文件（备选）
+                    '../version_config.json',
+                    '../../version_config.json',
+                    '/version_config.json',
+                    './version_config.json',
+                    'version_config.json'
+                ];
+                
+                for (const path of possiblePaths) {
+                    try {
+                        console.log('尝试加载配置文件:', path);
+                        const response = await fetch(path);
+                        if (response.ok) {
+                            config = await response.json();
+                            configPath = path;
+                            console.log('成功加载配置文件:', path);
+                            break;
+                        }
+                    } catch (e) {
+                        console.log('路径失败:', path, e.message);
+                    }
+                }
             }
             
-            const versionsText = await response.text();
-            
-            // 解析版本配置
-            const versions = {};
-            const lines = versionsText.split('\n').filter(line => line.trim() && !line.startsWith('#'));
-            
-            lines.forEach(line => {
-                const [version, comment] = line.split('#').map(s => s.trim());
-                if (version) {
-                    // 根据版本名称设置显示名称
-                    let displayName;
-                    if (version === 'master') {
-                        displayName = '最新版本';
-                    } else if (version.startsWith('v')) {
-                        displayName = version;
-                    } else {
-                        displayName = version;
-                    }
-                    versions[version] = displayName;
+            // 如果仍然没有配置，使用嵌入的配置作为兜底
+            if (!config) {
+                console.log('尝试使用嵌入的版本配置作为兜底');
+                const embeddedConfig = getEmbeddedVersionConfig();
+                if (embeddedConfig) {
+                    config = embeddedConfig;
+                    configPath = 'embedded_fallback';
+                    console.log('使用嵌入的版本配置作为兜底');
                 }
-            });
+            }
+            
+            if (!config) {
+                throw new Error('无法找到版本配置文件');
+            }
             
             // 确定当前版本
             const currentPath = window.location.pathname;
-            let currentVersion = 'master'; // 默认版本
+            let currentVersion = config.default_version || 'master';
             
             // 从URL路径判断当前版本
-            if (currentPath.includes('/latest/')) {
-                currentVersion = 'master';
-            } else if (currentPath.includes('/v1.0/')) {
-                currentVersion = 'v1.0';
-            } else {
-                // 尝试从路径中提取版本号
-                const versionMatch = currentPath.match(/\/(v\d+\.\d+)\//);
-                if (versionMatch) {
-                    currentVersion = versionMatch[1];
+            for (const version of config.versions) {
+                if (currentPath.includes(`/${version.url_path}/`)) {
+                    currentVersion = version.name;
+                    break;
                 }
+            }
+            
+            // 构建版本配置对象
+            const versions = {};
+            for (const version of config.versions) {
+                versions[version.name] = {
+                    display_name: version.display_name,
+                    url_path: version.url_path,
+                    description: version.description
+                };
             }
             
             VERSION_CONFIG = {
@@ -65,58 +110,84 @@
             };
             
             console.log('版本信息已更新:', VERSION_CONFIG);
+            console.log('配置文件路径:', configPath);
             
             // 重新创建版本菜单
             createVersionMenu();
             
         } catch (error) {
             console.warn('无法获取版本信息，使用默认配置:', error);
-            // 使用默认配置，基于当前URL路径确定版本
-            const currentPath = window.location.pathname;
-            let currentVersion = 'master';
             
-            if (currentPath.includes('/latest/')) {
-                currentVersion = 'master';
-            } else if (currentPath.includes('/v1.0/')) {
-                currentVersion = 'v1.0';
-            }
-            
+            // 使用默认配置
             VERSION_CONFIG = {
-                current: currentVersion,
+                current: 'master',
                 versions: {
-                    'master': '最新版本',
-                    'v1.0': 'v1.0'
+                    'master': {
+                        display_name: '最新版本',
+                        url_path: 'latest',
+                        description: '最新开发版本'
+                    },
+                    'v1.0': {
+                        display_name: 'v1.0',
+                        url_path: 'v1.0',
+                        description: '稳定版本 v1.0'
+                    }
                 }
             };
             
-            console.log('使用默认版本配置:', VERSION_CONFIG);
             createVersionMenu();
         }
     }
     
-    // 创建版本菜单
-    function createVersionMenu() {
-        // 查找侧边栏
-        const sidebar = document.querySelector('.wy-nav-side');
-        if (!sidebar) {
-            console.warn('找不到侧边栏元素');
-            return;
+    // 智能检测当前版本
+    function detectCurrentVersion() {
+        const pathname = window.location.pathname;
+        console.log('当前路径:', pathname);
+        
+        // 检查是否在版本子目录中
+        const versionMatch = pathname.match(/\/(v\d+\.\d+|latest)\//);
+        if (versionMatch) {
+            const detectedVersion = versionMatch[1];
+            console.log('检测到版本目录:', detectedVersion);
+            return detectedVersion;
         }
         
-        // 查找项目标题链接
-        const projectTitle = sidebar.querySelector('a.icon.icon-home');
-        if (!projectTitle) {
-            console.warn('找不到项目标题元素');
-            return;
+        // 检查URL参数
+        const urlParams = new URLSearchParams(window.location.search);
+        const versionParam = urlParams.get('version');
+        if (versionParam) {
+            console.log('从URL参数检测到版本:', versionParam);
+            return versionParam;
+        }
+        
+        console.log('未检测到版本信息，使用默认路径');
+        return null;
+    }
+    
+    // 创建版本菜单
+    function createVersionMenu() {
+        // 查找侧边栏 - 改进查找逻辑
+        let sidebar = document.querySelector('.wy-nav-side');
+        if (!sidebar) {
+            // 尝试其他可能的选择器
+            sidebar = document.querySelector('nav[data-toggle="wy-nav-shift"]');
+        }
+        if (!sidebar) {
+            sidebar = document.querySelector('.wy-side-scroll');
+        }
+        if (!sidebar) {
+            console.warn('找不到侧边栏元素，尝试在body中创建版本菜单');
+            sidebar = document.body;
         }
         
         // 检查是否已经存在版本菜单
-        if (sidebar.querySelector('.rtd-version-menu')) {
+        if (document.querySelector('.rtd-version-menu')) {
+            console.log('版本菜单已存在，跳过创建');
             return;
         }
         
         // 计算最长版本名称的宽度
-        const versionNames = Object.values(VERSION_CONFIG.versions);
+        const versionNames = Object.values(VERSION_CONFIG.versions).map(v => v.display_name);
         const maxLength = Math.max(...versionNames.map(name => name.length));
         const minWidth = Math.max(80, maxLength * 5 + 20);
         
@@ -126,25 +197,57 @@
         versionMenu.style.minWidth = minWidth + 'px';
         versionMenu.innerHTML = `
             <button class="rtd-version-menu__button" type="button" aria-haspopup="true" aria-expanded="false">
-                <span class="rtd-version-menu__current">${VERSION_CONFIG.versions[VERSION_CONFIG.current]}</span>
+                <span class="rtd-version-menu__current">${VERSION_CONFIG.versions[VERSION_CONFIG.current]?.display_name || '版本'}</span>
             </button>
             <div class="rtd-version-menu__dropdown" role="menu">
-                ${Object.entries(VERSION_CONFIG.versions).map(([version, name]) => `
+                ${Object.entries(VERSION_CONFIG.versions).map(([version, versionInfo]) => `
                     <a class="rtd-version-menu__item ${version === VERSION_CONFIG.current ? 'active' : ''}" 
                        href="#" data-version="${version}" role="menuitem">
-                        ${name}
+                        ${versionInfo.display_name}
                     </a>
                 `).join('')}
             </div>
         `;
         
-        // 插入到项目标题下方
-        projectTitle.parentNode.insertBefore(versionMenu, projectTitle.nextSibling);
+        // 尝试不同的插入位置
+        let inserted = false;
+        
+        // 1. 尝试插入到项目标题下方
+        const projectTitle = sidebar.querySelector('a.icon.icon-home');
+        if (projectTitle && projectTitle.parentNode) {
+            projectTitle.parentNode.insertBefore(versionMenu, projectTitle.nextSibling);
+            inserted = true;
+            console.log('版本菜单已插入到项目标题下方');
+        }
+        
+        // 2. 尝试插入到搜索框下方
+        if (!inserted) {
+            const searchForm = sidebar.querySelector('#rtd-search-form');
+            if (searchForm && searchForm.parentNode) {
+                searchForm.parentNode.insertBefore(versionMenu, searchForm.nextSibling);
+                inserted = true;
+                console.log('版本菜单已插入到搜索框下方');
+            }
+        }
+        
+        // 3. 尝试插入到侧边栏顶部
+        if (!inserted) {
+            const firstChild = sidebar.firstChild;
+            if (firstChild) {
+                sidebar.insertBefore(versionMenu, firstChild);
+                inserted = true;
+                console.log('版本菜单已插入到侧边栏顶部');
+            }
+        }
+        
+        // 4. 如果都失败了，直接添加到侧边栏
+        if (!inserted) {
+            sidebar.appendChild(versionMenu);
+            console.log('版本菜单已添加到侧边栏');
+        }
         
         // 添加事件监听器
         setupVersionMenuEvents(versionMenu);
-        
-        console.log('版本菜单已创建，位置：项目标题下方');
     }
     
     // 设置版本菜单事件
@@ -176,7 +279,13 @@
                 e.stopPropagation();
                 
                 const version = e.target.getAttribute('data-version');
-                const versionName = e.target.textContent.trim();
+                const versionInfo = VERSION_CONFIG.versions[version];
+                if (!versionInfo) {
+                    console.error('找不到版本信息:', version);
+                    return;
+                }
+                
+                const versionName = versionInfo.display_name;
                 
                 // 更新当前版本显示
                 const currentSpan = button.querySelector('.rtd-version-menu__current');
@@ -253,91 +362,40 @@
                           window.location.hostname === '127.0.0.1' || 
                           window.location.protocol === 'file:';
         
-        // 构建版本切换URL
+        // 获取目标版本的URL路径
+        const targetVersionInfo = VERSION_CONFIG.versions[version];
+        if (!targetVersionInfo) {
+            console.error('找不到目标版本信息:', version);
+            return;
+        }
+        
+        const targetUrlPath = targetVersionInfo.url_path;
+        
+        // 简化URL构建逻辑
         let newUrl;
         
         if (isLocalDev) {
-            // 本地开发环境：构建正确的本地文件路径
-            // 获取当前文件的完整路径
-            const fullPath = window.location.href;
-            const currentPath = window.location.pathname;
-            
-            // 检查当前是否在某个版本目录中
-            if (currentPath.includes('/latest/') || currentPath.includes('/v1.0/')) {
+            // 本地开发环境：简化路径处理
+            const currentUrlPath = getCurrentVersionPath();
+            if (currentUrlPath) {
                 // 替换版本目录
-                let newPath;
-                if (currentPath.includes('/latest/')) {
-                    newPath = currentPath.replace('/latest/', `/${version === 'master' ? 'latest' : version}/`);
-                } else if (currentPath.includes('/v1.0/')) {
-                    newPath = currentPath.replace('/v1.0/', `/${version === 'master' ? 'latest' : version}/`);
-                }
+                const newPath = currentPath.replace(`/${currentUrlPath}/`, `/${targetUrlPath}/`);
                 newUrl = `file://${newPath}`;
             } else {
                 // 如果不在版本目录中，构建到版本目录的路径
-                // 获取当前文件的完整路径
-                const filePath = fullPath.replace('file://', '');
-                
-                // 提取目录路径和文件名
-                const lastSlashIndex = filePath.lastIndexOf('/');
-                const directory = filePath.substring(0, lastSlashIndex);
-                const fileName = filePath.substring(lastSlashIndex + 1);
-                
-                // 构建新版本的路径
-                const versionDir = version === 'master' ? 'latest' : version;
-                newUrl = `file://${directory}/${versionDir}/${fileName}`;
+                const fileName = currentPath.split('/').pop();
+                const directory = currentPath.substring(0, currentPath.lastIndexOf('/'));
+                newUrl = `file://${directory}/${targetUrlPath}/${fileName}`;
             }
         } else {
-            // 生产环境：从当前路径中提取相对路径部分
-            let relativePath = '';
+            // 生产环境：简化路径处理
+            const relativePath = getRelativePathFromCurrentVersion();
+            const repoName = getRepoNameFromPath() || 'sdk-bsp-rzn2l-etherkit';
             
-            // 检查当前是否在某个版本目录中
-            if (currentPath.includes('/latest/')) {
-                // 提取 /latest/ 后面的路径部分
-                const parts = currentPath.split('/latest/');
-                if (parts.length > 1) {
-                    relativePath = parts[1];
-                }
-            } else if (currentPath.includes('/v1.0/')) {
-                // 提取 /v1.0/ 后面的路径部分
-                const parts = currentPath.split('/v1.0/');
-                if (parts.length > 1) {
-                    relativePath = parts[1];
-                }
-            } else {
-                // 尝试匹配任何版本路径
-                const versionMatch = currentPath.match(/\/([^\/]+)\/(.*)/);
-                if (versionMatch) {
-                    relativePath = versionMatch[2];
-                }
-            }
-            
-            // 构建新版本的URL - 使用正确的GitHub Pages路径
-            // 从当前URL中提取仓库名称
-            const pathParts = currentPath.split('/');
-            let repoName = '';
-            
-            // 查找仓库名称（通常在 /username/repo-name/ 结构中）
-            for (let i = 0; i < pathParts.length - 1; i++) {
-                if (pathParts[i] && pathParts[i + 1] && 
-                    (pathParts[i + 1] === 'latest' || pathParts[i + 1] === 'v1.0')) {
-                    repoName = pathParts[i];
-                    break;
-                }
-            }
-            
-            // 如果找不到仓库名称，使用默认值
-            if (!repoName) {
-                repoName = 'sdk-bsp-rzn2l-etherkit';
-            }
-            
-            if (version === 'master') {
-                newUrl = `${baseUrl}/${repoName}/latest/${relativePath}`;
-            } else {
-                newUrl = `${baseUrl}/${repoName}/${version}/${relativePath}`;
-            }
+            newUrl = `${baseUrl}/${repoName}/${targetUrlPath}/${relativePath}`;
             
             // 确保URL以 / 结尾（如果是根路径）
-            if (relativePath === '' || relativePath === '/') {
+            if (!relativePath || relativePath === '/') {
                 newUrl = newUrl.replace(/\/$/, '') + '/';
             }
         }
@@ -358,6 +416,45 @@
             }
         });
         document.dispatchEvent(event);
+    }
+    
+    // 获取当前版本路径
+    function getCurrentVersionPath() {
+        const currentPath = window.location.pathname;
+        for (const [verName, verInfo] of Object.entries(VERSION_CONFIG.versions)) {
+            if (currentPath.includes(`/${verInfo.url_path}/`)) {
+                return verInfo.url_path;
+            }
+        }
+        return null;
+    }
+    
+    // 从当前版本路径中提取相对路径
+    function getRelativePathFromCurrentVersion() {
+        const currentPath = window.location.pathname;
+        for (const [verName, verInfo] of Object.entries(VERSION_CONFIG.versions)) {
+            if (currentPath.includes(`/${verInfo.url_path}/`)) {
+                const parts = currentPath.split(`/${verInfo.url_path}/`);
+                return parts.length > 1 ? parts[1] : '';
+            }
+        }
+        return '';
+    }
+    
+    // 从路径中提取仓库名称
+    function getRepoNameFromPath() {
+        const currentPath = window.location.pathname;
+        const pathParts = currentPath.split('/');
+        
+        for (let i = 0; i < pathParts.length - 1; i++) {
+            if (pathParts[i] && pathParts[i + 1]) {
+                const isVersionPath = Object.values(VERSION_CONFIG.versions).some(v => v.url_path === pathParts[i + 1]);
+                if (isVersionPath) {
+                    return pathParts[i];
+                }
+            }
+        }
+        return null;
     }
     
     // 初始化版本菜单
