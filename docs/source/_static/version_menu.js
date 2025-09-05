@@ -126,11 +126,6 @@
                         display_name: '最新版本',
                         url_path: 'latest',
                         description: '最新开发版本'
-                    },
-                    'v1.0': {
-                        display_name: 'v1.0',
-                        url_path: 'v1.0',
-                        description: '稳定版本 v1.0'
                     }
                 }
             };
