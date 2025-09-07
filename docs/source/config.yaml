@@ -3,6 +3,7 @@ project:
   name: "EtherKit SDK"
   title: "EtherKit"
   description: "EtherKit 开发板是 RT-Thread 推出基于瑞萨 Cortex-R52 架构 R9A07G084 芯片，为工程师们提供了一个灵活、全面的开发平台，助力开发者在EtherCAT工业以太网领域获得更深层次的体验。"
+  description_en: "The EtherKit Development Board is RT-Thread's R9A07G084 chip based on Renesas Cortex-R52 architecture, providing engineers with a flexible and comprehensive development platform to help developers gain a deeper experience in EtherCAT industrial Ethernet."
   version: "1.0.0"
   author: "kurisaw"
   copyright: "Copyright (c) 2006-2025, RT-Thread Development Team"
