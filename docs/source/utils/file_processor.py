@@ -18,6 +18,7 @@ class FileProcessor:
         self.config = config
         self.copy_files = config.get('copy_files', [])
         self.copy_dirs = config.get('copy_dirs', [])
+        self.output_structure = config.get('output_structure', [])
 
     def copy_project_files(self, project_name: str, category: str) -> bool:
         """复制项目文件到目标目录"""
@@ -52,9 +53,13 @@ class FileProcessor:
 
         return True
 
-    def get_readme_title(self, project_name: str, category: str) -> str:
-        """从README_zh.md文件中提取一级标题"""
-        readme_path = self.dest_dir / category / project_name / "README_zh.md"
+    def get_readme_title(self, project_name: str, category: str, language: str = 'zh') -> str:
+        """从README文件中提取一级标题"""
+        if language == 'en':
+            readme_path = self.dest_dir / category / project_name / "README.md"
+        else:
+            readme_path = self.dest_dir / category / project_name / "README_zh.md"
+            
         if readme_path.exists():
             try:
                 with open(readme_path, 'r', encoding='utf-8') as f:
@@ -66,7 +71,7 @@ class FileProcessor:
                         if line.startswith('# ') and len(line) > 2:
                             return line[2:].strip()  # 移除 "# " 前缀
             except Exception as e:
-                print(f"读取 {project_name}/README_zh.md 标题时出错: {e}")
+                print(f"读取 {project_name}/README{'._zh' if language == 'zh' else ''}.md 标题时出错: {e}")
         
         # 如果无法读取标题，使用项目名称作为后备
         return project_name.replace("etherkit_", "").replace("_", " ").title()
@@ -103,7 +108,8 @@ class FileProcessor:
                             template_files[str(relative_path)] = f.read()
             
             # 只删除生成的文档目录，不删除整个目录
-            for category in ['start', 'basic', 'driver', 'component', 'protocol']:
+            categories_to_clean = self.output_structure or ['start', 'basic', 'driver', 'component', 'multimedia', 'multcore']
+            for category in categories_to_clean:
                 category_dir = self.dest_dir / category
                 if category_dir.exists():
                     shutil.rmtree(category_dir)

@@ -1,12 +1,13 @@
 # SDK 文档构建配置文件
 project:
-  name: "EtherKit_SDK_Docs"
-  title: "EtherKit SDK 文档"
-  description: "EtherKit SDK 提供了丰富的示例项目，包括基础功能、驱动示例和组件示例。"
-  version: "0.0.1"
+  name: "EtherKit SDK"
+  title: "EtherKit"
+  description: "EtherKit 开发板是 RT-Thread 推出基于瑞萨 Cortex-R52 架构 R9A07G084 芯片，为工程师们提供了一个灵活、全面的开发平台，助力开发者在EtherCAT工业以太网领域获得更深层次的体验。"
+  version: "1.0.0"
   author: "kurisaw"
-  copyright: "2025, apache"
-  language: "zh_CN"
+  copyright: "Copyright (c) 2006-2025, RT-Thread Development Team"
+  # language: "zh_CN"  # 注释掉固定语言配置，支持中英文双语
+  website: "kurisaw.eu.org"
 
 # 仓库配置
 repository:
@@ -17,13 +18,15 @@ repository:
 # 文档分类配置
 categories:
   start:
-    name: "快速上手篇"
+    name: "快速上手"
+    name_en: "Getting Started"
     description: "快速上手"
     patterns:
       - "template_*"
 
   basic:
     name: "基础篇"
+    name_en: "Basics"
     description: "基础功能示例"
     patterns:
       - "etherkit_basic_*"
@@ -31,26 +34,29 @@ categories:
   
   driver:
     name: "驱动篇"
+    name_en: "Drivers"
     description: "外设驱动示例"
     patterns:
       - "etherkit_driver_*"
       - "etherkit_usb_*"
+      - "etherkit_ethernet"
   
   component:
     name: "组件篇"
     description: "网络组件示例"
+    name_en: "Components"
     patterns:
       - "etherkit_component_*"
   
   protocol:
     name: "工业协议篇"
+    name_en: "Industrial Protocol"
     description: "工业协议示例"
     patterns:
       - "etherkit_ethercat_*"
       - "etherkit_modbus_*"
       - "etherkit_profinet_*"
       - "etherkit_ethernetip_*"
-      - "etherkit_ethernet"
 
 # 文档生成配置
 generation:
