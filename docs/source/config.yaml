@@ -8,7 +8,7 @@ project:
   author: "kurisaw"
   copyright: "Copyright (c) 2006-2025, RT-Thread Development Team"
   # language: "zh_CN"  # 注释掉固定语言配置，支持中英文双语
-  website: "kurisaw.eu.org"
+  website: "www.rt-thread.org"
 
 # 仓库配置
 repository:
