@@ -2,10 +2,17 @@
   "versions": [
     {
       "name": "master",
-      "display_name": "最新版本",
+      "display_name": "latest",
       "branch": "master",
       "url_path": "latest",
       "description": "最新开发版本"
+    },
+    {
+      "name": "1.0.0",
+      "display_name": "1.0.0",
+      "branch": "1.0.0",
+      "url_path": "1.0.0",
+      "description": "1.0.0开发版本"
     }
   ],
   "default_version": "master",
