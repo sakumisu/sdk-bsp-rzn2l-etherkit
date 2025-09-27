@@ -7,7 +7,10 @@
 #define EC_CONFIG_H
 
 #include "rtthread.h"
-
+#include <rthw.h>
+#ifdef RT_USING_DEVICE
+    #include <rtdevice.h>
+#endif
 #define CONFIG_EC_PRINTF(...) printf(__VA_ARGS__)
 
 #ifndef CONFIG_EC_DBG_LEVEL

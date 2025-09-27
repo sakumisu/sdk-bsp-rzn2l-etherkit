@@ -1,9 +1,5 @@
-#include <rtthread.h>
-#include <rthw.h>
-#include <rtdevice.h>
-#include <board.h>
-
 #include <hal_data.h>
+
 #include "ec_master.h"
 
 ec_netdev_t g_netdev;
@@ -14,6 +10,8 @@ ec_netdev_t g_netdev;
 #endif
 
 __attribute__((__aligned__(32))) uint8_t tx_buffer[CONFIG_EC_MAX_ENET_TXBUF_COUNT][1536] ETHER_BUFFER_PLACE_IN_SECTION;
+
+extern uint32_t SystemCoreClock;
 
 #define PING_PORT_COUNT (3) ///< Count of port
 
@@ -55,7 +53,7 @@ static int phy_rtl8211f_led_fixup(ether_phy_instance_ctrl_t *phydev)
 
 void ether_phy_targets_initialize_rtl8211_rgmii(ether_phy_instance_ctrl_t *p_instance_ctrl)
 {
-    rt_thread_mdelay(100);
+    ec_osal_msleep(100);
     phy_rtl8211f_led_fixup(p_instance_ctrl);
 }
 
@@ -72,7 +70,6 @@ ec_netdev_t *ec_netdev_low_level_init(uint8_t netdev_index)
     ec_memcpy(g_netdev.mac_addr, g_ether0_cfg.p_mac_address, 6);
 
     for (uint32_t i = 0; i < g_ether0_cfg.num_tx_descriptors; i++) {
-
         for (uint8_t j = 0; j < 6; j++) { // dst MAC
             EC_WRITE_U8(&tx_buffer[i][j], 0xFF);
         }
@@ -81,6 +78,8 @@ ec_netdev_t *ec_netdev_low_level_init(uint8_t netdev_index)
         }
         EC_WRITE_U16(&tx_buffer[i][12], ec_htons(0x88a4));
     }
+
+    //ec_htimer_start(1000, NULL, NULL); // 1ms
 
     return &g_netdev;
 }
@@ -176,17 +175,41 @@ EC_FAST_CODE_SECTION int ec_netdev_low_level_input(ec_netdev_t *netdev)
     return 0;
 }
 
+// ec_htimer_cb g_ec_htimer_cb = NULL;
+// void *g_ec_htimer_arg = NULL;
+
+// void timer0_esc_callback(timer_callback_args_t *p_args)
+// {
+//     if (TIMER_EVENT_CYCLE_END == p_args->event) {
+//         if (g_ec_htimer_cb) {
+//             g_ec_htimer_cb(g_ec_htimer_arg);
+//         }
+//     }
+// }
+
 void ec_htimer_start(uint32_t us, ec_htimer_cb cb, void *arg)
 {
+    // fsp_err_t fsp_err = FSP_SUCCESS;
+    // g_ec_htimer_cb = cb;
+    // g_ec_htimer_arg = arg;
+
+    // fsp_err = R_GPT_Open(&g_timer0_ctrl, &g_timer0_cfg);
+    // fsp_err |= R_GPT_CounterSet(&g_timer0_ctrl, 0);
+    // fsp_err |= R_GPT_PeriodSet(&g_timer0_ctrl, SystemCoreClock / 1000000 * us);
+    // fsp_err |= R_GPT_Start(&g_timer0_ctrl);
+
+    // if (fsp_err != FSP_SUCCESS) {
+    //     EC_LOG_ERR("R_GPT_Open failed!, res = %d", fsp_err);
+    // }
 }
 
 void ec_htimer_stop(void)
 {
+    //R_GPT_Stop(&g_timer0_ctrl);
 }
 
 void ec_timestamp_init(void)
 {
-
 }
 
 EC_FAST_CODE_SECTION uint64_t ec_timestamp_get_time_ns(void)
@@ -232,8 +255,6 @@ void user_ether0_callback(ether_callback_args_t *p_args)
 
     rt_interrupt_leave();
 }
-
-extern uint32_t SystemCoreClock;
 
 uint32_t ec_get_cpu_frequency(void)
 {
