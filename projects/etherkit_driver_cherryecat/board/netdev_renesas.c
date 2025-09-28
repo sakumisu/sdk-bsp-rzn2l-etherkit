@@ -175,41 +175,69 @@ EC_FAST_CODE_SECTION int ec_netdev_low_level_input(ec_netdev_t *netdev)
     return 0;
 }
 
-// ec_htimer_cb g_ec_htimer_cb = NULL;
-// void *g_ec_htimer_arg = NULL;
+static ec_htimer_cb g_ec_htimer_cb = NULL;
+static void *g_ec_htimer_arg = NULL;
 
-// void timer0_esc_callback(timer_callback_args_t *p_args)
-// {
-//     if (TIMER_EVENT_CYCLE_END == p_args->event) {
-//         if (g_ec_htimer_cb) {
-//             g_ec_htimer_cb(g_ec_htimer_arg);
-//         }
-//     }
-// }
+void timer0_esc_callback(timer_callback_args_t *p_args)
+{
+    rt_interrupt_enter();
+    if (TIMER_EVENT_CYCLE_END == p_args->event)
+    {
+        if (g_ec_htimer_cb)
+        {
+            g_ec_htimer_cb(g_ec_htimer_arg);
+        }
+    }
+    rt_interrupt_leave();
+}
 
 void ec_htimer_start(uint32_t us, ec_htimer_cb cb, void *arg)
 {
-    // fsp_err_t fsp_err = FSP_SUCCESS;
-    // g_ec_htimer_cb = cb;
-    // g_ec_htimer_arg = arg;
+    fsp_err_t fsp_err = FSP_SUCCESS;
+    uint32_t count = us * 400; // 400MHz, 1us = 400 ticks
 
-    // fsp_err = R_GPT_Open(&g_timer0_ctrl, &g_timer0_cfg);
-    // fsp_err |= R_GPT_CounterSet(&g_timer0_ctrl, 0);
-    // fsp_err |= R_GPT_PeriodSet(&g_timer0_ctrl, SystemCoreClock / 1000000 * us);
-    // fsp_err |= R_GPT_Start(&g_timer0_ctrl);
+     g_ec_htimer_cb = cb;
+     g_ec_htimer_arg = arg;
 
-    // if (fsp_err != FSP_SUCCESS) {
-    //     EC_LOG_ERR("R_GPT_Open failed!, res = %d", fsp_err);
-    // }
+    fsp_err = R_GPT_Open(&g_timer0_ctrl, &g_timer0_cfg);
+    fsp_err |= R_GPT_CounterSet(&g_timer0_ctrl, 0);
+    fsp_err |= R_GPT_PeriodSet(&g_timer0_ctrl, count);
+    fsp_err |= R_GPT_Start(&g_timer0_ctrl);
+
+    if (fsp_err != FSP_SUCCESS)
+    {
+        EC_LOG_ERR("R_GPT_Open failed!, res = %d", fsp_err);
+    }
 }
 
 void ec_htimer_stop(void)
 {
-    //R_GPT_Stop(&g_timer0_ctrl);
+    R_GPT_Stop(&g_timer0_ctrl);
+}
+
+volatile rt_int32_t us_timestamp = 0;
+void g_timer5_callback(timer_callback_args_t *p_args)
+{
+    rt_interrupt_enter();
+    if (TIMER_EVENT_CYCLE_END == p_args->event)
+    {
+        us_timestamp++;
+    }
+    rt_interrupt_leave();
 }
 
 void ec_timestamp_init(void)
 {
+   fsp_err_t fsp_err = FSP_SUCCESS;
+
+   fsp_err = R_GPT_Open(&g_timer5_ctrl, &g_timer5_cfg);
+
+   fsp_err |= R_GPT_Start(&g_timer5_ctrl);
+
+   if (fsp_err != FSP_SUCCESS)
+   {
+       EC_LOG_ERR("R_GPT_Open failed!, res = %d", fsp_err);
+   }
 }
 
 EC_FAST_CODE_SECTION uint64_t ec_timestamp_get_time_ns(void)
@@ -219,7 +247,7 @@ EC_FAST_CODE_SECTION uint64_t ec_timestamp_get_time_ns(void)
 
 EC_FAST_CODE_SECTION uint64_t ec_timestamp_get_time_us(void)
 {
-    return rt_tick_get() * 1000;
+    return us_timestamp;
 }
 
 void user_ether0_callback(ether_callback_args_t *p_args)
