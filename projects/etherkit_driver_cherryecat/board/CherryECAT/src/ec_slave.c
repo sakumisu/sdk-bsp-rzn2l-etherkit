@@ -623,51 +623,51 @@ static int ec_slave_config(ec_master_t *master, ec_slave_t *slave)
          * Remap all entries
          * Set number of mapped entries
         */
-        if (slave->sii.general.coe_details.enable_pdo_configuration) {
-            for (uint32_t i = 0; i < slave->sm_info[EC_SM_INDEX_PROCESS_DATA_OUTPUT].pdo_assign.count; i++) {
-                data = 0;
-                ret = ec_coe_download(slave, datagram, slave->sm_info[EC_SM_INDEX_PROCESS_DATA_OUTPUT].pdo_assign.entry[i], 0x00, &data, 1, false);
-                if (ret < 0) {
-                    return ret;
-                }
-
-                for (uint32_t j = 0; j < slave->sm_info[EC_SM_INDEX_PROCESS_DATA_OUTPUT].pdo_mapping[i].count; j++) {
-                    data = slave->sm_info[EC_SM_INDEX_PROCESS_DATA_OUTPUT].pdo_mapping[i].entry[j];
-                    ret = ec_coe_download(slave, datagram, slave->sm_info[EC_SM_INDEX_PROCESS_DATA_OUTPUT].pdo_assign.entry[i], 0x01 + j, &data, 4, false);
-                    if (ret < 0) {
-                        return ret;
-                    }
-                }
-
-                data = slave->sm_info[EC_SM_INDEX_PROCESS_DATA_OUTPUT].pdo_mapping[i].count;
-                ret = ec_coe_download(slave, datagram, slave->sm_info[EC_SM_INDEX_PROCESS_DATA_OUTPUT].pdo_assign.entry[i], 0x00, &data, 1, false);
-                if (ret < 0) {
-                    return ret;
-                }
-            }
-
-            for (uint32_t i = 0; i < slave->sm_info[EC_SM_INDEX_PROCESS_DATA_INPUT].pdo_assign.count; i++) {
-                data = 0;
-                ret = ec_coe_download(slave, datagram, slave->sm_info[EC_SM_INDEX_PROCESS_DATA_INPUT].pdo_assign.entry[i], 0x00, &data, 1, false);
-                if (ret < 0) {
-                    return ret;
-                }
-
-                for (uint32_t j = 0; j < slave->sm_info[EC_SM_INDEX_PROCESS_DATA_INPUT].pdo_mapping[i].count; j++) {
-                    data = slave->sm_info[EC_SM_INDEX_PROCESS_DATA_INPUT].pdo_mapping[i].entry[j];
-                    ret = ec_coe_download(slave, datagram, slave->sm_info[EC_SM_INDEX_PROCESS_DATA_INPUT].pdo_assign.entry[i], 0x01 + j, &data, 4, false);
-                    if (ret < 0) {
-                        return ret;
-                    }
-                }
-
-                data = slave->sm_info[EC_SM_INDEX_PROCESS_DATA_INPUT].pdo_mapping[i].count;
-                ret = ec_coe_download(slave, datagram, slave->sm_info[EC_SM_INDEX_PROCESS_DATA_INPUT].pdo_assign.entry[i], 0x00, &data, 1, false);
-                if (ret < 0) {
-                    return ret;
-                }
-            }
-        }
+//        if (slave->sii.general.coe_details.enable_pdo_configuration) {
+//            for (uint32_t i = 0; i < slave->sm_info[EC_SM_INDEX_PROCESS_DATA_OUTPUT].pdo_assign.count; i++) {
+//                data = 0;
+//                ret = ec_coe_download(slave, datagram, slave->sm_info[EC_SM_INDEX_PROCESS_DATA_OUTPUT].pdo_assign.entry[i], 0x00, &data, 1, false);
+//                if (ret < 0) {
+//                    return ret;
+//                }
+//
+//                for (uint32_t j = 0; j < slave->sm_info[EC_SM_INDEX_PROCESS_DATA_OUTPUT].pdo_mapping[i].count; j++) {
+//                    data = slave->sm_info[EC_SM_INDEX_PROCESS_DATA_OUTPUT].pdo_mapping[i].entry[j];
+//                    ret = ec_coe_download(slave, datagram, slave->sm_info[EC_SM_INDEX_PROCESS_DATA_OUTPUT].pdo_assign.entry[i], 0x01 + j, &data, 4, false);
+//                    if (ret < 0) {
+//                        return ret;
+//                    }
+//                }
+//
+//                data = slave->sm_info[EC_SM_INDEX_PROCESS_DATA_OUTPUT].pdo_mapping[i].count;
+//                ret = ec_coe_download(slave, datagram, slave->sm_info[EC_SM_INDEX_PROCESS_DATA_OUTPUT].pdo_assign.entry[i], 0x00, &data, 1, false);
+//                if (ret < 0) {
+//                    return ret;
+//                }
+//            }
+//
+//            for (uint32_t i = 0; i < slave->sm_info[EC_SM_INDEX_PROCESS_DATA_INPUT].pdo_assign.count; i++) {
+//                data = 0;
+//                ret = ec_coe_download(slave, datagram, slave->sm_info[EC_SM_INDEX_PROCESS_DATA_INPUT].pdo_assign.entry[i], 0x00, &data, 1, false);
+//                if (ret < 0) {
+//                    return ret;
+//                }
+//
+//                for (uint32_t j = 0; j < slave->sm_info[EC_SM_INDEX_PROCESS_DATA_INPUT].pdo_mapping[i].count; j++) {
+//                    data = slave->sm_info[EC_SM_INDEX_PROCESS_DATA_INPUT].pdo_mapping[i].entry[j];
+//                    ret = ec_coe_download(slave, datagram, slave->sm_info[EC_SM_INDEX_PROCESS_DATA_INPUT].pdo_assign.entry[i], 0x01 + j, &data, 4, false);
+//                    if (ret < 0) {
+//                        return ret;
+//                    }
+//                }
+//
+//                data = slave->sm_info[EC_SM_INDEX_PROCESS_DATA_INPUT].pdo_mapping[i].count;
+//                ret = ec_coe_download(slave, datagram, slave->sm_info[EC_SM_INDEX_PROCESS_DATA_INPUT].pdo_assign.entry[i], 0x00, &data, 1, false);
+//                if (ret < 0) {
+//                    return ret;
+//                }
+//            }
+//        }
     }
 
     // preop state done

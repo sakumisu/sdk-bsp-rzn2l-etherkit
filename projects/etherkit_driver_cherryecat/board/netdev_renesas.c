@@ -175,51 +175,113 @@ EC_FAST_CODE_SECTION int ec_netdev_low_level_input(ec_netdev_t *netdev)
     return 0;
 }
 
-// ec_htimer_cb g_ec_htimer_cb = NULL;
-// void *g_ec_htimer_arg = NULL;
-
-// void timer0_esc_callback(timer_callback_args_t *p_args)
-// {
-//     if (TIMER_EVENT_CYCLE_END == p_args->event) {
-//         if (g_ec_htimer_cb) {
-//             g_ec_htimer_cb(g_ec_htimer_arg);
-//         }
-//     }
-// }
+static ec_htimer_cb g_ec_htimer_cb = NULL;
+static void *g_ec_htimer_arg = NULL;
+void timer0_esc_callback(timer_callback_args_t *p_args)
+{
+    rt_interrupt_enter();
+    if (TIMER_EVENT_CYCLE_END == p_args->event)
+    {
+        if (g_ec_htimer_cb)
+        {
+            g_ec_htimer_cb(g_ec_htimer_arg);
+        }
+    }
+    rt_interrupt_leave();
+}
 
 void ec_htimer_start(uint32_t us, ec_htimer_cb cb, void *arg)
 {
-    // fsp_err_t fsp_err = FSP_SUCCESS;
-    // g_ec_htimer_cb = cb;
-    // g_ec_htimer_arg = arg;
+    fsp_err_t fsp_err = FSP_SUCCESS;
+    uint32_t count = us * 400; // 400MHz, 1us = 400 ticks
 
-    // fsp_err = R_GPT_Open(&g_timer0_ctrl, &g_timer0_cfg);
-    // fsp_err |= R_GPT_CounterSet(&g_timer0_ctrl, 0);
-    // fsp_err |= R_GPT_PeriodSet(&g_timer0_ctrl, SystemCoreClock / 1000000 * us);
-    // fsp_err |= R_GPT_Start(&g_timer0_ctrl);
+     g_ec_htimer_cb = cb;
+     g_ec_htimer_arg = arg;
 
-    // if (fsp_err != FSP_SUCCESS) {
-    //     EC_LOG_ERR("R_GPT_Open failed!, res = %d", fsp_err);
-    // }
+    fsp_err = R_GPT_Open(&g_timer0_ctrl, &g_timer0_cfg);
+    fsp_err |= R_GPT_CounterSet(&g_timer0_ctrl, 0);
+    fsp_err |= R_GPT_PeriodSet(&g_timer0_ctrl, count);
+    fsp_err |= R_GPT_Start(&g_timer0_ctrl);
+
+    if (fsp_err != FSP_SUCCESS)
+    {
+        EC_LOG_ERR("R_GPT_Open failed!, res = %d", fsp_err);
+    }
 }
 
 void ec_htimer_stop(void)
 {
-    //R_GPT_Stop(&g_timer0_ctrl);
+    R_GPT_Stop(&g_timer0_ctrl);
+}
+
+volatile uint64_t mtu3_overflow_count = 0;
+void g_mtu3_callback(timer_callback_args_t *p_args)
+{
+    rt_interrupt_enter();
+    if (TIMER_EVENT_CYCLE_END == p_args->event)
+    {
+        mtu3_overflow_count++;
+    }
+    rt_interrupt_leave();
+}
+
+uint64_t gpt_get_count(void)
+{
+    mtu3_status_t status;
+    uint64_t high;
+    uint64_t low;
+
+    do {
+        high = mtu3_overflow_count;
+        R_MTU3_StatusGet(&g_mtu3_ctrl, &status);
+        low = status.counter;
+    } while (high != mtu3_overflow_count);
+
+    return (high << 16) | low;
+}
+
+void g_timer1_callback(timer_callback_args_t *p_args)
+{
+    rt_interrupt_enter();
+    if (TIMER_EVENT_CYCLE_END == p_args->event)
+    {
+
+    }
+    rt_interrupt_leave();
 }
 
 void ec_timestamp_init(void)
 {
+    fsp_err_t fsp_err = FSP_SUCCESS;
+
+    fsp_err = R_MTU3_Open(&g_mtu3_ctrl, &g_mtu3_cfg);
+    fsp_err |= R_MTU3_Start(&g_mtu3_ctrl);
+
+    fsp_err |= R_GPT_Open(&g_timer1_ctrl, &g_timer1_cfg);
+    fsp_err |= R_GPT_Start(&g_timer1_ctrl);
+
+    if (fsp_err != FSP_SUCCESS)
+    {
+        EC_LOG_ERR("R_GPT_Open failed!, res = %d", fsp_err);
+    }
 }
+
+void get_timestamp(void)
+{
+    rt_kprintf("us_timestamp: %llu\n", (uint64_t)(gpt_get_count() * 5ULL / 1000ULL));
+    rt_kprintf("ns_timestamp: %llu\n", (uint64_t)(gpt_get_count() * 5ULL));
+}
+MSH_CMD_EXPORT(get_timestamp, get timestamp);
 
 EC_FAST_CODE_SECTION uint64_t ec_timestamp_get_time_ns(void)
 {
-    return 0;
+
+    return (uint64_t)(gpt_get_count() * 5ULL);
 }
 
 EC_FAST_CODE_SECTION uint64_t ec_timestamp_get_time_us(void)
 {
-    return rt_tick_get() * 1000;
+    return ec_timestamp_get_time_ns() / 1000ULL;
 }
 
 void user_ether0_callback(ether_callback_args_t *p_args)

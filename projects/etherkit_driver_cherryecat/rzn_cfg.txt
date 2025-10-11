@@ -1090,6 +1090,18 @@ FSP Configuration
   Module "Ethernet (r_ethsw)"
     Parameter Checking: Default (BSP)
     
+  Module "Timer, General PWM (r_gpt)"
+    Parameter Checking: Default (BSP)
+    Pin Output Support: Disabled
+    Write Protect Enable: Disabled
+    Multiplex Interrupt: Disabled
+    
+  Module "Timer , Multi-Function Timer Pulse Unit 3 (r_mtu3)"
+    Parameter Checking: Default (BSP)
+    Pin Output Support: Disabled
+    UVW Support: Disabled
+    Multiplex Interrupt: Disabled
+    
   HAL
     Instance "g_ioport I/O Port (r_ioport)"
       General: Name: g_ioport
@@ -1184,7 +1196,7 @@ FSP Configuration
       General: MAC address 0: 00:11:22:33:44:55
       General: MAC address 1: NULL
       General: MAC address 2: NULL
-      General: Zero-copy Mode: Disable
+      General: Zero-copy Mode: Enable
       General: Flow control functionality: Disable
       Filters: Promiscuous Mode: Enable
       Buffers: Number of TX buffer: 8
@@ -1283,3 +1295,230 @@ FSP Configuration
         Interrupts: Callback: gmac_callback_ethsw
         Interrupts: Context: &g_ether0_ctrl
         
+    Instance "g_timer0 Timer, General PWM (r_gpt)"
+      General: Name: g_timer0
+      General: Unit: 0
+      General: Channel: 0
+      General: Mode: Periodic
+      General: Period: 0x100000000
+      General: Period Unit: Raw Counts
+      Output: Duty Cycle Percent (only applicable in PWM mode): 50
+      Output: GTIOCA Output Enabled: False
+      Output: GTIOCA Stop Level: Pin Level Low
+      Output: GTIOCB Output Enabled: False
+      Output: GTIOCB Stop Level: Pin Level Low
+      Input: Count Up Source: 
+      Input: Count Down Source: 
+      Input: Phase Count Setting Automatically Enable: Disabled
+      Input: Counting Mode: Mode1
+      Input: Start Source: 
+      Input: Stop Source: 
+      Input: Clear Source: 
+      Input: Capture A Source: 
+      Input: Capture B Source: 
+      Input: Noise Filter A Sampling Clock Select: No Filter
+      Input: Noise Filter B Sampling Clock Select: No Filter
+      Interrupts: Callback: timer0_esc_callback
+      Interrupts: Overflow/Crest Interrupt Priority: Priority 10
+      Interrupts: Capture A Interrupt Priority: Disabled
+      Interrupts: Capture B Interrupt Priority: Disabled
+      Interrupts: Trough Interrupt Priority: Disabled
+      Interrupts (GPT_SEL): Callback: NULL
+      Interrupts (GPT_SEL): Overflow/Crest Interrupt Source: 
+      Interrupts (GPT_SEL): Capture A Interrupt Source: 
+      Interrupts (GPT_SEL): Capture B Interrupt Source: 
+      Interrupts (GPT_SEL): Trough Interrupt Source: 
+      Interrupts (GPT_SEL): Dead Time Error Interrupt Source: 
+      Interrupts (GPT_SEL): INT0 Interrupt Priority: Disabled
+      Interrupts (GPT_SEL): INT1 Interrupt Priority: Disabled
+      Interrupts (GPT_SEL): INT2 Interrupt Priority: Disabled
+      Interrupts (GPT_SEL): INT3 Interrupt Priority: Disabled
+      Interrupts (GPT_SEL): INT4 Interrupt Priority: Disabled
+      Extra Features: Extra Features: Disabled
+      Extra Features: Output Disable: POEG Link: POEG Channel 0
+      Extra Features: Output Disable: Output Disable POEG Trigger: 
+      Extra Features: ADC Trigger: Start Event Trigger: 
+      Extra Features: Dead Time: Dead Time Count Up (Raw Counts): 0
+      Extra Features: Dead Time: Dead Time Count Down (Raw Counts): 0
+      Extra Features: ADC Trigger: ADC A Compare Match (Raw Counts): 0
+      Extra Features: ADC Trigger: ADC B Compare Match (Raw Counts): 0
+      Extra Features: Interrupt Skipping: Interrupt to Count: None
+      Extra Features: Interrupt Skipping: Interrupt Skip Count: 0
+      Extra Features: Interrupt Skipping: Skip ADC Events: None
+      Extra Features: Output Disable: GTIOCA Disable Setting: Disable Prohibited
+      Extra Features: Output Disable: GTIOCB Disable Setting: Disable Prohibited
+      Extra Features: Extended Interrupt Skipping 1: Interrupt to Count: None
+      Extra Features: Extended Interrupt Skipping 1: Interrupt Skip Count: 0
+      Extra Features: Extended Interrupt Skipping 2: Interrupt to Count: None
+      Extra Features: Extended Interrupt Skipping 2: Interrupt Skip Count: 0
+      Extra Features: Input Capture Interrupt Extended Skipping Function: Overflow Interrupt: None
+      Extra Features: Input Capture Interrupt Extended Skipping Function: Underflow Interrupt: None
+      Extra Features: Input Capture Interrupt Extended Skipping Function: GTADTRA A/D Converter Start Request: None
+      Extra Features: Input Capture Interrupt Extended Skipping Function: GTADTRB A/D Converter Start Request: None
+      Interrupts: Dead Time Error Interrupt Priority: Disabled
+      Extra Features: Input Capture at Count Stop: Enabled
+      Extra Features: Input Capture Signal: Not Supported
+      ELC: LLPP GPT event A: Trigger Source: Disabled
+      ELC: LLPP GPT event B: Trigger Source: Disabled
+      ELC: LLPP GPT event C: Trigger Source: Disabled
+      ELC: LLPP GPT event D: Trigger Source: Disabled
+      ELC: LLPP GPT event E: Trigger Source: Disabled
+      ELC: LLPP GPT event F: Trigger Source: Disabled
+      ELC: LLPP GPT event G: Trigger Source: Disabled
+      ELC: LLPP GPT event H: Trigger Source: Disabled
+      ELC: NONSAFTY GPT event A: Trigger Source: Disabled
+      ELC: NONSAFTY GPT event B: Trigger Source: Disabled
+      ELC: NONSAFTY GPT event C: Trigger Source: Disabled
+      ELC: NONSAFTY GPT event D: Trigger Source: Disabled
+      ELC: NONSAFTY GPT event E: Trigger Source: Disabled
+      ELC: NONSAFTY GPT event F: Trigger Source: Disabled
+      ELC: NONSAFTY GPT event G: Trigger Source: Disabled
+      ELC: NONSAFTY GPT event H: Trigger Source: Disabled
+      
+    Instance "g_mtu3 Timer , Multi-Function Timer Pulse Unit 3 (r_mtu3)"
+      General: Name: g_mtu3
+      General: Channel: 0
+      General: Mode: Periodic
+      General: TGRA(Output Compare or Input Capture Value): 0xFFFF
+      General: TGRB(Output Compare or Input Capture Value): 0xFFFF
+      General: Time Prescaler: PCLKH divided by 1  (common ch)
+      General: Clock Edge: Rising
+      General: Counter Clear Source: Disabled
+      Input: Phase Count: Bit Mode: 16-bit
+      Input: Phase Count: Counting Mode: None
+      Input: Phase Count: Clock Pin Select: MTCLKA, MTCLKB
+      Noise Filter: External Clock: Enable: 
+      Noise Filter: External Clock: Clock Select: PCLK divided by 1
+      Noise Filter: Input Capture: Enable: 
+      Noise Filter: Input Capture: Clock Select: PCLK divided by 1
+      Output: Initial Output A: No Output
+      Output: Initial Output B: No Output
+      Interrupts: Callback: g_mtu3_callback
+      Interrupts: Overflow/Crest Interrupt Priority: Priority 8
+      Interrupts: Capture A Interrupt Priority: Disabled
+      Interrupts: Capture B Interrupt Priority: Disabled
+      Interrupts (GPT_SEL): Callback: NULL
+      Interrupts (GPT_SEL): Overflow/Crest Interrupt Source: 
+      Interrupts (GPT_SEL): Capture A Interrupt Source: 
+      Interrupts (GPT_SEL): Capture B Interrupt Source: 
+      Interrupts (GPT_SEL): INT0 Interrupt Priority: Disabled
+      Interrupts (GPT_SEL): INT1 Interrupt Priority: Disabled
+      Interrupts (GPT_SEL): INT2 Interrupt Priority: Disabled
+      Interrupts (GPT_SEL): INT3 Interrupt Priority: Disabled
+      Interrupts (GPT_SEL): INT4 Interrupt Priority: Disabled
+      Extra Features: Extra Features: Disabled
+      Extra Features: MTU5: U Count: 0x0000
+      Extra Features: MTU5: V Count: 0x0000
+      Extra Features: MTU5: W Count: 0x0000
+      Extra Features: MTU5: U Clock Select: PCLKH divided by 1
+      Extra Features: MTU5: V Clock Select: PCLKH divided by 1
+      Extra Features: MTU5: W Clock Select: PCLKH divided by 1
+      Extra Features: MTU5: U Input Capture: No func
+      Extra Features: MTU5: V Input Capture: No func
+      Extra Features: MTU5: W Input Capture: No func
+      Extra Features: MTU5: Interrupts: Capture U Interrupt Priority: Disabled
+      Extra Features: MTU5: Interrupts: Capture V Interrupt Priority: Disabled
+      Extra Features: MTU5: Interrupts: Capture W Interrupt Priority: Disabled
+      Extra Features: MTU5: Interrupts (GPT_SEL): Capture U Interrupt Source: 
+      Extra Features: MTU5: Interrupts (GPT_SEL): Capture V Interrupt Source: 
+      Extra Features: MTU5: Interrupts (GPT_SEL): Capture W Interrupt Source: 
+      Extra Features: MTU5: UVW Noise Filter Enable: Disabled
+      Extra Features: MTU5: UVW Noise Filter Clock Select: PCLKH divided by 1
+      Extra Features: Interrupt Skipping: Skip Mode A: Mode 1
+      Extra Features: Interrupt Skipping: Skip Mode B: Mode 1
+      Extra Features: ADC Trigger: ADC A Compare Match (Raw Counts): 0x0000
+      Extra Features: ADC Trigger: ADC B Compare Match (Raw Counts): 0x0000
+      Extra Features: Interrupt Skipping: TCIV4 Interrupt Skip Count: 0
+      Extra Features: Interrupt Skipping: TCIV3 Interrupt Skip Count: 0
+      Extra Features: Interrupt Skipping: TCIV7 Interrupt Skip Count: 0
+      Extra Features: Interrupt Skipping: TGIA6 Interrupt Skip Count: 0
+      Extra Features: Interrupt Skipping: TRG4AN/TRG4BN Interrupt Skip Count: 0
+      Extra Features: Interrupt Skipping: TRG7AN/TRG7BN Interrupt Skip Count: 0
+      Extra Features: ADC Trigger: MTUn.TGRA (n = 0 to 4, 6, 7) Input Capture/Compare Match: Disabled
+      ELC: MTU0: Trigger Source: Disabled
+      ELC: MTU0: Operation Select: Disabled
+      ELC: MTU3: Trigger Source: Disabled
+      ELC: MTU3: Operation Select: Disabled
+      ELC: MTU4: Trigger Source: Disabled
+      ELC: MTU4: Operation Select: Disabled
+      
+    Instance "g_timer1 Timer, General PWM (r_gpt)"
+      General: Name: g_timer1
+      General: Unit: 0
+      General: Channel: 1
+      General: Mode: Periodic
+      General: Period: 1
+      General: Period Unit: Microseconds
+      Output: Duty Cycle Percent (only applicable in PWM mode): 50
+      Output: GTIOCA Output Enabled: False
+      Output: GTIOCA Stop Level: Pin Level Low
+      Output: GTIOCB Output Enabled: False
+      Output: GTIOCB Stop Level: Pin Level Low
+      Input: Count Up Source: 
+      Input: Count Down Source: 
+      Input: Phase Count Setting Automatically Enable: Disabled
+      Input: Counting Mode: Mode1
+      Input: Start Source: 
+      Input: Stop Source: 
+      Input: Clear Source: 
+      Input: Capture A Source: 
+      Input: Capture B Source: 
+      Input: Noise Filter A Sampling Clock Select: No Filter
+      Input: Noise Filter B Sampling Clock Select: No Filter
+      Interrupts: Callback: g_timer1_callback
+      Interrupts: Overflow/Crest Interrupt Priority: Priority 10
+      Interrupts: Capture A Interrupt Priority: Disabled
+      Interrupts: Capture B Interrupt Priority: Disabled
+      Interrupts: Trough Interrupt Priority: Disabled
+      Interrupts (GPT_SEL): Callback: NULL
+      Interrupts (GPT_SEL): Overflow/Crest Interrupt Source: 
+      Interrupts (GPT_SEL): Capture A Interrupt Source: 
+      Interrupts (GPT_SEL): Capture B Interrupt Source: 
+      Interrupts (GPT_SEL): Trough Interrupt Source: 
+      Interrupts (GPT_SEL): Dead Time Error Interrupt Source: 
+      Interrupts (GPT_SEL): INT0 Interrupt Priority: Disabled
+      Interrupts (GPT_SEL): INT1 Interrupt Priority: Disabled
+      Interrupts (GPT_SEL): INT2 Interrupt Priority: Disabled
+      Interrupts (GPT_SEL): INT3 Interrupt Priority: Disabled
+      Interrupts (GPT_SEL): INT4 Interrupt Priority: Disabled
+      Extra Features: Extra Features: Disabled
+      Extra Features: Output Disable: POEG Link: POEG Channel 0
+      Extra Features: Output Disable: Output Disable POEG Trigger: 
+      Extra Features: ADC Trigger: Start Event Trigger: 
+      Extra Features: Dead Time: Dead Time Count Up (Raw Counts): 0
+      Extra Features: Dead Time: Dead Time Count Down (Raw Counts): 0
+      Extra Features: ADC Trigger: ADC A Compare Match (Raw Counts): 0
+      Extra Features: ADC Trigger: ADC B Compare Match (Raw Counts): 0
+      Extra Features: Interrupt Skipping: Interrupt to Count: None
+      Extra Features: Interrupt Skipping: Interrupt Skip Count: 0
+      Extra Features: Interrupt Skipping: Skip ADC Events: None
+      Extra Features: Output Disable: GTIOCA Disable Setting: Disable Prohibited
+      Extra Features: Output Disable: GTIOCB Disable Setting: Disable Prohibited
+      Extra Features: Extended Interrupt Skipping 1: Interrupt to Count: None
+      Extra Features: Extended Interrupt Skipping 1: Interrupt Skip Count: 0
+      Extra Features: Extended Interrupt Skipping 2: Interrupt to Count: None
+      Extra Features: Extended Interrupt Skipping 2: Interrupt Skip Count: 0
+      Extra Features: Input Capture Interrupt Extended Skipping Function: Overflow Interrupt: None
+      Extra Features: Input Capture Interrupt Extended Skipping Function: Underflow Interrupt: None
+      Extra Features: Input Capture Interrupt Extended Skipping Function: GTADTRA A/D Converter Start Request: None
+      Extra Features: Input Capture Interrupt Extended Skipping Function: GTADTRB A/D Converter Start Request: None
+      Interrupts: Dead Time Error Interrupt Priority: Disabled
+      Extra Features: Input Capture at Count Stop: Enabled
+      Extra Features: Input Capture Signal: Not Supported
+      ELC: LLPP GPT event A: Trigger Source: Disabled
+      ELC: LLPP GPT event B: Trigger Source: Disabled
+      ELC: LLPP GPT event C: Trigger Source: Disabled
+      ELC: LLPP GPT event D: Trigger Source: Disabled
+      ELC: LLPP GPT event E: Trigger Source: Disabled
+      ELC: LLPP GPT event F: Trigger Source: Disabled
+      ELC: LLPP GPT event G: Trigger Source: Disabled
+      ELC: LLPP GPT event H: Trigger Source: Disabled
+      ELC: NONSAFTY GPT event A: Trigger Source: Disabled
+      ELC: NONSAFTY GPT event B: Trigger Source: Disabled
+      ELC: NONSAFTY GPT event C: Trigger Source: Disabled
+      ELC: NONSAFTY GPT event D: Trigger Source: Disabled
+      ELC: NONSAFTY GPT event E: Trigger Source: Disabled
+      ELC: NONSAFTY GPT event F: Trigger Source: Disabled
+      ELC: NONSAFTY GPT event G: Trigger Source: Disabled
+      ELC: NONSAFTY GPT event H: Trigger Source: Disabled
+      
