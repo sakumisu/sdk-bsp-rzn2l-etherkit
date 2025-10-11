@@ -699,6 +699,10 @@
       <description>General PWM Timer</description>
       <originalPack>Renesas.RZN.2.2.0.pack</originalPack>
     </component>
+    <component apiversion="" class="HAL Drivers" condition="" group="all" subgroup="r_mtu3" variant="" vendor="Renesas" version="2.2.0">
+      <description>Multi-Function Timer Pulse Unit 3</description>
+      <originalPack>Renesas.RZN.2.2.0.pack</originalPack>
+    </component>
   </raComponentSelection>
   <raElcConfiguration/>
   <raIcuConfiguration/>
@@ -975,10 +979,77 @@
       <property id="module.driver.timer.elc_trigger_nonsafty_event_g" value="_disabled"/>
       <property id="module.driver.timer.elc_trigger_nonsafty_event_h" value="_disabled"/>
     </module>
-    <module id="module.driver.timer_on_gpt.146318639">
-      <property id="module.driver.timer.name" value="g_timer5"/>
+    <module id="module.driver.timer_on_mtu3.1982797798">
+      <property id="module.driver.timer.name" value="g_mtu3"/>
+      <property id="module.driver.timer.channel" value="0"/>
+      <property id="module.driver.timer.mode" value="module.driver.timer.mode.mode_periodic"/>
+      <property id="module.driver.timer.tgra_val" value="0xFFFF"/>
+      <property id="module.driver.timer.tgrb_val" value="0xFFFF"/>
+      <property id="module.driver.timer.mtu3_clk_div" value="module.driver.timer.mtu3_clk_div.div1"/>
+      <property id="module.driver.timer.clk_edge" value="module.driver.timer.clk_edge.rising"/>
+      <property id="module.driver.timer.mtu3_clear" value="module.driver.timer.mtu3_clear.disabled"/>
+      <property id="module.driver.timer.bit_mode" value="module.driver.timer.bit_mode.16"/>
+      <property id="module.driver.timer.mtu3.counting_mode" value="module.driver.timer.mtu3.counting_mode.none"/>
+      <property id="module.driver.timer.input_clock_pin" value="module.driver.timer.input_clock_pin.a_b"/>
+      <property id="module.driver.timer.external_noise_filter.enable" value=""/>
+      <property id="module.driver.timer.external_noise_filter.clock" value="module.driver.timer.external_noise_filter.clock.div1"/>
+      <property id="module.driver.timer.input_noise_filter.enable" value=""/>
+      <property id="module.driver.timer.input_noise_filter.clock" value="module.driver.timer.input_noise_filter.clock.div1"/>
+      <property id="module.driver.timer.output_pin_level_a" value="module.driver.timer.output_pin_level_a.no_output"/>
+      <property id="module.driver.timer.output_pin_level_b" value="module.driver.timer.output_pin_level_b.no_output"/>
+      <property id="module.driver.timer.p_callback" value="g_mtu3_callback"/>
+      <property id="module.driver.timer.ipl" value="board.icu.common.irq.priority8"/>
+      <property id="module.driver.timer.capture_a_ipl" value="_disabled"/>
+      <property id="module.driver.timer.capture_b_ipl" value="_disabled"/>
+      <property id="module.driver.timer.gpt_sel.p_callback" value="NULL"/>
+      <property id="module.driver.timer.gpt_sel.overflow_interrupt_source" value=""/>
+      <property id="module.driver.timer.gpt_sel.capture_a_interrupt_source" value=""/>
+      <property id="module.driver.timer.gpt_sel.capture_b_interrupt_source" value=""/>
+      <property id="module.driver.timer.gpt_sel.int0_ipl" value="_disabled"/>
+      <property id="module.driver.timer.gpt_sel.int1_ipl" value="_disabled"/>
+      <property id="module.driver.timer.gpt_sel.int2_ipl" value="_disabled"/>
+      <property id="module.driver.timer.gpt_sel.int3_ipl" value="_disabled"/>
+      <property id="module.driver.timer.gpt_sel.int4_ipl" value="_disabled"/>
+      <property id="module.driver.timer.extra" value="module.driver.timer.extra.disabled"/>
+      <property id="module.driver.timer.tgru_val" value="0x0000"/>
+      <property id="module.driver.timer.tgrv_val" value="0x0000"/>
+      <property id="module.driver.timer.tgrw_val" value="0x0000"/>
+      <property id="module.driver.timer.mtu3_clk_div_u" value="module.driver.timer.mtu3_clk_div_u.div1"/>
+      <property id="module.driver.timer.mtu3_clk_div_v" value="module.driver.timer.mtu3_clk_div_v.div1"/>
+      <property id="module.driver.timer.mtu3_clk_div_w" value="module.driver.timer.mtu3_clk_div_w.div1"/>
+      <property id="module.driver.timer.output_pin_level_u" value="module.driver.timer.output_pin_level_u.no_func"/>
+      <property id="module.driver.timer.output_pin_level_v" value="module.driver.timer.output_pin_level_v.no_func"/>
+      <property id="module.driver.timer.output_pin_level_w" value="module.driver.timer.output_pin_level_w.no_func"/>
+      <property id="module.driver.timer.capture_u_ipl" value="_disabled"/>
+      <property id="module.driver.timer.capture_v_ipl" value="_disabled"/>
+      <property id="module.driver.timer.capture_w_ipl" value="_disabled"/>
+      <property id="module.driver.timer.gpt_sel.capture_u_interrupt_source" value=""/>
+      <property id="module.driver.timer.gpt_sel.capture_v_interrupt_source" value=""/>
+      <property id="module.driver.timer.gpt_sel.capture_w_interrupt_source" value=""/>
+      <property id="module.driver.timer.noise_filter_mtioc_setting_uvw" value="module.driver.timer.noise_filter_mtioc_setting_uvw.disabled"/>
+      <property id="module.driver.timer.noise_filter_mtioc_clk_uvw" value="module.driver.timer.noise_filter_mtioc_clk_uvw.div1"/>
+      <property id="module.driver.timer.interrupt_skip_mode_a" value="module.driver.timer.interrupt_skip_mode_a.mode1"/>
+      <property id="module.driver.timer.interrupt_skip_mode_b" value="module.driver.timer.interrupt_skip_mode_b.mode1"/>
+      <property id="module.driver.timer.adc_a_compare_match" value="0x0000"/>
+      <property id="module.driver.timer.adc_b_compare_match" value="0x0000"/>
+      <property id="module.driver.timer.interrupt_skip_tciv4.count" value="module.driver.timer.interrupt_skip_tciv4.count.count_0"/>
+      <property id="module.driver.timer.interrupt_skip_tgia3.count" value="module.driver.timer.interrupt_skip_tgia3.count.count_0"/>
+      <property id="module.driver.timer.interrupt_skip_tciv7.count" value="module.driver.timer.interrupt_skip_tciv7.count.count_0"/>
+      <property id="module.driver.timer.interrupt_skip_tgia6.count" value="module.driver.timer.interrupt_skip_tgia6.count.count_0"/>
+      <property id="module.driver.timer.interrupt_skip_tgr4an_bn.count" value="module.driver.timer.interrupt_skip_tgr4an_bn.count.count_0"/>
+      <property id="module.driver.timer.interrupt_skip_tgr7an_bn.count" value="module.driver.timer.interrupt_skip_tgr7an_bn.count.count_0"/>
+      <property id="module.driver.timer.ad_start" value="module.driver.timer.ad_start.disabled"/>
+      <property id="module.driver.timer.elc_trigger_mtu0" value="_disabled"/>
+      <property id="module.driver.timer.operation_select_mtu0" value="Disabled"/>
+      <property id="module.driver.timer.elc_trigger_mtu3" value="_disabled"/>
+      <property id="module.driver.timer.operation_select_mtu3" value="Disabled"/>
+      <property id="module.driver.timer.elc_trigger_mtu4" value="_disabled"/>
+      <property id="module.driver.timer.operation_select_mtu4" value="Disabled"/>
+    </module>
+    <module id="module.driver.timer_on_gpt.1352861500">
+      <property id="module.driver.timer.name" value="g_timer1"/>
       <property id="module.driver.gpt.unit" value="0"/>
-      <property id="module.driver.gpt.channel" value="5"/>
+      <property id="module.driver.gpt.channel" value="1"/>
       <property id="module.driver.timer.mode" value="module.driver.timer.mode.mode_periodic"/>
       <property id="module.driver.timer.period" value="1"/>
       <property id="module.driver.timer.unit" value="module.driver.timer.unit.unit_period_usec"/>
@@ -998,7 +1069,7 @@
       <property id="module.driver.timer.capture_b_source" value=""/>
       <property id="module.driver.timer.gtioca_filter" value="module.driver.timer.gtioc_filter.gtioc_filter_none"/>
       <property id="module.driver.timer.gtiocb_filter" value="module.driver.timer.gtioc_filter.gtioc_filter_none"/>
-      <property id="module.driver.timer.p_callback" value="g_timer5_callback"/>
+      <property id="module.driver.timer.p_callback" value="g_timer1_callback"/>
       <property id="module.driver.timer.ipl" value="board.icu.common.irq.priority10"/>
       <property id="module.driver.timer.capture_a_ipl" value="_disabled"/>
       <property id="module.driver.timer.capture_b_ipl" value="_disabled"/>
@@ -1072,7 +1143,8 @@
         <stack module="module.driver.ether_switch_on_ether_switch.95659619" requires="module.driver.ether.requires.ethsw"/>
       </stack>
       <stack module="module.driver.timer_on_gpt.1285445287"/>
-      <stack module="module.driver.timer_on_gpt.146318639"/>
+      <stack module="module.driver.timer_on_mtu3.1982797798"/>
+      <stack module="module.driver.timer_on_gpt.1352861500"/>
     </context>
     <config id="config.driver.ether_selector">
       <property id="config.driver.ether_selector.param_checking_enable" value="config.driver.ether_selector.param_checking_enable.bsp"/>
@@ -1089,6 +1161,12 @@
     </config>
     <config id="config.driver.ioport">
       <property id="config.driver.ioport.checking" value="config.driver.ioport.checking.system"/>
+    </config>
+    <config id="config.driver.mtu3">
+      <property id="config.driver.mtu3.param_checking_enable" value="config.driver.mtu3.param_checking_enable.bsp"/>
+      <property id="config.driver.mtu3.output_support_enable" value="config.driver.mtu3.output_support_enable.disabled"/>
+      <property id="config.driver.mtu3.uvw_support_enable" value="config.driver.mtu3.uvw_support_enable.disabled"/>
+      <property id="config.driver.mtu3.multiplex_interrupt" value="config.driver.mtu3.multiplex_interrupt.disabled"/>
     </config>
     <config id="config.driver.ether">
       <property id="config.driver.ether.param_checking_enable" value="config.driver.ether.param_checking_enable.bsp"/>

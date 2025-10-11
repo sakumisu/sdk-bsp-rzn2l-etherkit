@@ -1,4 +1,4 @@
-#Sun Sep 28 20:30:48 CST 2025
+#Sat Oct 11 14:47:50 CST 2025
 com.renesas.cdt.ddsc.content/com.renesas.cdt.ddsc.content.defaultlinkerscript=script/fsp_xspi0_boot.ld
 com.renesas.cdt.ddsc.contentgen.options/options/suppresswarningspaths=
 com.renesas.cdt.ddsc.packs.componentfiles/Arm\#\#CMSIS\#\#CMSIS5\#\#Core\#\#\#\#5.7.0+renesas.3.fsp.2.2.0/all=1441545198,rzn/arm/CMSIS_5/LICENSE.txt|4247764709,rzn/arm/CMSIS_5/CMSIS/Core_R/Include/cmsis_gcc.h|1135074086,rzn/arm/CMSIS_5/CMSIS/Core_R/Include/core_cr52.h|510668081,rzn/arm/CMSIS_5/CMSIS/Core_R/Include/cmsis_iccarm.h|4245531541,rzn/arm/CMSIS_5/CMSIS/Core_R/Include/cmsis_compiler.h|1887099957,rzn/arm/CMSIS_5/CMSIS/Core_R/Include/cmsis_cp15.h|3334069041,rzn/arm/CMSIS_5/CMSIS/Core_R/Include/cmsis_version.h
@@ -27,6 +27,8 @@ com.renesas.cdt.ddsc.packs.componentfiles/Renesas\#\#HAL\ Drivers\#\#all\#\#r_gp
 com.renesas.cdt.ddsc.packs.componentfiles/Renesas\#\#HAL\ Drivers\#\#all\#\#r_gpt\#\#\#\#2.2.0/libraries=
 com.renesas.cdt.ddsc.packs.componentfiles/Renesas\#\#HAL\ Drivers\#\#all\#\#r_ioport\#\#\#\#2.2.0/all=824647496,rzn/fsp/src/r_ioport/r_ioport.c|4017611099,rzn/fsp/inc/instances/r_ioport.h|2795021536,rzn/fsp/inc/api/r_ioport_api.h
 com.renesas.cdt.ddsc.packs.componentfiles/Renesas\#\#HAL\ Drivers\#\#all\#\#r_ioport\#\#\#\#2.2.0/libraries=
+com.renesas.cdt.ddsc.packs.componentfiles/Renesas\#\#HAL\ Drivers\#\#all\#\#r_mtu3\#\#\#\#2.2.0/all=3441005877,rzn/fsp/src/r_mtu3/r_mtu3.c|2585942167,rzn/fsp/inc/instances/r_mtu3.h|2833340986,rzn/fsp/inc/api/r_timer_api.h
+com.renesas.cdt.ddsc.packs.componentfiles/Renesas\#\#HAL\ Drivers\#\#all\#\#r_mtu3\#\#\#\#2.2.0/libraries=
 com.renesas.cdt.ddsc.packs.componentfiles/Renesas\#\#HAL\ Drivers\#\#all\#\#r_sci_uart\#\#\#\#2.2.0/all=2555335099,rzn/fsp/src/r_sci_uart/r_sci_uart.c|257214413,rzn/fsp/inc/instances/r_sci_uart.h|300185683,rzn/fsp/inc/api/r_uart_api.h|2744795673,rzn/fsp/inc/api/r_transfer_api.h
 com.renesas.cdt.ddsc.packs.componentfiles/Renesas\#\#HAL\ Drivers\#\#all\#\#r_sci_uart\#\#\#\#2.2.0/libraries=
 com.renesas.cdt.ddsc.packs.componentfiles/Renesas\#\#Projects\#\#all\#\#baremetal_blinky\#\#\#\#2.2.0/all=

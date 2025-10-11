@@ -8,6 +8,7 @@
 #define EC_DATAGRAM_TIMEOUT_US (50 * 1000) // 50ms
 
 static void ec_master_period_process(void *arg);
+bool idle_flag = true;
 
 /** List of intervals for statistics [s].
  */
@@ -384,6 +385,21 @@ static void ec_netdev_linkpoll_timer(void *argument)
     }
 }
 
+static int ec_master_enter_idle(ec_master_t *master)
+{
+    master->phase = EC_IDLE;
+
+    ec_osal_thread_resume(master->nonperiod_thread);
+    idle_flag = true;
+    return 0;
+}
+
+static void ec_master_exit_idle(ec_master_t *master)
+{
+    ec_osal_thread_suspend(master->nonperiod_thread);
+    idle_flag = false;
+}
+
 static void ec_master_nonperiod_thread(void *argument)
 {
     ec_master_t *master = (ec_master_t *)argument;
@@ -394,6 +410,9 @@ static void ec_master_nonperiod_thread(void *argument)
         flags = ec_osal_enter_critical_section();
         ec_master_send(master);
         ec_osal_leave_critical_section(flags);
+
+        if (!idle_flag)
+            ec_master_exit_idle(master);
     }
 }
 
@@ -407,20 +426,6 @@ static void ec_master_scan_thread(void *argument)
         ec_osal_mutex_give(master->scan_lock);
         ec_osal_msleep(CONFIG_EC_SCAN_INTERVAL_MS);
     }
-}
-
-static int ec_master_enter_idle(ec_master_t *master)
-{
-    master->phase = EC_IDLE;
-
-    ec_osal_thread_resume(master->nonperiod_thread);
-
-    return 0;
-}
-
-static void ec_master_exit_idle(ec_master_t *master)
-{
-    ec_osal_thread_suspend(master->nonperiod_thread);
 }
 
 int ec_master_init(ec_master_t *master, uint8_t master_index)
@@ -605,7 +610,8 @@ int ec_master_start(ec_master_t *master, uint32_t period_us)
         ec_dlist_add_tail(&master->cyclic_datagram_queue, &cyclic_datagram->queue);
     }
 
-    ec_master_exit_idle(master);
+    idle_flag = false;
+//    ec_master_exit_idle(master);
 
     ec_htimer_start(period_us, ec_master_period_process, master);
 
